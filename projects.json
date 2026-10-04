@@ -420,6 +420,71 @@
         "projects/kubernetes-from-zero/slides/slide-10.webp",
         "projects/kubernetes-from-zero/slides/slide-11.webp"
       ]
+    },
+    {
+      "number": 8,
+      "slug": "multi-stack-kubernetes",
+      "name": "Multi-Stack Applications on Kubernetes: from Docker Compose to Kubernetes (React, Node.js, Python, Go, Java, Laravel)",
+      "simple_name": "Seven different apps, one way to run them all",
+      "status": "published",
+      "date": "2026-10-04",
+      "difficulty": "Beginner",
+      "type": "2-3-tool integration",
+      "summary": "A free course with seven small applications, each written in a different programming language, that together make one online bookshop. You package each one, run them all together on your computer, and then move the whole shop onto Kubernetes, step by step, checking at every step that it really works.",
+      "problem": "Every language seems to need its own way of being deployed, so beginners copy settings they do not understand. Moving from a local setup to Kubernetes then feels like magic, and when something breaks nobody knows where to start looking.",
+      "benefit": "Learners see that the same few rules work for any language, understand why each Kubernetes building block exists, and practise twelve realistic failures until finding the cause becomes routine.",
+      "tagline": "Seven languages, one platform: from your laptop to Kubernetes, understood step by step.",
+      "primary": "Kubernetes",
+      "secondary": [
+        "Docker",
+        "Docker Compose",
+        "Traefik",
+        "kind",
+        "PostgreSQL",
+        "React",
+        "Node.js",
+        "Python",
+        "Go",
+        "Java",
+        "Laravel",
+        "GitHub Actions"
+      ],
+      "engineering_problem": "Turning a multi-language Docker Compose setup into correct Kubernetes resources, with health checks, configuration, storage and safe updates, instead of a mechanical conversion.",
+      "architecture": "Seven services (React/nginx, Express, FastAPI, Go, Spring Boot, Laravel nginx+PHP-FPM, a JavaScript batch job) sharing one service contract and PostgreSQL. Docker Compose with health-aware dependencies and isolated networks; on kind: Deployments, a StatefulSet with a persistent volume, a migration Job, a CronJob, a two-container Pod, ConfigMaps, Secrets, probes, resources and a Traefik Ingress. Every lesson is tested Markdown run in CI.",
+      "unique_capability": "Every command in 7 app lessons, the Compose lesson, 15 Kubernetes lessons, 12 troubleshooting labs, 6 challenges and the capstone runs in CI; a deploy script builds the platform from nothing and a 22-check verification proves it, including an on-call scenario.",
+      "skills": [
+        "Kubernetes",
+        "Docker",
+        "Docker Compose",
+        "Multi-stage builds",
+        "Ingress",
+        "Health probes",
+        "ConfigMaps and Secrets",
+        "StatefulSets",
+        "Rolling updates and rollbacks",
+        "Troubleshooting",
+        "Technical teaching",
+        "Documentation testing"
+      ],
+      "repository": "https://github.com/sufyanahmadkamboh/sufyan-devops-multi-stack-kubernetes",
+      "docs": "https://github.com/sufyanahmadkamboh/sufyan-devops-multi-stack-kubernetes#4-the-roadmap",
+      "study": "https://github.com/sufyanahmadkamboh/sufyan-devops-multi-stack-kubernetes/tree/main/study",
+      "study_pdf": "https://github.com/sufyanahmadkamboh/sufyan-devops-multi-stack-kubernetes/blob/main/study/study-guide.pdf",
+      "image": "projects/multi-stack-kubernetes.png",
+      "linkedin": null,
+      "slides": [
+        "projects/multi-stack-kubernetes/slides/slide-01.webp",
+        "projects/multi-stack-kubernetes/slides/slide-02.webp",
+        "projects/multi-stack-kubernetes/slides/slide-03.webp",
+        "projects/multi-stack-kubernetes/slides/slide-04.webp",
+        "projects/multi-stack-kubernetes/slides/slide-05.webp",
+        "projects/multi-stack-kubernetes/slides/slide-06.webp",
+        "projects/multi-stack-kubernetes/slides/slide-07.webp",
+        "projects/multi-stack-kubernetes/slides/slide-08.webp",
+        "projects/multi-stack-kubernetes/slides/slide-09.webp",
+        "projects/multi-stack-kubernetes/slides/slide-10.webp",
+        "projects/multi-stack-kubernetes/slides/slide-11.webp"
+      ]
     }
   ]
 }
