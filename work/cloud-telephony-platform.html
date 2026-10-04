@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cloud Telephony Case Study | Sufyan Ahmad</title>
-<meta name="description" content="Case study: running the infrastructure of a cloud PBX and contact-center platform delivered with a national mobile operator, and server automation for a sales CRM.">
+<title>Cloud PBX &amp; CRM Case Study | Sufyan Ahmad</title>
+<meta name="description" content="Case study: infrastructure of a cloud PBX platform delivered for Zong and of the LastingSales sales CRM on Amazon EKS, including the integration that feeds call data into the CRM.">
 <meta name="author" content="Sufyan Ahmad">
-<meta property="og:title" content="Case study: cloud PBX platform handling millions of calls a month">
-<meta property="og:description" content="VoIP, Kubernetes, high availability and data lifecycle for a carrier-grade cloud PBX, plus server automation for a sales CRM.">
+<meta property="og:title" content="Case study: a cloud PBX and a sales CRM, run as one platform">
+<meta property="og:description" content="VoIP, Kubernetes and high availability for a cloud PBX, plus a microservice CRM on EKS with Jenkins, Prometheus, Grafana and call-data integration.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://sufyanahmadkamboh.github.io/work/cloud-telephony-platform.html">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%231b2838'/><text x='32' y='42' font-family='Arial' font-size='26' font-weight='700' fill='%239cc3f0' text-anchor='middle'>SA</text></svg>">
@@ -36,9 +36,9 @@
   <div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="../">Home</a><span>/</span><a href="../#projects">Client projects</a><span>/</span><span>Case study</span></nav>
     <div class="dmeta"><span class="lvl-pill lv-Senior"><i></i>Employer project</span><span>LastingSales (HadiTelecom) · 2021 – 2024</span></div>
-    <h1>Cloud PBX platform: <span class="grad">millions of calls a month, kept running</span></h1>
-    <p class="lead">I owned the production infrastructure of a cloud PBX and contact-center platform delivered with Zong (China Mobile Pakistan): the VoIP servers, the Kubernetes cluster for the customer portal, high availability, call-data lifecycle and security. I also automated server setup for the company's sales CRM.</p>
-    <div class="cs-tags"><span>Role: Senior VoIP &amp; DevOps Engineer</span><span>Asterisk · Kamailio</span><span>Kubernetes · HAProxy</span><span>Jenkins · Ansible</span></div>
+    <h1>Cloud PBX and sales CRM: <span class="grad">two products, one platform, kept running</span></h1>
+    <p class="lead">LastingSales runs two products: its sales CRM, and, under its telecom brand HadiTelecom, the Zong vPBX cloud phone system it delivers as a vendor to Zong (China Mobile Pakistan). I owned the infrastructure of both: the VoIP platform and its Kubernetes portal, the CRM's microservices on Amazon EKS, the link that feeds call data from the phone system into the CRM, CI/CD, monitoring and backups.</p>
+    <div class="cs-tags"><span>Role: Senior VoIP &amp; DevOps Engineer</span><span>Asterisk · Kamailio</span><span>AWS EKS · Kubernetes</span><span>Jenkins (Groovy)</span><span>Prometheus · Grafana</span></div>
   </div>
 </header>
 
@@ -47,10 +47,11 @@
 
   <section class="dsec">
     <div class="eyebrow">The context</div>
-    <h2>Business phone systems for thousands of companies</h2>
+    <h2>One company, two products</h2>
     <div class="prose">
-      <p>The platform gives businesses a virtual phone system in the cloud: numbers, extensions, IVR menus, call queues, voicemail, call recording, surveys and a self-service portal, with reports for every call. It was delivered together with a national mobile operator and served <b>4,000+ business clients</b>, processing <b>6M+ calls per month</b>.</p>
-      <p>The same team also built LastingSales, a sales CRM for service businesses with lead capture, follow-ups, call recordings and a mobile app.</p>
+      <p><b>LastingSales</b> is the parent company. Its telecom side, branded <b>HadiTelecom</b>, is a vendor to Zong (China Mobile Pakistan) and runs the <b>Zong vPBX</b> platform. Its software side builds the <b>LastingSales CRM</b>.</p>
+      <p><b>Zong vPBX</b> gives businesses a virtual phone system in the cloud: numbers, extensions, IVR menus, call queues, voicemail, call recording, surveys and a self-service portal, with reports for every call. It served <b>4,000+ business clients</b> and processed <b>6M+ calls per month</b>.</p>
+      <p><b>LastingSales CRM</b> is a sales CRM for service businesses: lead capture from ads and web forms, lead distribution, follow-up tracking, call recordings, team analytics and a mobile app. Many clients used both products, so their calls had to show up in the CRM without manual work.</p>
     </div>
   </section>
 
@@ -62,14 +63,15 @@
       <div><b>&#128451;&#65039; Call records pile up</b><span>Millions of call records a month slowed down reports and the databases behind them.</span></div>
       <div><b>&#128260; Legacy deployments</b><span>The portal ran on hand-managed servers that were slow and risky to update.</span></div>
       <div><b>&#128737;&#65039; Carrier security standards</b><span>The operator's security test had findings that had to be fixed on the public web apps.</span></div>
-      <div><b>&#9881;&#65039; Manual server setup</b><span>New CRM servers took long to prepare and every one ended up slightly different.</span></div>
+      <div><b>&#128279; Two products, one customer</b><span>Clients using the phone system and the CRM needed their call data in the CRM automatically.</span></div>
+      <div><b>&#128200; A growing CRM</b><span>The CRM's services had to deploy, scale and be monitored independently, with reliable backups.</span></div>
     </div>
   </section>
 
   <section class="dsec">
     <div class="eyebrow">Architecture</div>
-    <h2>How the platform fits together</h2>
-    <p class="sub">A simplified, generic view of the on-premises platform.</p>
+    <h2>The phone platform (Zong vPBX)</h2>
+    <p class="sub">A simplified, generic view of the on-premises voice platform.</p>
     <figure class="diagram" style="margin:0">
       <svg viewBox="0 0 960 440" role="img" aria-labelledby="c1t c1d">
         <title id="c1t">Cloud PBX architecture</title>
@@ -106,6 +108,40 @@
       </svg>
       <figcaption>Generic architecture. Hostnames, addresses and customer details are intentionally not shown.</figcaption>
     </figure>
+
+    <h2 style="margin-top:40px">The CRM on AWS, connected to the phone platform</h2>
+    <p class="sub">A simplified, generic view of the LastingSales CRM on Amazon EKS and the call-data link from the vPBX.</p>
+    <figure class="diagram" style="margin:0">
+      <svg viewBox="0 0 960 360" role="img" aria-labelledby="c2t c2d">
+        <title id="c2t">CRM architecture on AWS</title>
+        <desc id="c2d">Jenkins runs Groovy pipelines that build container images, push them to a registry and deploy them to Amazon EKS. The CRM runs on EKS as several containerised microservices: the web app, the core API, lead and billing services, and a call-sync service. The call-sync service receives call records from the vPBX platform so calls appear in the CRM automatically. A managed database holds CRM data, backup scripts copy it to backup storage, and Prometheus with Grafana monitors the cluster and services.</desc>
+        <defs><marker id="cb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#3b82d6"/></marker>
+              <marker id="cg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1f8a4c"/></marker></defs>
+        <text class="z" x="20" y="24">DELIVERY</text>
+        <rect class="box" x="20" y="36" width="170" height="60" rx="10"/><text class="t" x="105" y="61" text-anchor="middle">Jenkins</text><text class="s" x="105" y="78" text-anchor="middle">pipelines in Groovy</text>
+        <rect class="box" x="20" y="120" width="170" height="56" rx="10"/><text class="t" x="105" y="144" text-anchor="middle">Image registry</text><text class="s" x="105" y="161" text-anchor="middle">versioned images</text>
+        <path class="lnA" d="M105 96V118" marker-end="url(#cb)"/>
+        <rect class="hot" x="20" y="236" width="170" height="74" rx="10"/><text class="t" x="105" y="262" text-anchor="middle">Zong vPBX</text><text class="s" x="105" y="279" text-anchor="middle">call records and</text><text class="s" x="105" y="294" text-anchor="middle">recordings</text>
+        <rect class="zone" x="230" y="20" width="470" height="320" rx="16"/><text class="z" x="246" y="44">AWS</text>
+        <rect class="zone2" x="246" y="56" width="438" height="190" rx="12"/><text class="z" x="260" y="78">AMAZON EKS · CRM MICROSERVICES</text>
+        <rect class="box" x="260" y="92" width="200" height="40" rx="8"/><text class="t" x="360" y="117" text-anchor="middle">Web app</text>
+        <rect class="box" x="470" y="92" width="200" height="40" rx="8"/><text class="t" x="570" y="117" text-anchor="middle">Core API</text>
+        <rect class="box" x="260" y="142" width="200" height="40" rx="8"/><text class="t" x="360" y="167" text-anchor="middle">Lead-capture service</text>
+        <rect class="box" x="470" y="142" width="200" height="40" rx="8"/><text class="t" x="570" y="167" text-anchor="middle">Billing service</text>
+        <rect class="ok" x="260" y="192" width="410" height="42" rx="8"/><text class="t" x="465" y="218" text-anchor="middle">Call-sync service: vPBX calls into the CRM</text>
+        <rect class="box" x="246" y="262" width="210" height="62" rx="10"/><text class="t" x="351" y="287" text-anchor="middle">Database</text><text class="s" x="351" y="304" text-anchor="middle">CRM data</text>
+        <rect class="ok" x="474" y="262" width="210" height="62" rx="10"/><text class="t" x="579" y="287" text-anchor="middle">Backup scripts</text><text class="s" x="579" y="304" text-anchor="middle">scheduled, restorable</text>
+        <path class="lnA" d="M190 66C215 66 215 112 258 112" marker-end="url(#cb)"/>
+        <path class="lnR" d="M190 272C225 272 225 213 258 213" marker-end="url(#cg)"/><text class="s" x="105" y="226" text-anchor="middle">sends call records</text>
+        <path class="ln" d="M351 246V260"/><path class="ln" d="M456 293H472"/>
+        <rect class="zone2" x="740" y="20" width="200" height="320" rx="16"/><text class="z" x="756" y="44">MONITORING</text>
+        <rect class="ok" x="756" y="58" width="168" height="74" rx="10"/><text class="t" x="840" y="86" text-anchor="middle">Prometheus</text><text class="s" x="840" y="104" text-anchor="middle">cluster and</text><text class="s" x="840" y="119" text-anchor="middle">service metrics</text>
+        <rect class="ok" x="756" y="146" width="168" height="74" rx="10"/><text class="t" x="840" y="174" text-anchor="middle">Grafana</text><text class="s" x="840" y="192" text-anchor="middle">dashboards</text><text class="s" x="840" y="207" text-anchor="middle">and alerts</text>
+        <path class="lnR" d="M700 150H754" marker-end="url(#cg)"/>
+        <path class="ln" d="M840 132V144"/>
+      </svg>
+      <figcaption>Generic architecture. Service names, data and customer details are intentionally not shown.</figcaption>
+    </figure>
   </section>
 
   <section class="dsec">
@@ -129,7 +165,7 @@
           <li>Moved the customer portal from hand-managed servers into containers on a high-availability MicroK8s cluster with MetalLB.</li>
           <li>Put HAProxy in front for TLS termination, health checks and load balancing, with Keepalived holding a floating IP so a failed proxy is replaced automatically.</li>
           <li>Built a private container registry with TLS for the platform's images.</li>
-          <li>Jenkins pipelines that build Docker images on every push to the development branch and deploy them, for zero-downtime releases.</li>
+          <li>Jenkins pipelines written in Groovy that build Docker images on every push to the development branch and deploy them, for zero-downtime releases.</li>
         </ul>
         <div class="chips"><span class="chip-s">Kubernetes (MicroK8s)</span><span class="chip-s">MetalLB</span><span class="chip-s">HAProxy</span><span class="chip-s">Keepalived</span><span class="chip-s">Jenkins</span></div>
       </div></article>
@@ -148,19 +184,29 @@
           <li>Designed the network with separate VLANs for signalling, media and management on layer-3 switches, behind a firewall with VPN-only admin access.</li>
           <li>Fixed findings from the operator's web-application security test: server upgrades, security headers (HSTS, CSP, frame protection), debug mode off and stricter upload limits.</li>
           <li>Wrote the staff off-boarding and credential-rotation process.</li>
-          <li>Monitoring of hosts, services and calls, with centralised metrics and logs.</li>
+          <li>Nagios checks for the hosts and services of the voice platform.</li>
         </ul>
-        <div class="chips"><span class="chip-s">VLANs</span><span class="chip-s">pfSense</span><span class="chip-s">Cisco</span><span class="chip-s">Nagios</span><span class="chip-s">Prometheus · Grafana · ELK</span></div>
+        <div class="chips"><span class="chip-s">VLANs</span><span class="chip-s">pfSense</span><span class="chip-s">Cisco</span><span class="chip-s">Nagios</span></div>
       </div></article>
       <article class="wk"><div class="ic" aria-hidden="true">&#128188;</div><div>
-        <h3>Server automation for the LastingSales CRM</h3>
-        <p>Automated how the CRM's servers are prepared and kept secure.</p>
+        <h3>LastingSales CRM on Amazon EKS</h3>
+        <p>Managed the CRM's AWS infrastructure and moved it onto Kubernetes as multi-container microservices.</p>
         <ul>
-          <li>Ansible playbook that sets up a complete server for the web frontend, the backend and two microservices, with Apache and PM2.</li>
-          <li>Runbook and automation for wildcard TLS certificate renewal through DNS validation.</li>
-          <li>Servers on AWS and Azure, with Jenkins for builds and deployments.</li>
+          <li>Deployed the web app, core API and supporting microservices as separate containers on Amazon EKS, so each one deploys and scales on its own.</li>
+          <li>Jenkins pipelines written in Groovy to build, push and deploy every service.</li>
+          <li>Prometheus and Grafana for cluster and service monitoring, with dashboards and alerts.</li>
+          <li>Wrote the backup scripts for the CRM's data, plus restore steps.</li>
+          <li>Ansible playbooks for server bootstrap and automated wildcard TLS certificate renewal through DNS validation.</li>
         </ul>
-        <div class="chips"><span class="chip-s">Ansible</span><span class="chip-s">AWS</span><span class="chip-s">Azure</span><span class="chip-s">Let's Encrypt</span><span class="chip-s">PM2</span></div>
+        <div class="chips"><span class="chip-s">AWS</span><span class="chip-s">Amazon EKS</span><span class="chip-s">Docker</span><span class="chip-s">Jenkins (Groovy)</span><span class="chip-s">Prometheus</span><span class="chip-s">Grafana</span><span class="chip-s">Ansible</span></div>
+      </div></article>
+      <article class="wk"><div class="ic" aria-hidden="true">&#128279;</div><div>
+        <h3>Connecting the phone system to the CRM</h3>
+        <p>Linked the two products so clients who use both never copy call data by hand.</p>
+        <ul>
+          <li>Connected the CRM to the Zong vPBX platform so call records flow into the CRM automatically for clients on both products.</li>
+        </ul>
+        <div class="chips"><span class="chip-s">Integration</span><span class="chip-s">Call records</span><span class="chip-s">Automation</span></div>
       </div></article>
     </div>
   </section>
@@ -179,12 +225,14 @@
       <li>No single point of failure at the web entry point</li>
       <li>Fast reports despite millions of call records</li>
       <li>Security findings from the carrier fixed</li>
-      <li>CRM servers set up the same way every time</li>
+      <li>Call data flows from the phone system into the CRM automatically</li>
+      <li>CRM services deploy and scale independently on EKS</li>
+      <li>Monitoring and backups for the CRM in place</li>
     </ul>
   </section>
 
   <div class="cta-box">
-    <div><h2>Need something similar?</h2><p>I run real-time, high-availability platforms on Kubernetes, on-premises and in the cloud.</p></div>
+    <div><h2>Need something similar?</h2><p>I run real-time, high-availability platforms and microservices on Kubernetes, on-premises and on AWS.</p></div>
     <a class="btn primary" href="../#contact">Get in touch</a>
   </div>
 </main>
