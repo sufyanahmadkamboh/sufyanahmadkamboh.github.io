@@ -358,6 +358,68 @@
         "projects/docker-from-zero/slides/slide-10.webp",
         "projects/docker-from-zero/slides/slide-11.webp"
       ]
+    },
+    {
+      "number": 7,
+      "slug": "kubernetes-from-zero",
+      "name": "Kubernetes From Zero: installation and cluster setup, hands-on (kubeadm, Minikube, MicroK8s, Amazon EKS)",
+      "simple_name": "Set up Kubernetes four ways, then break it and fix it",
+      "status": "published",
+      "date": "2026-10-04",
+      "difficulty": "Beginner",
+      "type": "single-tool depth",
+      "summary": "A free course that takes someone who has never installed Kubernetes to four working clusters: one built by hand on two virtual machines, one on a laptop, one from a single package, and one in the cloud on AWS. Each one is checked the same way, broken on purpose, repaired, and removed again.",
+      "problem": "Most guides give you a list of commands to paste. When the cluster says \"NotReady\", a computer cannot join, or the cloud bill keeps running after a test, beginners have no idea why, and nobody showed them how to find out.",
+      "benefit": "Learners understand what every installation step does, practise eight realistic failures with a repeatable method, learn which setup fits which situation, and see a cloud cluster created and fully removed with proof that nothing was left behind.",
+      "tagline": "Install Kubernetes four ways, understand every step, and practise fixing what breaks.",
+      "primary": "Kubernetes",
+      "secondary": [
+        "kubeadm",
+        "Minikube",
+        "MicroK8s",
+        "Amazon EKS",
+        "eksctl",
+        "containerd",
+        "Flannel",
+        "Ubuntu",
+        "Multipass",
+        "AWS",
+        "GitHub Actions"
+      ],
+      "engineering_problem": "Installation guides drift from reality and never show failures; cloud labs leave resources (and costs) behind.",
+      "architecture": "13 concept lessons and four installation lessons written to one 15-point standard, 8 troubleshooting labs, 5 challenges, a capstone and a 12-chapter tutorial. A Markdown test runner executes every lesson on fresh Ubuntu VMs (LXD in GitHub Actions) and writes the real output back; the EKS lesson ran against AWS with eksctl, a read-only console walkthrough, and a verified teardown back to the starting inventory.",
+      "unique_capability": "Every lesson command runs automatically on real VMs; the EKS run measured 14.5 min to create and 11 min to delete, cost roughly $0.15-0.20, and left the region exactly as it was; an 18-chapter video in full and silent versions.",
+      "skills": [
+        "Kubernetes",
+        "kubeadm",
+        "Container runtimes (CRI)",
+        "CNI networking",
+        "Amazon EKS",
+        "Cluster verification",
+        "Troubleshooting",
+        "Cloud cost control",
+        "Technical teaching",
+        "Documentation testing"
+      ],
+      "repository": "https://github.com/sufyanahmadkamboh/sufyan-devops-kubernetes-from-zero",
+      "docs": "https://github.com/sufyanahmadkamboh/sufyan-devops-kubernetes-from-zero#4-the-roadmap",
+      "study": "https://github.com/sufyanahmadkamboh/sufyan-devops-kubernetes-from-zero/tree/main/study",
+      "study_pdf": "https://github.com/sufyanahmadkamboh/sufyan-devops-kubernetes-from-zero/blob/main/study/study-guide.pdf",
+      "image": "projects/kubernetes-from-zero.png",
+      "linkedin": null,
+      "slides": [
+        "projects/kubernetes-from-zero/slides/slide-01.webp",
+        "projects/kubernetes-from-zero/slides/slide-02.webp",
+        "projects/kubernetes-from-zero/slides/slide-03.webp",
+        "projects/kubernetes-from-zero/slides/slide-04.webp",
+        "projects/kubernetes-from-zero/slides/slide-05.webp",
+        "projects/kubernetes-from-zero/slides/slide-06.webp",
+        "projects/kubernetes-from-zero/slides/slide-07.webp",
+        "projects/kubernetes-from-zero/slides/slide-08.webp",
+        "projects/kubernetes-from-zero/slides/slide-09.webp",
+        "projects/kubernetes-from-zero/slides/slide-10.webp",
+        "projects/kubernetes-from-zero/slides/slide-11.webp"
+      ]
     }
   ]
 }
