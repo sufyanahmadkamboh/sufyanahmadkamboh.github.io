@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blockchain Platform Case Study | Sufyan Ahmad</title>
+<meta name="description" content="Client case study: AWS infrastructure for a Layer-1 blockchain platform with five isolated environments, a hardened network for security testing, observability and cost tracking.">
+<meta name="author" content="Sufyan Ahmad">
+<meta property="og:title" content="Case study: infrastructure for a Layer-1 blockchain platform">
+<meta property="og:description" content="Five isolated chain environments on AWS, a private-subnet network for security testing, observability and cost tracking.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://sufyanahmadkamboh.github.io/work/blockchain-platform.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%231b2838'/><text x='32' y='42' font-family='Arial' font-size='26' font-weight='700' fill='%239cc3f0' text-anchor='middle'>SA</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/base.css">
+<link rel="stylesheet" href="../assets/labs.css">
+<link rel="stylesheet" href="../assets/case.css">
+<script>try { var t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+</head>
+<body>
+<nav class="top">
+  <div class="wrap">
+    <a class="brand" href="../"><span class="logo">SA</span><span class="name">Sufyan Ahmad</span></a>
+    <div class="nlinks">
+      <a href="../#experience" class="hide-sm">Experience</a>
+      <a href="../#projects" class="on">Client projects</a>
+      <a href="../labs.html" class="hide-sm">Labs</a>
+      <a href="../#contact" class="hire">Contact me</a>
+      <button class="theme" id="theme" aria-label="Toggle dark mode">◐</button>
+    </div>
+  </div>
+</nav>
+
+<header class="lhero cs-hero">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="../">Home</a><span>/</span><a href="../#projects">Client projects</a><span>/</span><span>Case study</span></nav>
+    <div class="dmeta"><span class="lvl-pill lv-Senior"><i></i>Client project</span><span>RYT Blockchain Platform · via TekHQS</span></div>
+    <h1>Layer-1 blockchain platform: <span class="grad">environments, security-ready network and observability</span></h1>
+    <p class="lead">For a client building its own EVM-compatible blockchain, I ran the cloud infrastructure behind the chain and its apps: isolated network environments for every stage, a private network design ready for a security test, monitoring, cost tracking and a backup of all source code.</p>
+    <div class="cs-tags"><span>Role: DevOps Engineer</span><span>AWS · EC2 · VPC</span><span>Prometheus · Grafana · Loki</span><span>Jenkins · PM2 · Nginx</span></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="note"><span aria-hidden="true">&#128274;</span><span><b>Confidential client work.</b> Network names, repositories, addresses, regions and internal designs are left out on purpose. This page describes the engineering approach and what I did.</span></div>
+
+  <section class="dsec">
+    <div class="eyebrow">The context</div>
+    <h2>A new blockchain needs more than one network</h2>
+    <div class="prose">
+      <p>The platform is a Layer-1 chain with validator and bootstrap nodes, a block indexer, a block explorer, a wallet and apps built on top. Developers needed separate networks to test changes without breaking each other, and the client needed a public test network and an environment that independent security testers could attack.</p>
+    </div>
+  </section>
+
+  <section class="dsec">
+    <div class="eyebrow">The challenges</div>
+    <h2>What had to be solved</h2>
+    <div class="chal">
+      <div><b>&#129514; Many networks at once</b><span>Test, development and experimental chains had to run side by side without interfering.</span></div>
+      <div><b>&#128737;&#65039; Ready for a security test</b><span>Nodes with public addresses had to move into a private network before testers were let in.</span></div>
+      <div><b>&#128065;&#65039; Knowing a node is healthy</b><span>Chain nodes, the indexer and the explorer all fail differently and needed one view.</span></div>
+      <div><b>&#128176; Costs per environment</b><span>The client wanted to know exactly what each network cost every month.</span></div>
+      <div><b>&#128190; Losing the code</b><span>Dozens of repositories lived in one organisation with no independent backup.</span></div>
+    </div>
+  </section>
+
+  <section class="dsec">
+    <div class="eyebrow">Architecture</div>
+    <h2>The security-test environment</h2>
+    <p class="sub">A simplified, generic view of the hardened environment. Every other environment followed the same node and app split.</p>
+    <figure class="diagram" style="margin:0">
+      <svg viewBox="0 0 960 420" role="img" aria-labelledby="b1t b1d">
+        <title id="b1t">Hardened blockchain environment</title>
+        <desc id="b1d">Inside a private network spread over two availability zones, public subnets hold load balancers for the explorer, the indexer and the bootstrap node, a NAT gateway and a bastion host. Private subnets hold the validator and bootstrap nodes and the app server. A managed PostgreSQL database stores indexed data. A separate observability server runs Prometheus, Grafana and Loki.</desc>
+        <defs><marker id="ba" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#3b82d6"/></marker></defs>
+        <rect class="box" x="20" y="170" width="110" height="60" rx="12"/><text class="t" x="75" y="196" text-anchor="middle">Users, wallets</text><text class="s" x="75" y="213" text-anchor="middle">security testers</text>
+        <rect class="zone" x="160" y="20" width="560" height="380" rx="16"/><text class="z" x="176" y="44">PRIVATE NETWORK (VPC) · 2 AVAILABILITY ZONES</text>
+        <rect class="zone2" x="176" y="58" width="528" height="116" rx="12"/><text class="z" x="190" y="78">PUBLIC SUBNETS</text>
+        <rect class="ok" x="190" y="90" width="150" height="70" rx="10"/><text class="t" x="265" y="117" text-anchor="middle">Load balancers</text><text class="s" x="265" y="134" text-anchor="middle">explorer, indexer,</text><text class="s" x="265" y="148" text-anchor="middle">node RPC</text>
+        <rect class="box" x="356" y="90" width="150" height="70" rx="10"/><text class="t" x="431" y="122" text-anchor="middle">NAT gateway</text><text class="s" x="431" y="139" text-anchor="middle">outbound only</text>
+        <rect class="hot" x="522" y="90" width="166" height="70" rx="10"/><text class="t" x="605" y="122" text-anchor="middle">Bastion host</text><text class="s" x="605" y="139" text-anchor="middle">the only way in for SSH</text>
+        <rect class="zone2" x="176" y="196" width="528" height="188" rx="12"/><text class="z" x="190" y="216">PRIVATE SUBNETS</text>
+        <rect class="hot" x="190" y="228" width="240" height="64" rx="10"/><text class="t" x="310" y="254" text-anchor="middle">Validator + bootstrap nodes</text><text class="s" x="310" y="271" text-anchor="middle">ARM (Graviton) instances</text>
+        <rect class="box" x="446" y="228" width="242" height="64" rx="10"/><text class="t" x="567" y="254" text-anchor="middle">App server</text><text class="s" x="567" y="271" text-anchor="middle">explorer, indexer, apps (PM2 + Nginx)</text>
+        <rect class="box" x="446" y="306" width="242" height="64" rx="10"/><text class="t" x="567" y="332" text-anchor="middle">Managed PostgreSQL</text><text class="s" x="567" y="349" text-anchor="middle">indexed chain data</text>
+        <rect class="box" x="190" y="306" width="240" height="64" rx="10"/><text class="t" x="310" y="332" text-anchor="middle">Server-health API</text><text class="s" x="310" y="349" text-anchor="middle">CPU, disk, Nginx, PM2 processes</text>
+        <path class="lnA" d="M130 200C150 200 150 125 188 125" marker-end="url(#ba)"/>
+        <path class="lnA" d="M265 160V226" marker-end="url(#ba)"/><path class="lnA" d="M300 160C300 190 520 190 560 226" marker-end="url(#ba)"/>
+        <path class="ln" d="M567 292V304"/>
+        <rect class="zone2" x="750" y="20" width="190" height="380" rx="16"/><text class="z" x="766" y="44">SHARED</text>
+        <rect class="ok" x="766" y="58" width="158" height="96" rx="10"/><text class="t" x="845" y="86" text-anchor="middle">Observability</text><text class="s" x="845" y="104" text-anchor="middle">Prometheus</text><text class="s" x="845" y="119" text-anchor="middle">Grafana</text><text class="s" x="845" y="134" text-anchor="middle">Loki</text>
+        <rect class="box" x="766" y="168" width="158" height="62" rx="10"/><text class="t" x="845" y="194" text-anchor="middle">Jenkins</text><text class="s" x="845" y="211" text-anchor="middle">build and deploy</text>
+        <rect class="box" x="766" y="244" width="158" height="62" rx="10"/><text class="t" x="845" y="270" text-anchor="middle">Cost reports</text><text class="s" x="845" y="287" text-anchor="middle">per environment</text>
+        <rect class="box" x="766" y="320" width="158" height="62" rx="10"/><text class="t" x="845" y="346" text-anchor="middle">Code backup</text><text class="s" x="845" y="363" text-anchor="middle">mirrors of every repo</text>
+
+      </svg>
+      <figcaption>Generic architecture. Names, sizes and addresses of the client's systems are intentionally not shown.</figcaption>
+    </figure>
+  </section>
+
+  <section class="dsec">
+    <div class="eyebrow">What I did</div>
+    <h2>My work, layer by layer</h2>
+    <div class="work">
+      <article class="wk"><div class="ic" aria-hidden="true">&#127760;</div><div>
+        <h3>Five isolated chain environments on AWS</h3>
+        <p>Ran separate networks for the public test chain, development, two experimental chains and security testing.</p>
+        <ul>
+          <li>Each environment split into a node instance (validator and bootstrap) and an app instance (explorer, indexer and apps).</li>
+          <li>Chain nodes on ARM Graviton instances for better price-performance, sized up for heavier development networks when needed.</li>
+          <li>Managed PostgreSQL for the block indexer.</li>
+          <li>Services run as managed processes under PM2 behind Nginx.</li>
+        </ul>
+        <div class="chips"><span class="chip-s">Amazon EC2</span><span class="chip-s">Graviton</span><span class="chip-s">Amazon RDS</span><span class="chip-s">PM2</span><span class="chip-s">Nginx</span></div>
+      </div></article>
+      <article class="wk"><div class="ic" aria-hidden="true">&#128737;&#65039;</div><div>
+        <h3>A network ready for a security test</h3>
+        <p>Rebuilt the security-test environment so nothing sensitive had a public address.</p>
+        <ul>
+          <li>Custom VPC across two availability zones with public and private subnets and separate route tables.</li>
+          <li>Nodes and apps moved to private subnets; outbound traffic through a NAT gateway only.</li>
+          <li>Explorer, indexer and node RPC published through Application Load Balancers.</li>
+          <li>A single bastion host as the only way to reach servers over SSH.</li>
+        </ul>
+        <div class="chips"><span class="chip-s">AWS VPC</span><span class="chip-s">NAT gateway</span><span class="chip-s">Application Load Balancer</span><span class="chip-s">Bastion host</span></div>
+      </div></article>
+      <article class="wk"><div class="ic" aria-hidden="true">&#128200;</div><div>
+        <h3>Observability and health checks</h3>
+        <ul>
+          <li>A dedicated observability server with Prometheus for metrics, Grafana for dashboards and Loki for logs.</li>
+          <li>Wrote a small Node.js server-health API, protected by an API key, that reports CPU, memory, disk, Nginx status and the health of every PM2 process (chain, indexer, explorer and apps).</li>
+        </ul>
+        <div class="chips"><span class="chip-s">Prometheus</span><span class="chip-s">Grafana</span><span class="chip-s">Loki</span><span class="chip-s">Node.js</span></div>
+      </div></article>
+      <article class="wk"><div class="ic" aria-hidden="true">&#128176;</div><div>
+        <h3>Cost tracking, CI and source-code backup</h3>
+        <ul>
+          <li>Produced monthly cost breakdowns per environment so the client could decide what to keep running.</li>
+          <li>Hosted Jenkins for builds and deployments.</li>
+          <li>Wrote a script that mirrors every repository in the organisation, public and private, with logging and an update mode, as an independent disaster-recovery copy of the code.</li>
+        </ul>
+        <div class="chips"><span class="chip-s">AWS pricing</span><span class="chip-s">Jenkins</span><span class="chip-s">Git mirrors</span><span class="chip-s">PowerShell</span></div>
+      </div></article>
+    </div>
+  </section>
+
+  <section class="dsec">
+    <div class="eyebrow">Results</div>
+    <h2>In numbers</h2>
+    <div class="nums">
+      <div class="num"><b>5</b><span>isolated chain environments, plus shared observability</span></div>
+      <div class="num"><b>~$610</b><span>per month for all environments together</span></div>
+      <div class="num"><b>30 / 30</b><span>repositories mirrored in the code backup, no failures</span></div>
+      <div class="num"><b>0</b><span>nodes with a public address in the security-test environment</span></div>
+    </div>
+    <p class="measured">Numbers come from the project's cost report, infrastructure notes and backup log.</p>
+    <ul class="outcomes">
+      <li>Developers test on their own network without breaking others</li>
+      <li>A security-test environment with no directly exposed servers</li>
+      <li>One place to see whether every node and app is healthy</li>
+      <li>Clear monthly cost per environment</li>
+      <li>An independent copy of all source code</li>
+    </ul>
+  </section>
+
+  <div class="cta-box">
+    <div><h2>Need something similar?</h2><p>I build and run secure cloud infrastructure for blockchain and Web3 platforms.</p></div>
+    <a class="btn primary" href="../#contact">Get in touch</a>
+  </div>
+</main>
+
+<footer class="foot">© <span id="year"></span> Sufyan Ahmad · DevOps Engineer · Herborn, Germany · <a href="../#projects">Back to client projects</a></footer>
+<script src="../assets/case.js"></script>
+</body>
+</html>

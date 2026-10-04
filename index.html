@@ -212,6 +212,8 @@
   .cp-points { display: flex; flex-wrap: wrap; gap: 8px; }
   .cp-points span { font-size: 14px; font-weight: 600; padding: 7px 12px; border-radius: 10px; background: var(--surface-2); border: 1px solid var(--line); }
   .cp-go { font-weight: 700; color: var(--accent); margin-top: 2px; }
+  .cp-scope { font-size: 13.5px; color: var(--muted); font-style: italic; padding: 8px 12px; border-radius: 10px; border: 1px dashed var(--line); }
+  a.cp:not(.cp-feature) .cp-go { margin-top: auto; }
 
   /* teaching labs teaser (cards come from assets/labs.css) */
   .lab-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap; }
@@ -354,6 +356,14 @@
         <div class="tags"><span class="tag">AWS EKS</span><span class="tag">Terraform</span><span class="tag">GitHub Actions</span><span class="tag">Helm</span><span class="tag">Secrets Manager</span><span class="tag">WAF</span><span class="tag">Disaster recovery</span></div>
         <span class="cp-go">Read the case study &rarr;</span>
       </a>
+      <a class="cp reveal" href="work/production-kubernetes-platform.html">
+        <div class="cp-head"><span class="cp-ic" aria-hidden="true">&#9784;&#65039;</span><div><div class="cp-client">KresusLabs Inc. (USA)</div><div class="cp-via">Client project · via TekHQS · 2026</div></div><span class="cp-badge">Case study</span></div>
+        <h3>Production Kubernetes: Diagnose, Rebuild &amp; Monitor</h3>
+        <p>Found why production pods were evicted daily, built a hardened EKS cluster alongside the old one, moved development to a low-cost single-node cluster, and rebuilt monitoring as code.</p>
+        <div class="cp-result"><span aria-hidden="true">&#8599;</span>20 dashboards and 35 alerts as code, ~$9k/yr savings identified</div>
+        <div class="tags"><span class="tag">Amazon EKS</span><span class="tag">Jenkins</span><span class="tag">Helm</span><span class="tag">Managed Grafana</span><span class="tag">CloudWatch</span></div>
+        <span class="cp-go">Read the case study &rarr;</span>
+      </a>
       <article class="cp reveal">
         <div class="cp-head"><span class="cp-ic" aria-hidden="true">&#128272;</span><div><div class="cp-client">KresusLabs Inc. (USA)</div><div class="cp-via">Client project · via TekHQS</div></div></div>
         <h3>Kresus Crypto Vault: CI/CD &amp; Release Automation</h3>
@@ -361,26 +371,47 @@
         <div class="cp-result"><span aria-hidden="true">&#8599;</span>Deployment time cut by 40%</div>
         <div class="tags"><span class="tag">Jenkins</span><span class="tag">Helm</span><span class="tag">Kubernetes</span><span class="tag">AWS</span></div>
       </article>
-      <article class="cp reveal">
-        <div class="cp-head"><span class="cp-ic" aria-hidden="true">&#128222;</span><div><div class="cp-client">LastingSales (HadiTelecom)</div><div class="cp-via">Cloud contact-center platform</div></div></div>
-        <h3>Telecom Platform: Kubernetes Migration</h3>
-        <p>Moved legacy applications into Docker containers on Kubernetes (StatefulSets for databases), improving fault tolerance and reducing hosting costs.</p>
-        <div class="cp-result"><span aria-hidden="true">&#8599;</span>6M+ calls per month, 4,000+ business clients</div>
-        <div class="tags"><span class="tag">Kubernetes</span><span class="tag">Docker</span><span class="tag">Prometheus</span><span class="tag">Grafana</span></div>
-      </article>
-      <article class="cp reveal">
+      <a class="cp cp-feature reveal" href="work/cloud-telephony-platform.html">
+        <div class="cp-head"><span class="cp-ic" aria-hidden="true">&#128222;</span><div><div class="cp-client">LastingSales (HadiTelecom)</div><div class="cp-via">Cloud PBX delivered with Zong (China Mobile Pakistan) · 2021 – 2024</div></div><span class="cp-badge">Case study</span></div>
+        <h3>Cloud PBX Platform: VoIP, Kubernetes &amp; High Availability</h3>
+        <p>Owned the production infrastructure of a cloud phone-system and contact-center platform: Asterisk and Kamailio voice servers, the portal moved onto a high-availability Kubernetes cluster behind HAProxy and Keepalived, call-record archiving, security fixes, and Ansible server automation for the LastingSales CRM.</p>
+        <div class="cp-points">
+          <span>&#128222; 6M+ calls per month</span>
+          <span>&#127970; 4,000+ business clients</span>
+          <span>&#128260; Zero-downtime portal releases</span>
+        </div>
+        <div class="tags"><span class="tag">Asterisk</span><span class="tag">Kamailio</span><span class="tag">Kubernetes</span><span class="tag">HAProxy</span><span class="tag">Jenkins</span><span class="tag">Ansible</span><span class="tag">MySQL</span></div>
+        <span class="cp-go">Read the case study &rarr;</span>
+      </a>
+      <a class="cp reveal" href="work/blockchain-platform.html">
+        <div class="cp-head"><span class="cp-ic" aria-hidden="true">&#9939;&#65039;</span><div><div class="cp-client">RYT Blockchain Platform</div><div class="cp-via">Client project · via TekHQS</div></div><span class="cp-badge">Case study</span></div>
+        <h3>Layer-1 Blockchain: Environments &amp; Security-Ready Network</h3>
+        <p>Ran five isolated chain environments on AWS, rebuilt the security-test environment into private subnets behind load balancers and a bastion host, and added observability, cost tracking and a backup of all source code.</p>
+        <div class="cp-result"><span aria-hidden="true">&#8599;</span>5 environments for about $610 per month</div>
+        <div class="tags"><span class="tag">AWS EC2</span><span class="tag">VPC</span><span class="tag">Prometheus</span><span class="tag">Grafana</span><span class="tag">Loki</span></div>
+        <span class="cp-go">Read the case study &rarr;</span>
+      </a>
+      <a class="cp reveal" href="work/cloud-telephony-platform.html">
         <div class="cp-head"><span class="cp-ic" aria-hidden="true">&#128640;</span><div><div class="cp-client">LastingSales (HadiTelecom)</div><div class="cp-via">Release automation</div></div></div>
         <h3>Push-to-Deploy CI/CD</h3>
         <p>Jenkins pipeline builds Docker images on every push to the development branch and deploys them to AWS.</p>
         <div class="cp-result"><span aria-hidden="true">&#8599;</span>Zero-downtime releases</div>
         <div class="tags"><span class="tag">Jenkins</span><span class="tag">Docker</span><span class="tag">AWS</span></div>
+        <span class="cp-go">Part of the cloud PBX case study &rarr;</span>
+      </a>
+      <article class="cp reveal">
+        <div class="cp-head"><span class="cp-ic" aria-hidden="true">&#129302;</span><div><div class="cp-client">Intelithrive (USA)</div><div class="cp-via">AI-agent incubator · via TekHQS</div></div></div>
+        <h3>AI Agent Products: Cloud Environments &amp; Delivery</h3>
+        <p>DevOps for the incubator's AI-agent products: containerised services, CI/CD pipelines and cloud environments, with model-provider API keys kept in secret stores and the running services monitored.</p>
+        <div class="cp-scope">Details kept general for confidentiality</div>
+        <div class="tags"><span class="tag">Docker</span><span class="tag">CI/CD</span><span class="tag">AWS</span><span class="tag">Azure</span></div>
       </article>
       <article class="cp reveal">
-        <div class="cp-head"><span class="cp-ic" aria-hidden="true">&#9939;&#65039;</span><div><div class="cp-client">RYT Blockchain Platform</div><div class="cp-via">Client project</div></div></div>
-        <h3>RYT Blockchain Platform: Infrastructure as Code</h3>
-        <p>Provisioned the platform's blockchain infrastructure as code with Terraform following security best practices.</p>
-        <div class="cp-result"><span aria-hidden="true">&#8599;</span>Reproducible instead of hand-built environments</div>
-        <div class="tags"><span class="tag">Terraform</span><span class="tag">Linux</span></div>
+        <div class="cp-head"><span class="cp-ic" aria-hidden="true">&#128172;</span><div><div class="cp-client">Chat.AI</div><div class="cp-via">AI news and multi-model chat platform · via TekHQS</div></div></div>
+        <h3>AI Chat Platform: Hosting, Deployment &amp; Monitoring</h3>
+        <p>Hosting and deployment for an AI news and multi-model chat platform: automated deployments, web servers with caching and TLS, backups and uptime monitoring on cloud servers.</p>
+        <div class="cp-scope">Details kept general for confidentiality</div>
+        <div class="tags"><span class="tag">Linux</span><span class="tag">Nginx</span><span class="tag">CI/CD</span><span class="tag">Cloud servers</span></div>
       </article>
     </div>
   </section>

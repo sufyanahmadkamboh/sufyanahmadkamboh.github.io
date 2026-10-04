@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Production Kubernetes Case Study | Sufyan Ahmad</title>
+<meta name="description" content="Client case study: production Kubernetes assessment, a new hardened EKS cluster, a low-cost development environment and a new monitoring platform for a US crypto-wallet company.">
+<meta name="author" content="Sufyan Ahmad">
+<meta property="og:title" content="Case study: fixing and rebuilding a production Kubernetes platform">
+<meta property="og:description" content="Root-cause analysis, a hardened EKS cluster, a cheaper dev environment and monitoring as code on AWS.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://sufyanahmadkamboh.github.io/work/production-kubernetes-platform.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%231b2838'/><text x='32' y='42' font-family='Arial' font-size='26' font-weight='700' fill='%239cc3f0' text-anchor='middle'>SA</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/base.css">
+<link rel="stylesheet" href="../assets/labs.css">
+<link rel="stylesheet" href="../assets/case.css">
+<script>try { var t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+</head>
+<body>
+<nav class="top">
+  <div class="wrap">
+    <a class="brand" href="../"><span class="logo">SA</span><span class="name">Sufyan Ahmad</span></a>
+    <div class="nlinks">
+      <a href="../#experience" class="hide-sm">Experience</a>
+      <a href="../#projects" class="on">Client projects</a>
+      <a href="../labs.html" class="hide-sm">Labs</a>
+      <a href="../#contact" class="hire">Contact me</a>
+      <button class="theme" id="theme" aria-label="Toggle dark mode">◐</button>
+    </div>
+  </div>
+</nav>
+
+<header class="lhero cs-hero">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="../">Home</a><span>/</span><a href="../#projects">Client projects</a><span>/</span><span>Case study</span></nav>
+    <div class="dmeta"><span class="lvl-pill lv-Senior"><i></i>Client project</span><span>KresusLabs Inc. (USA) · via TekHQS · 2026</span></div>
+    <h1>Production Kubernetes: <span class="grad">diagnose, rebuild, right-size and monitor</span></h1>
+    <p class="lead">For a US crypto-wallet company, I found out why production pods kept getting evicted, built a new hardened production cluster next to the old one, moved development to a much cheaper single-node cluster, and replaced the monitoring with dashboards and alerts generated as code.</p>
+    <div class="cs-tags"><span>Role: DevOps Engineer</span><span>AWS · EKS · Kubernetes</span><span>Jenkins · Helm</span><span>Grafana · CloudWatch</span></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="note"><span aria-hidden="true">&#128274;</span><span><b>Confidential client work.</b> Product, service and resource names, domains, account details and specific security findings are left out on purpose. This page describes the engineering approach and what I did.</span></div>
+
+  <section class="dsec">
+    <div class="eyebrow">The context</div>
+    <h2>A busy production cluster that kept tripping over itself</h2>
+    <div class="prose">
+      <p>The company runs its wallet backend, API services, scheduled jobs and back-office tools on Amazon EKS, with Jenkins building and deploying them through Helm. Development and production had grown up together, and a scheduled-jobs service in production was being evicted every day.</p>
+      <p>My job was to find the real causes without risking production, give the team a safe plan, and build the better platform in parallel so nothing had to change in place.</p>
+    </div>
+  </section>
+
+  <section class="dsec">
+    <div class="eyebrow">The challenges</div>
+    <h2>What had to be solved</h2>
+    <div class="chal">
+      <div><b>&#128165; Daily evictions</b><span>A production service was killed every day and nobody knew exactly why.</span></div>
+      <div><b>&#128200; Paying for idle capacity</b><span>The cluster was large, mostly idle, and still not stable.</span></div>
+      <div><b>&#129513; Dev and prod tangled</b><span>Shared infrastructure meant a mistake in one could hurt the other.</span></div>
+      <div><b>&#128065;&#65039; Blind spots</b><span>Monitoring was hand-built and did not cover the servers, databases and queues the business depends on.</span></div>
+      <div><b>&#128273; Expiring access</b><span>A static registry token had silently expired, breaking image pulls.</span></div>
+      <div><b>&#9888;&#65039; Change without downtime</b><span>Every step had to be additive and reversible, with production untouched until cutover.</span></div>
+    </div>
+  </section>
+
+  <section class="dsec">
+    <div class="eyebrow">Architecture</div>
+    <h2>Three streams of work, side by side</h2>
+    <p class="sub">A simplified, generic view. The old platform kept running while the new pieces were built and tested next to it.</p>
+    <figure class="diagram" style="margin:0">
+      <svg viewBox="0 0 960 470" role="img" aria-labelledby="k1t k1d">
+        <title id="k1t">Work streams</title>
+        <desc id="k1d">Jenkins deploys with Helm to a new production EKS cluster with a private API and a TLS 1.3 load balancer, and to a single-node development cluster on EC2 that pulls images with an instance role. A monitoring platform collects metrics and logs from both clusters, servers, databases, queues and load balancers into managed Grafana with single sign-on, with a backup alert path to chat.</desc>
+        <defs><marker id="ka" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#3b82d6"/></marker>
+              <marker id="kg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1f8a4c"/></marker></defs>
+        <text class="z" x="20" y="24">DELIVERY</text>
+        <rect class="box" x="20" y="34" width="160" height="62" rx="10"/><text class="t" x="100" y="60" text-anchor="middle">Jenkins pipelines</text><text class="s" x="100" y="78" text-anchor="middle">immutable image tags</text>
+        <rect class="box" x="20" y="124" width="160" height="56" rx="10"/><text class="t" x="100" y="148" text-anchor="middle">Image registry</text><text class="s" x="100" y="165" text-anchor="middle">Amazon ECR</text>
+        <path class="lnA" d="M100 96V122" marker-end="url(#ka)"/>
+        <!-- prod -->
+        <rect class="zone2" x="230" y="20" width="330" height="200" rx="14"/><text class="z" x="246" y="44">NEW PRODUCTION CLUSTER (EKS)</text>
+        <rect class="ok" x="246" y="56" width="140" height="48" rx="8"/><text class="t" x="316" y="77" text-anchor="middle">Private API</text><text class="s" x="316" y="93" text-anchor="middle">access entries</text>
+        <rect class="ok" x="400" y="56" width="144" height="48" rx="8"/><text class="t" x="472" y="77" text-anchor="middle">Load balancer</text><text class="s" x="472" y="93" text-anchor="middle">TLS 1.3, IRSA controller</text>
+        <rect class="box" x="246" y="116" width="298" height="40" rx="8"/><text class="t" x="395" y="141" text-anchor="middle">Nodes: IMDSv2 only, encrypted gp3, 2 AZs</text>
+        <rect class="box" x="246" y="166" width="298" height="40" rx="8"/><text class="t" x="395" y="191" text-anchor="middle">Workloads with requests, limits, no pinning</text>
+        <!-- dev -->
+        <rect class="zone2" x="230" y="246" width="330" height="200" rx="14"/><text class="z" x="246" y="270">NEW DEV ENVIRONMENT (EC2)</text>
+        <rect class="box" x="246" y="282" width="298" height="40" rx="8"/><text class="t" x="395" y="307" text-anchor="middle">Single-node Kubernetes, all services</text>
+        <rect class="ok" x="246" y="332" width="140" height="48" rx="8"/><text class="t" x="316" y="353" text-anchor="middle">Instance role</text><text class="s" x="316" y="369" text-anchor="middle">pull token auto-refresh</text>
+        <rect class="ok" x="400" y="332" width="144" height="48" rx="8"/><text class="t" x="472" y="353" text-anchor="middle">Scoped CI access</text><text class="s" x="472" y="369" text-anchor="middle">one namespace only</text>
+        <rect class="box" x="246" y="392" width="298" height="40" rx="8"/><text class="t" x="395" y="417" text-anchor="middle">Private host behind its own load balancer</text>
+        <path class="lnA" d="M180 65C205 65 205 130 228 130" marker-end="url(#ka)"/><path class="lnA" d="M180 75C210 75 205 340 228 340" marker-end="url(#ka)"/>
+        <!-- monitoring -->
+        <rect class="zone2" x="610" y="20" width="330" height="426" rx="14"/><text class="z" x="626" y="44">MONITORING AS CODE</text>
+        <rect class="ok" x="626" y="56" width="298" height="56" rx="8"/><text class="t" x="775" y="80" text-anchor="middle">Managed Grafana</text><text class="s" x="775" y="97" text-anchor="middle">single sign-on, group-based roles</text>
+        <rect class="box" x="626" y="124" width="145" height="62" rx="8"/><text class="t" x="698" y="149" text-anchor="middle">Container</text><text class="t" x="698" y="166" text-anchor="middle">Insights</text>
+        <rect class="box" x="779" y="124" width="145" height="62" rx="8"/><text class="t" x="851" y="149" text-anchor="middle">Agent on servers</text><text class="s" x="851" y="167" text-anchor="middle">rolled out via SSM</text>
+        <rect class="box" x="626" y="196" width="145" height="62" rx="8"/><text class="t" x="698" y="221" text-anchor="middle">Databases,</text><text class="t" x="698" y="238" text-anchor="middle">queues, gateways</text>
+        <rect class="box" x="779" y="196" width="145" height="62" rx="8"/><text class="t" x="851" y="221" text-anchor="middle">Small Lambdas</text><text class="s" x="851" y="239" text-anchor="middle">inventory, 5xx parsing</text>
+        <rect class="box" x="626" y="270" width="298" height="56" rx="8"/><text class="t" x="775" y="294" text-anchor="middle">Dashboards + alerts generated by scripts</text><text class="s" x="775" y="311" text-anchor="middle">thresholds from 7 days of real data</text>
+        <rect class="hot" x="626" y="338" width="298" height="56" rx="8"/><text class="t" x="775" y="362" text-anchor="middle">Backup alert path</text><text class="s" x="775" y="379" text-anchor="middle">alarms reach chat even if Grafana is down</text>
+        <path class="lnR" d="M560 120H608" marker-end="url(#kg)"/><path class="lnR" d="M560 340H608" marker-end="url(#kg)"/>
+      </svg>
+      <figcaption>Generic architecture. Names, sizes and internal designs of the client's systems are intentionally not shown.</figcaption>
+    </figure>
+  </section>
+
+  <section class="dsec">
+    <div class="eyebrow">What I did</div>
+    <h2>My work, step by step</h2>
+    <div class="work">
+      <article class="wk"><div class="ic" aria-hidden="true">&#128269;</div><div>
+        <h3>Root-cause analysis and a safe remediation plan</h3>
+        <p>Investigated the cluster with read-only commands only, so every finding could be reproduced by the team.</p>
+        <ul>
+          <li>Traced the daily evictions to a combination of causes: workloads pinned to a single node, no resource requests or limits, a memory limit set too close to node size, an outdated cluster autoscaler and a production job using development values.</li>
+          <li>Reviewed GitOps, quotas, disruption budgets, storage classes, Kubernetes version support and leftover resources.</li>
+          <li>Wrote a phased plan with effort, risk, rollback and exit criteria for every phase.</li>
+          <li>Prepared a security and delivery roadmap: OIDC-based CI, a secrets manager, code, dependency, image and IaC scanning, and immutable, promoted builds.</li>
+        </ul>
+        <div class="chips"><span class="chip-s">kubectl</span><span class="chip-s">Cluster Autoscaler</span><span class="chip-s">Resource requests</span><span class="chip-s">PDB / Quotas</span></div>
+      </div></article>
+      <article class="wk"><div class="ic" aria-hidden="true">&#127959;&#65039;</div><div>
+        <h3>New hardened production cluster, built in parallel</h3>
+        <p>Built a new EKS cluster next to the old one so production could move over without in-place changes.</p>
+        <ul>
+          <li>Private API endpoint with modern access entries, nodes across two availability zones on the current Amazon Linux.</li>
+          <li>IMDSv2 required on every node and encrypted gp3 volumes.</li>
+          <li>Dedicated load balancer with TLS 1.3, managed by the AWS Load Balancer Controller through an IAM role for service accounts.</li>
+          <li>Workloads deployed and validated on separate test hostnames, including database reachability from inside a pod, without touching any live DNS record.</li>
+        </ul>
+        <div class="chips"><span class="chip-s">Amazon EKS</span><span class="chip-s">IRSA</span><span class="chip-s">AWS Load Balancer Controller</span><span class="chip-s">ingress-nginx</span><span class="chip-s">gp3</span></div>
+      </div></article>
+      <article class="wk"><div class="ic" aria-hidden="true">&#128176;</div><div>
+        <h3>A much cheaper development environment</h3>
+        <p>Moved development off the shared cluster onto a single-node Kubernetes host on EC2, running in parallel until cutover.</p>
+        <ul>
+          <li>Private host behind its own load balancer with a wildcard certificate; network rules allow only the load balancer, the CI server and VPN users.</li>
+          <li>An instance role with exactly two managed policies replaced static keys; a systemd timer refreshes the registry pull secret every 8 hours.</li>
+          <li>The Kubernetes API is reachable only from CI, and CI uses a service account limited to one namespace (denials tested).</li>
+          <li>A new Jenkins pipeline with a guard stage that can never deploy to the production cluster, immutable build tags, Helm deploys and rollout checks.</li>
+          <li>Helm values linted and rendered against the real chart, which caught a broken ingress before it shipped. Cutover runbook: one hostname at a time, with a DNS-only rollback.</li>
+        </ul>
+        <div class="chips"><span class="chip-s">Minikube</span><span class="chip-s">EC2</span><span class="chip-s">Jenkins</span><span class="chip-s">Helm</span><span class="chip-s">RBAC</span></div>
+      </div></article>
+      <article class="wk"><div class="ic" aria-hidden="true">&#128202;</div><div>
+        <h3>Monitoring platform, generated as code</h3>
+        <p>Replaced hand-built monitoring with a managed, reproducible setup, after backing up every existing dashboard and alert.</p>
+        <ul>
+          <li>Measured log volume first to estimate cost before building anything.</li>
+          <li>Managed Grafana with single sign-on and group-based roles.</li>
+          <li>Container Insights for the new cluster, the CloudWatch agent rolled out to all EC2 servers through SSM, plus databases, queues, API gateway, load balancers and NAT.</li>
+          <li>Two small Lambdas: a multi-region server and database inventory, and load-balancer log parsing for 5xx errors.</li>
+          <li>Dashboards and alert rules generated by Python scripts with an automatic panel checker; thresholds set from 7 days of real data.</li>
+          <li>A backup path from CloudWatch alarms to chat so alerts still arrive if Grafana is down. Every step additive, with an undo section.</li>
+        </ul>
+        <div class="chips"><span class="chip-s">Amazon Managed Grafana</span><span class="chip-s">CloudWatch</span><span class="chip-s">Container Insights</span><span class="chip-s">AWS Lambda</span><span class="chip-s">Python</span><span class="chip-s">SSM</span></div>
+      </div></article>
+    </div>
+  </section>
+
+  <section class="dsec">
+    <div class="eyebrow">Results</div>
+    <h2>Measured during the work</h2>
+    <div class="nums">
+      <div class="num"><b>8 / 8</b><span>services running in the new dev environment with matching endpoints</span></div>
+      <div class="num"><b>16 → 2 GiB</b><span>memory limit of the scheduled-jobs service after right-sizing</span></div>
+      <div class="num"><b>20 · 35</b><span>dashboards and alert rules generated as code</span></div>
+      <div class="num"><b>~$9k / yr</b><span>removable spend identified (estimate at list prices)</span></div>
+    </div>
+    <p class="measured">Numbers come from the project documentation and the environments described above. The savings figure is an estimate, not a billed result.</p>
+    <ul class="outcomes">
+      <li>Clear, reproducible root causes instead of guesses</li>
+      <li>A production cluster built to current EKS practices</li>
+      <li>Development isolated from production, at a fraction of the cost</li>
+      <li>No static keys or expiring tokens in the dev path</li>
+      <li>Monitoring that covers servers, data stores and traffic</li>
+      <li>Every change reversible, nothing done in place</li>
+    </ul>
+  </section>
+
+  <div class="cta-box">
+    <div><h2>Need something similar?</h2><p>I stabilise, rebuild and monitor Kubernetes platforms on AWS.</p></div>
+    <a class="btn primary" href="../#contact">Get in touch</a>
+  </div>
+</main>
+
+<footer class="foot">© <span id="year"></span> Sufyan Ahmad · DevOps Engineer · Herborn, Germany · <a href="../#projects">Back to client projects</a></footer>
+<script src="../assets/case.js"></script>
+</body>
+</html>

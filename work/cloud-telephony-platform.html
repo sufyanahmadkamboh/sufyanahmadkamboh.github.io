@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cloud Telephony Case Study | Sufyan Ahmad</title>
+<meta name="description" content="Case study: running the infrastructure of a cloud PBX and contact-center platform delivered with a national mobile operator, and server automation for a sales CRM.">
+<meta name="author" content="Sufyan Ahmad">
+<meta property="og:title" content="Case study: cloud PBX platform handling millions of calls a month">
+<meta property="og:description" content="VoIP, Kubernetes, high availability and data lifecycle for a carrier-grade cloud PBX, plus server automation for a sales CRM.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://sufyanahmadkamboh.github.io/work/cloud-telephony-platform.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%231b2838'/><text x='32' y='42' font-family='Arial' font-size='26' font-weight='700' fill='%239cc3f0' text-anchor='middle'>SA</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/base.css">
+<link rel="stylesheet" href="../assets/labs.css">
+<link rel="stylesheet" href="../assets/case.css">
+<script>try { var t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+</head>
+<body>
+<nav class="top">
+  <div class="wrap">
+    <a class="brand" href="../"><span class="logo">SA</span><span class="name">Sufyan Ahmad</span></a>
+    <div class="nlinks">
+      <a href="../#experience" class="hide-sm">Experience</a>
+      <a href="../#projects" class="on">Client projects</a>
+      <a href="../labs.html" class="hide-sm">Labs</a>
+      <a href="../#contact" class="hire">Contact me</a>
+      <button class="theme" id="theme" aria-label="Toggle dark mode">◐</button>
+    </div>
+  </div>
+</nav>
+
+<header class="lhero cs-hero">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="../">Home</a><span>/</span><a href="../#projects">Client projects</a><span>/</span><span>Case study</span></nav>
+    <div class="dmeta"><span class="lvl-pill lv-Senior"><i></i>Employer project</span><span>LastingSales (HadiTelecom) · 2021 – 2024</span></div>
+    <h1>Cloud PBX platform: <span class="grad">millions of calls a month, kept running</span></h1>
+    <p class="lead">I owned the production infrastructure of a cloud PBX and contact-center platform delivered with Zong (China Mobile Pakistan): the VoIP servers, the Kubernetes cluster for the customer portal, high availability, call-data lifecycle and security. I also automated server setup for the company's sales CRM.</p>
+    <div class="cs-tags"><span>Role: Senior VoIP &amp; DevOps Engineer</span><span>Asterisk · Kamailio</span><span>Kubernetes · HAProxy</span><span>Jenkins · Ansible</span></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="note"><span aria-hidden="true">&#128274;</span><span><b>Confidential work.</b> Customer names, hostnames, addresses and internal documents are left out on purpose. This page describes the engineering approach and what I did.</span></div>
+
+  <section class="dsec">
+    <div class="eyebrow">The context</div>
+    <h2>Business phone systems for thousands of companies</h2>
+    <div class="prose">
+      <p>The platform gives businesses a virtual phone system in the cloud: numbers, extensions, IVR menus, call queues, voicemail, call recording, surveys and a self-service portal, with reports for every call. It was delivered together with a national mobile operator and served <b>4,000+ business clients</b>, processing <b>6M+ calls per month</b>.</p>
+      <p>The same team also built LastingSales, a sales CRM for service businesses with lead capture, follow-ups, call recordings and a mobile app.</p>
+    </div>
+  </section>
+
+  <section class="dsec">
+    <div class="eyebrow">The challenges</div>
+    <h2>What had to be solved</h2>
+    <div class="chal">
+      <div><b>&#128222; Calls can't wait</b><span>Voice is real-time: a server restart in the wrong place drops live calls for many companies at once.</span></div>
+      <div><b>&#128451;&#65039; Call records pile up</b><span>Millions of call records a month slowed down reports and the databases behind them.</span></div>
+      <div><b>&#128260; Legacy deployments</b><span>The portal ran on hand-managed servers that were slow and risky to update.</span></div>
+      <div><b>&#128737;&#65039; Carrier security standards</b><span>The operator's security test had findings that had to be fixed on the public web apps.</span></div>
+      <div><b>&#9881;&#65039; Manual server setup</b><span>New CRM servers took long to prepare and every one ended up slightly different.</span></div>
+    </div>
+  </section>
+
+  <section class="dsec">
+    <div class="eyebrow">Architecture</div>
+    <h2>How the platform fits together</h2>
+    <p class="sub">A simplified, generic view of the on-premises platform.</p>
+    <figure class="diagram" style="margin:0">
+      <svg viewBox="0 0 960 440" role="img" aria-labelledby="c1t c1d">
+        <title id="c1t">Cloud PBX architecture</title>
+        <desc id="c1d">Calls arrive from the operator's SIP trunk at a cluster of Kamailio SIP proxies that spread them over Asterisk media servers. Call records go to a replicated MySQL database with an archive, and recordings go to network storage. Portal users reach a floating IP held by Keepalived, HAProxy terminates TLS and balances to a high-availability MicroK8s cluster running the portal, which pulls images from a private registry. Everything runs on VMware hosts with separate networks for signalling, media and management.</desc>
+        <defs><marker id="ca" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#3b82d6"/></marker></defs>
+        <!-- voice path -->
+        <text class="z" x="20" y="24">VOICE</text>
+        <rect class="box" x="20" y="36" width="140" height="60" rx="12"/><text class="t" x="90" y="62" text-anchor="middle">Operator network</text><text class="s" x="90" y="79" text-anchor="middle">SIP trunk</text>
+        <rect class="ok" x="200" y="36" width="170" height="60" rx="10"/><text class="t" x="285" y="62" text-anchor="middle">SIP proxies</text><text class="s" x="285" y="79" text-anchor="middle">Kamailio, 3 nodes</text>
+        <rect class="hot" x="410" y="36" width="190" height="60" rx="10"/><text class="t" x="505" y="62" text-anchor="middle">Media servers</text><text class="s" x="505" y="79" text-anchor="middle">Asterisk, multi-tenant PBX</text>
+        <rect class="box" x="640" y="20" width="140" height="44" rx="10"/><text class="t" x="710" y="40" text-anchor="middle">Call records</text><text class="s" x="710" y="55" text-anchor="middle">MySQL, replicated</text>
+        <rect class="box" x="640" y="72" width="140" height="44" rx="10"/><text class="t" x="710" y="92" text-anchor="middle">Recordings</text><text class="s" x="710" y="107" text-anchor="middle">network storage</text>
+        <rect class="box" x="810" y="20" width="130" height="44" rx="10"/><text class="t" x="875" y="40" text-anchor="middle">Archive DB</text><text class="s" x="875" y="55" text-anchor="middle">after 90 days</text>
+        <path class="lnA" d="M160 66H198" marker-end="url(#ca)"/><path class="lnA" d="M370 66H408" marker-end="url(#ca)"/>
+        <path class="ln" d="M600 58C620 58 620 42 638 42"/><path class="ln" d="M600 74C620 74 620 94 638 94"/><path class="ln" d="M780 42H808"/>
+        <!-- portal path -->
+        <text class="z" x="20" y="166">PORTAL &amp; APPS</text>
+        <rect class="box" x="20" y="178" width="140" height="60" rx="12"/><text class="t" x="90" y="204" text-anchor="middle">Business users</text><text class="s" x="90" y="221" text-anchor="middle">self-service portal</text>
+        <rect class="ok" x="200" y="178" width="170" height="60" rx="10"/><text class="t" x="285" y="202" text-anchor="middle">Floating IP</text><text class="s" x="285" y="219" text-anchor="middle">Keepalived (VRRP)</text>
+        <rect class="box" x="410" y="178" width="190" height="60" rx="10"/><text class="t" x="505" y="202" text-anchor="middle">HAProxy</text><text class="s" x="505" y="219" text-anchor="middle">TLS, health checks</text>
+        <rect class="zone2" x="640" y="156" width="300" height="130" rx="12"/><text class="z" x="654" y="176">KUBERNETES (MICROK8S HA)</text>
+        <rect class="box" x="654" y="188" width="132" height="40" rx="8"/><text class="t" x="720" y="213" text-anchor="middle">Portal frontend</text>
+        <rect class="box" x="794" y="188" width="132" height="40" rx="8"/><text class="t" x="860" y="213" text-anchor="middle">Portal backend</text>
+        <rect class="box" x="654" y="236" width="272" height="36" rx="8"/><text class="t" x="790" y="259" text-anchor="middle">Load balancer: MetalLB</text>
+        <path class="lnA" d="M160 208H198" marker-end="url(#ca)"/><path class="lnA" d="M370 208H408" marker-end="url(#ca)"/><path class="lnA" d="M600 208H638" marker-end="url(#ca)"/>
+        <rect class="box" x="410" y="262" width="190" height="50" rx="10"/><text class="t" x="505" y="284" text-anchor="middle">Private image registry</text><text class="s" x="505" y="300" text-anchor="middle">TLS</text>
+        <path class="ln" d="M600 287H638"/>
+        <!-- foundation -->
+        <rect class="zone" x="20" y="330" width="920" height="94" rx="14"/><text class="z" x="36" y="352">FOUNDATION</text>
+        <rect class="box" x="36" y="362" width="210" height="48" rx="8"/><text class="t" x="141" y="383" text-anchor="middle">VMware hosts</text><text class="s" x="141" y="399" text-anchor="middle">about 20 virtual machines</text>
+        <rect class="box" x="258" y="362" width="210" height="48" rx="8"/><text class="t" x="363" y="383" text-anchor="middle">Separate networks</text><text class="s" x="363" y="399" text-anchor="middle">signalling, media, management</text>
+        <rect class="box" x="480" y="362" width="210" height="48" rx="8"/><text class="t" x="585" y="383" text-anchor="middle">Firewall + VPN</text><text class="s" x="585" y="399" text-anchor="middle">admin access only via VPN</text>
+        <rect class="box" x="702" y="362" width="222" height="48" rx="8"/><text class="t" x="813" y="383" text-anchor="middle">Monitoring</text><text class="s" x="813" y="399" text-anchor="middle">host and service checks</text>
+      </svg>
+      <figcaption>Generic architecture. Hostnames, addresses and customer details are intentionally not shown.</figcaption>
+    </figure>
+  </section>
+
+  <section class="dsec">
+    <div class="eyebrow">What I did</div>
+    <h2>My work, layer by layer</h2>
+    <div class="work">
+      <article class="wk"><div class="ic" aria-hidden="true">&#128222;</div><div>
+        <h3>VoIP platform operations</h3>
+        <p>Kept the voice layer running for thousands of business tenants.</p>
+        <ul>
+          <li>Ran the SIP proxy layer (Kamailio) in front of multiple Asterisk media servers, including Asterisk running in containers.</li>
+          <li>Owned multi-tenant dialplan changes: IVR, queues, time conditions, voicemail, caller-ID masking, call-back and feedback surveys, recording with automatic conversion to MP3.</li>
+          <li>Supervised the team developing custom SIP applications and dialplans for enterprise call routing.</li>
+          <li>Built concurrent-call graphs from call records to plan capacity.</li>
+        </ul>
+        <div class="chips"><span class="chip-s">Asterisk</span><span class="chip-s">Kamailio</span><span class="chip-s">SIP</span><span class="chip-s">Docker</span><span class="chip-s">Python</span></div>
+      </div></article>
+      <article class="wk"><div class="ic" aria-hidden="true">&#9784;&#65039;</div><div>
+        <h3>Kubernetes and high availability for the portal</h3>
+        <ul>
+          <li>Moved the customer portal from hand-managed servers into containers on a high-availability MicroK8s cluster with MetalLB.</li>
+          <li>Put HAProxy in front for TLS termination, health checks and load balancing, with Keepalived holding a floating IP so a failed proxy is replaced automatically.</li>
+          <li>Built a private container registry with TLS for the platform's images.</li>
+          <li>Jenkins pipelines that build Docker images on every push to the development branch and deploy them, for zero-downtime releases.</li>
+        </ul>
+        <div class="chips"><span class="chip-s">Kubernetes (MicroK8s)</span><span class="chip-s">MetalLB</span><span class="chip-s">HAProxy</span><span class="chip-s">Keepalived</span><span class="chip-s">Jenkins</span></div>
+      </div></article>
+      <article class="wk"><div class="ic" aria-hidden="true">&#128451;&#65039;</div><div>
+        <h3>Call-data lifecycle, storage and backups</h3>
+        <ul>
+          <li>Wrote archiving scripts that move call records older than 90 days to an archive database, day by day, with error handling, keeping reports fast.</li>
+          <li>Database backup and restore scripts; replicated MySQL and synced files between voice nodes.</li>
+          <li>Network storage with redundant disk pools and failover network links for recordings.</li>
+        </ul>
+        <div class="chips"><span class="chip-s">MySQL</span><span class="chip-s">Bash</span><span class="chip-s">TrueNAS</span><span class="chip-s">lsyncd</span></div>
+      </div></article>
+      <article class="wk"><div class="ic" aria-hidden="true">&#128737;&#65039;</div><div>
+        <h3>Network and security</h3>
+        <ul>
+          <li>Designed the network with separate VLANs for signalling, media and management on layer-3 switches, behind a firewall with VPN-only admin access.</li>
+          <li>Fixed findings from the operator's web-application security test: server upgrades, security headers (HSTS, CSP, frame protection), debug mode off and stricter upload limits.</li>
+          <li>Wrote the staff off-boarding and credential-rotation process.</li>
+          <li>Monitoring of hosts, services and calls, with centralised metrics and logs.</li>
+        </ul>
+        <div class="chips"><span class="chip-s">VLANs</span><span class="chip-s">pfSense</span><span class="chip-s">Cisco</span><span class="chip-s">Nagios</span><span class="chip-s">Prometheus · Grafana · ELK</span></div>
+      </div></article>
+      <article class="wk"><div class="ic" aria-hidden="true">&#128188;</div><div>
+        <h3>Server automation for the LastingSales CRM</h3>
+        <p>Automated how the CRM's servers are prepared and kept secure.</p>
+        <ul>
+          <li>Ansible playbook that sets up a complete server for the web frontend, the backend and two microservices, with Apache and PM2.</li>
+          <li>Runbook and automation for wildcard TLS certificate renewal through DNS validation.</li>
+          <li>Servers on AWS and Azure, with Jenkins for builds and deployments.</li>
+        </ul>
+        <div class="chips"><span class="chip-s">Ansible</span><span class="chip-s">AWS</span><span class="chip-s">Azure</span><span class="chip-s">Let's Encrypt</span><span class="chip-s">PM2</span></div>
+      </div></article>
+    </div>
+  </section>
+
+  <section class="dsec">
+    <div class="eyebrow">Results</div>
+    <h2>In numbers</h2>
+    <div class="nums">
+      <div class="num"><b>6M+</b><span>calls per month on the platform</span></div>
+      <div class="num"><b>4,000+</b><span>business clients</span></div>
+      <div class="num"><b>90 days</b><span>hot call-record window, older data archived automatically</span></div>
+      <div class="num"><b>Zero</b><span>downtime during portal releases</span></div>
+    </div>
+    <ul class="outcomes">
+      <li>Portal updates without taking the service down</li>
+      <li>No single point of failure at the web entry point</li>
+      <li>Fast reports despite millions of call records</li>
+      <li>Security findings from the carrier fixed</li>
+      <li>CRM servers set up the same way every time</li>
+    </ul>
+  </section>
+
+  <div class="cta-box">
+    <div><h2>Need something similar?</h2><p>I run real-time, high-availability platforms on Kubernetes, on-premises and in the cloud.</p></div>
+    <a class="btn primary" href="../#contact">Get in touch</a>
+  </div>
+</main>
+
+<footer class="foot">© <span id="year"></span> Sufyan Ahmad · DevOps Engineer · Herborn, Germany · <a href="../#projects">Back to client projects</a></footer>
+<script src="../assets/case.js"></script>
+</body>
+</html>
