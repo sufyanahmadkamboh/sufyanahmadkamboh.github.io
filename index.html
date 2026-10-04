@@ -204,6 +204,14 @@
   .cp-result { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 12px; background: color-mix(in srgb, var(--ok) 11%, transparent); color: var(--ok); font-weight: 700; font-size: 14.5px; }
   .cp-result span { font-size: 18px; line-height: 1; }
   .cp .tags { margin-top: 2px; }
+  a.cp { color: var(--ink); }
+  a.cp:hover { text-decoration: none; }
+  .cp-feature { grid-column: 1 / -1; background: radial-gradient(600px 220px at 100% 0%, color-mix(in srgb, var(--accent-strong) 12%, transparent), transparent 70%), var(--surface); }
+  .cp-feature h3 { font-size: 22px; }
+  .cp-badge { margin-left: auto; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; padding: 4px 10px; border-radius: 999px; background: var(--accent-strong); color: #fff; }
+  .cp-points { display: flex; flex-wrap: wrap; gap: 8px; }
+  .cp-points span { font-size: 14px; font-weight: 600; padding: 7px 12px; border-radius: 10px; background: var(--surface-2); border: 1px solid var(--line); }
+  .cp-go { font-weight: 700; color: var(--accent); margin-top: 2px; }
 
   /* teaching labs teaser (cards come from assets/labs.css) */
   .lab-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap; }
@@ -334,6 +342,18 @@
     <h2 class="reveal">Production work for clients and employers</h2>
     <p class="h2-sub reveal">Systems I built and ran for real businesses. The code is confidential, so here is what I did and what it changed.</p>
     <div class="cprojects">
+      <a class="cp cp-feature reveal" href="work/digital-asset-platform.html">
+        <div class="cp-head"><span class="cp-ic" aria-hidden="true">&#127757;</span><div><div class="cp-client">KresusLabs Inc. (USA)</div><div class="cp-via">Client project · via TekHQS · 2026</div></div><span class="cp-badge">Case study</span></div>
+        <h3>Digital-Asset Platform: Cloud Platform, CI/CD &amp; Multi-Region Disaster Recovery</h3>
+        <p>Built the AWS environments with Terraform and EKS, a per-service GitHub Actions and Helm pipeline, private-by-default security, and a hot disaster-recovery copy in a second region that is created, tested and removed with one click.</p>
+        <div class="cp-points">
+          <span>&#127959;&#65039; 16 Terraform stacks, region-portable</span>
+          <span>&#128272; No static CI keys, secrets out of images</span>
+          <span>&#9201;&#65039; 37 s max replica lag in DR test</span>
+        </div>
+        <div class="tags"><span class="tag">AWS EKS</span><span class="tag">Terraform</span><span class="tag">GitHub Actions</span><span class="tag">Helm</span><span class="tag">Secrets Manager</span><span class="tag">WAF</span><span class="tag">Disaster recovery</span></div>
+        <span class="cp-go">Read the case study &rarr;</span>
+      </a>
       <article class="cp reveal">
         <div class="cp-head"><span class="cp-ic" aria-hidden="true">&#128272;</span><div><div class="cp-client">KresusLabs Inc. (USA)</div><div class="cp-via">Client project · via TekHQS</div></div></div>
         <h3>Kresus Crypto Vault: CI/CD &amp; Release Automation</h3>
