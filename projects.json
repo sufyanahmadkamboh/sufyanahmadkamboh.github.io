@@ -298,6 +298,66 @@
         "projects/eks-devsecops/slides/slide-10.webp",
         "projects/eks-devsecops/slides/slide-11.webp"
       ]
+    },
+    {
+      "number": 6,
+      "slug": "docker-from-zero",
+      "name": "Docker From Zero: a complete hands-on Docker learning lab",
+      "simple_name": "Learn Docker by running it, breaking it and fixing it",
+      "status": "published",
+      "date": "2026-10-04",
+      "difficulty": "Beginner",
+      "type": "single-tool depth",
+      "summary": "A free course you download and work through on your own computer. It starts with the very first Docker command and ends with a small three-part website you build, break on purpose, repair and check yourself. Every command in it has been run automatically, so what you read is what happens.",
+      "problem": "Most Docker tutorials only show the happy path. Beginners copy commands without knowing why they work, get stuck at the first real error, and many guides are already out of date with current Docker and database versions.",
+      "benefit": "Learners practise the real failures they will meet at work and learn to find the cause from evidence instead of guessing, with a guided path, labs, challenges, a final project, a two-part video and a printable study guide, using nothing but their own computer.",
+      "tagline": "From your first container to a full application, learned by doing, breaking and fixing.",
+      "primary": "Docker",
+      "secondary": [
+        "Docker Compose",
+        "Dockerfile",
+        "Docker networking",
+        "Docker volumes",
+        "nginx",
+        "PostgreSQL",
+        "Python",
+        "Docker Hub",
+        "GitHub Actions"
+      ],
+      "engineering_problem": "Teaching material that drifts from reality: commands that no longer work, outputs that differ, and failures that are never shown.",
+      "architecture": "23 concept lessons, 18 labs, a 12-chapter tutorial, 10 failure scenarios and 19 challenges around small example apps; the capstone runs nginx (non-root), a Python API (non-root, read-only, limits, health check) and PostgreSQL 18 on a named volume, split across frontend and backend networks, with the password as a secret file. A Markdown test runner executes every lesson on a fresh Docker engine, locally and in GitHub Actions, and writes the real output into the docs.",
+      "unique_capability": "Every one of the lesson commands is executed automatically and the shown outputs are real; the capstone verifies itself with 18 checks; images published for amd64 and arm64; image optimization measured at 1.75 GB -> 212 MB -> 108 MB.",
+      "skills": [
+        "Docker",
+        "Dockerfiles",
+        "Docker Compose",
+        "Container networking",
+        "Volumes",
+        "Image optimization",
+        "Container security basics",
+        "Troubleshooting",
+        "Technical teaching",
+        "Documentation testing"
+      ],
+      "repository": "https://github.com/sufyanahmadkamboh/sufyan-devops-docker-from-zero",
+      "docs": "https://github.com/sufyanahmadkamboh/sufyan-devops-docker-from-zero/blob/main/ROADMAP.md",
+      "study": "https://github.com/sufyanahmadkamboh/sufyan-devops-docker-from-zero/tree/main/study",
+      "study_pdf": "https://github.com/sufyanahmadkamboh/sufyan-devops-docker-from-zero/blob/main/study/study-guide.pdf",
+      "image": "projects/docker-from-zero.png",
+      "linkedin": null,
+      "slides": [
+        "projects/docker-from-zero/slides/slide-01.webp",
+        "projects/docker-from-zero/slides/slide-02.webp",
+        "projects/docker-from-zero/slides/slide-03.webp",
+        "projects/docker-from-zero/slides/slide-04.webp",
+        "projects/docker-from-zero/slides/slide-05.webp",
+        "projects/docker-from-zero/slides/slide-06.webp",
+        "projects/docker-from-zero/slides/slide-07.webp",
+        "projects/docker-from-zero/slides/slide-08.webp",
+        "projects/docker-from-zero/slides/slide-09.webp",
+        "projects/docker-from-zero/slides/slide-10.webp",
+        "projects/docker-from-zero/slides/slide-11.webp"
+      ]
     }
   ]
 }
