@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DevOps Labs | Sufyan Ahmad</title>
+<meta name="description" content="Free, hands-on DevOps labs by Sufyan Ahmad for his students: Docker, Kubernetes, Terraform, Ansible, AWS, CI/CD and monitoring. Each lab has working code, a visual story and a beginner study guide.">
+<meta name="author" content="Sufyan Ahmad">
+<meta property="og:title" content="DevOps Labs | Sufyan Ahmad">
+<meta property="og:description" content="Hands-on DevOps labs with working code, visual stories and beginner study guides.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sufyanahmadkamboh.github.io/labs.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%231b2838'/><text x='32' y='42' font-family='Arial' font-size='26' font-weight='700' fill='%239cc3f0' text-anchor='middle'>SA</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/base.css">
+<link rel="stylesheet" href="assets/labs.css">
+<script>try { var t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+</head>
+<body>
+<nav class="top">
+  <div class="wrap">
+    <a class="brand" href="./"><span class="logo">SA</span><span class="name">Sufyan Ahmad</span></a>
+    <div class="nlinks">
+      <a href="./#experience" class="hide-sm">Experience</a>
+      <a href="./#projects" class="hide-sm">Client projects</a>
+      <a href="labs.html" class="on" aria-current="page">Labs</a>
+      <a href="./#contact" class="hire">Contact me</a>
+      <button class="theme" id="theme" aria-label="Toggle dark mode">◐</button>
+    </div>
+  </div>
+</nav>
+
+<header class="lhero">
+  <div class="wrap">
+    <div class="eyebrow">Teaching labs</div>
+    <h1>Hands-on <span class="grad">DevOps labs</span> for my students</h1>
+    <p class="lead">Real projects you can run on your own laptop. Every lab comes with working code, a short visual story, a beginner-friendly study guide and exercises where you break things on purpose and learn to fix them.</p>
+    <div class="lstats" id="stats"></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="path" id="path" aria-label="Filter by level"></div>
+
+  <div class="toolbar">
+    <label class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 2a8 8 0 016.32 12.9l5.39 5.4-1.41 1.4-5.4-5.39A8 8 0 1110 2zm0 2a6 6 0 100 12 6 6 0 000-12z"/></svg>
+      <input id="q" type="search" placeholder="Search labs: Docker, backups, security…" aria-label="Search labs"></label>
+    <select id="tool" aria-label="Filter by tool"><option value="">All tools</option></select>
+    <select id="sort" aria-label="Sort labs">
+      <option value="path">Learning path (easy first)</option>
+      <option value="new">Newest first</option>
+    </select>
+  </div>
+  <p class="result-line" id="resultLine" aria-live="polite"></p>
+  <div class="lgrid" id="grid"><p class="empty">Loading labs…</p></div>
+</main>
+
+<footer class="foot">© <span id="year"></span> Sufyan Ahmad · DevOps Engineer · Herborn, Germany · <a href="./">Back to portfolio</a></footer>
+
+<script src="assets/labs.js"></script>
+<script>
+(async function () {
+  const L = window.Labs, $ = s => document.querySelector(s);
+  L.theme($("#theme"));
+  $("#year").textContent = new Date().getFullYear();
+  const grid = $("#grid");
+  let items;
+  try { items = await L.load(); }
+  catch (e) { grid.innerHTML = '<p class="empty">The labs could not be loaded. See them on <a href="https://github.com/sufyanahmadkamboh">GitHub</a>.</p>'; return; }
+
+  const slides = items.reduce((a, p) => a + (p.slides || []).length, 0);
+  const guides = items.filter(p => p.study).length;
+  const toolSet = [...new Set(items.flatMap(L.tools))].sort((a, b) => a.localeCompare(b));
+  $("#stats").innerHTML = [[items.length, "labs"], [toolSet.length, "tools covered"], [guides, "study guides"], [slides, "visual slides"]]
+    .map(([n, t]) => `<span class="lstat"><b>${n}</b>${t}</span>`).join("");
+
+  const levels = [
+    ["Beginner", "Start here", "No experience needed"],
+    ["Intermediate", "Build on it", "You know the basics"],
+    ["Senior", "Go deep", "Production-grade systems"]
+  ].filter(([l]) => items.some(p => p.difficulty === l));
+  $("#path").innerHTML = levels.map(([l, t, d], i) => {
+    const c = items.filter(p => p.difficulty === l).length;
+    return `<button class="step ${L.lvClass(l)}" data-level="${l}" aria-pressed="false"><span class="n">${i + 1}</span><b>${l} · ${t}</b><span class="c">${c} ${c === 1 ? "lab" : "labs"}</span><span class="d">${d}</span></button>`;
+  }).join("");
+  $("#tool").insertAdjacentHTML("beforeend", toolSet.map(t => `<option>${L.esc(t)}</option>`).join(""));
+
+  /* state lives in the URL so a filtered view can be shared */
+  const params = new URLSearchParams(location.search);
+  const state = { level: params.get("level") || "", tool: params.get("tool") || "", q: params.get("q") || "", sort: params.get("sort") || "path" };
+  $("#q").value = state.q; $("#tool").value = state.tool; $("#sort").value = state.sort;
+
+  function render() {
+    const q = state.q.trim().toLowerCase();
+    let list = items.filter(p =>
+      (!state.level || p.difficulty === state.level) &&
+      (!state.tool || L.tools(p).includes(state.tool)) &&
+      (!q || [p.name, p.simple_name, p.tagline, p.summary, p.problem, ...L.tools(p), ...(p.skills || [])].join(" ").toLowerCase().includes(q)));
+    list.sort(state.sort === "new" ? (a, b) => b.number - a.number
+                                   : (a, b) => L.levelRank(a.difficulty) - L.levelRank(b.difficulty) || a.number - b.number);
+    document.querySelectorAll(".step").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.level === state.level)));
+    const active = [state.level, state.tool, state.q.trim() && `“${state.q.trim()}”`].filter(Boolean);
+    $("#resultLine").innerHTML = `Showing <b>${list.length}</b> of ${items.length} labs${active.length ? " · " + L.esc(active.join(" · ")) + ' <button id="clear">Clear filters</button>' : ""}`;
+    grid.innerHTML = list.length ? list.map(L.card).join("")
+      : '<div class="empty" style="grid-column:1/-1"><b>No lab matches yet</b>Try another word or <button class="linkish" id="clear2" style="border:0;background:none;color:var(--accent);font:inherit;font-weight:600;cursor:pointer;padding:0">clear the filters</button>.</div>';
+    const clear = () => { Object.assign(state, { level: "", tool: "", q: "" }); $("#q").value = ""; $("#tool").value = ""; sync(); };
+    $("#clear")?.addEventListener("click", clear); $("#clear2")?.addEventListener("click", clear);
+  }
+  function sync() {
+    const p = new URLSearchParams();
+    for (const k of ["level", "tool", "q"]) if (state[k]) p.set(k, state[k]);
+    if (state.sort !== "path") p.set("sort", state.sort);
+    history.replaceState(null, "", location.pathname + (p.toString() ? "?" + p : ""));
+    render();
+  }
+  document.querySelectorAll(".step").forEach(b => b.addEventListener("click", () => { state.level = state.level === b.dataset.level ? "" : b.dataset.level; sync(); }));
+  $("#q").addEventListener("input", e => { state.q = e.target.value; sync(); });
+  $("#tool").addEventListener("change", e => { state.tool = e.target.value; sync(); });
+  $("#sort").addEventListener("change", e => { state.sort = e.target.value; sync(); });
+  render();
+})();
+</script>
+</body>
+</html>

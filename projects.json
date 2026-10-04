@@ -1,5 +1,5 @@
 {
-  "description": "Registry of Sufyan Ahmad's DevOps engineering projects. Rendered by index.html (#lab) and used to keep every new project distinct from the existing ones.",
+  "description": "Registry of Sufyan Ahmad's teaching labs. Rendered by index.html (#lab teaser), labs.html (library) and lab.html?slug= (detail page), and used to keep every new project distinct from the existing ones.",
   "projects": [
     {
       "number": 1,
@@ -56,7 +56,8 @@
       "study_pdf": "https://github.com/sufyanahmadkamboh/sufyan-devops-slo-progressive-delivery/blob/main/study/study-guide.pdf",
       "tagline": "New app versions are tested on a few users first and undone automatically if something breaks.",
       "benefit": "Bad releases reach only a few users for less than a minute and are undone automatically, so teams can release often without fear, and nobody has to watch every release.",
-      "simple_name": "Safe app releases that undo themselves"
+      "simple_name": "Safe app releases that undo themselves",
+      "cover": "projects/slo-progressive-delivery-cover.webp"
     },
     {
       "number": 2,
@@ -117,7 +118,8 @@
         "projects/ansible-server-baseline/slides/slide-09.webp",
         "projects/ansible-server-baseline/slides/slide-10.webp",
         "projects/ansible-server-baseline/slides/slide-11.webp"
-      ]
+      ],
+      "cover": "projects/ansible-server-baseline-cover.webp"
     },
     {
       "number": 3,
@@ -176,7 +178,8 @@
         "projects/postgres-backup-drills/slides/slide-09.webp",
         "projects/postgres-backup-drills/slides/slide-10.webp",
         "projects/postgres-backup-drills/slides/slide-11.webp"
-      ]
+      ],
+      "cover": "projects/postgres-backup-drills-cover.webp"
     },
     {
       "number": 4,
@@ -237,7 +240,8 @@
         "projects/secure-supply-chain/slides/slide-09.webp",
         "projects/secure-supply-chain/slides/slide-10.webp",
         "projects/secure-supply-chain/slides/slide-11.webp"
-      ]
+      ],
+      "cover": "projects/secure-supply-chain-cover.webp"
     },
     {
       "number": 5,
@@ -297,7 +301,8 @@
         "projects/eks-devsecops/slides/slide-09.webp",
         "projects/eks-devsecops/slides/slide-10.webp",
         "projects/eks-devsecops/slides/slide-11.webp"
-      ]
+      ],
+      "cover": "projects/eks-devsecops-cover.webp"
     },
     {
       "number": 6,
@@ -357,7 +362,8 @@
         "projects/docker-from-zero/slides/slide-09.webp",
         "projects/docker-from-zero/slides/slide-10.webp",
         "projects/docker-from-zero/slides/slide-11.webp"
-      ]
+      ],
+      "cover": "projects/docker-from-zero-cover.webp"
     },
     {
       "number": 7,
@@ -419,7 +425,8 @@
         "projects/kubernetes-from-zero/slides/slide-09.webp",
         "projects/kubernetes-from-zero/slides/slide-10.webp",
         "projects/kubernetes-from-zero/slides/slide-11.webp"
-      ]
+      ],
+      "cover": "projects/kubernetes-from-zero-cover.webp"
     },
     {
       "number": 8,
@@ -484,7 +491,8 @@
         "projects/multi-stack-kubernetes/slides/slide-09.webp",
         "projects/multi-stack-kubernetes/slides/slide-10.webp",
         "projects/multi-stack-kubernetes/slides/slide-11.webp"
-      ]
+      ],
+      "cover": "projects/multi-stack-kubernetes-cover.webp"
     }
   ]
 }

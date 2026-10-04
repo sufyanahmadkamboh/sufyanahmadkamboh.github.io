@@ -127,22 +127,6 @@
   .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
   .tag { font-size: 12.5px; background: var(--surface-2); color: var(--ink); border: 1px solid var(--line); padding: 3px 10px; border-radius: 999px; }
 
-  /* projects */
-  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin: -10px 0 22px; }
-  .filter { border: 1px solid var(--line); background: var(--surface); color: var(--ink); padding: 7px 14px; border-radius: 999px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; }
-  .filter.on { background: var(--accent-strong); border-color: var(--accent-strong); color: #fff; }
-  .projects { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
-  .proj { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px 20px 18px; box-shadow: var(--shadow); display: flex; flex-direction: column; transition: transform .2s ease, border-color .2s ease; }
-  .proj:hover { transform: translateY(-4px); border-color: var(--accent-strong); }
-  .proj.hidden { display: none; }
-  .badge { align-self: flex-start; font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; padding: 3px 9px; border-radius: 6px; margin-bottom: 12px; }
-  .badge.pub { background: rgba(31,138,76,.13); color: var(--ok); }
-  .badge.priv { background: var(--surface-2); color: var(--muted); }
-  .proj h3 { margin: 0 0 6px; font-size: 17.5px; }
-  .proj p { margin: 0; color: var(--muted); font-size: 15px; flex: 1; }
-  .proj .result { margin-top: 10px; font-weight: 600; font-size: 14px; color: var(--accent); }
-  .proj .link { font-weight: 600; font-size: 14px; margin-top: 12px; }
-
   /* skills */
   .skills { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; }
   .skills h3 { margin: 0 0 12px; font-size: 15px; display: flex; align-items: center; gap: 8px; }
@@ -202,73 +186,32 @@
     html { scroll-behavior: auto; }
     .reveal { opacity: 1; transform: none; transition: none; }
     .pulse, .cursor { animation: none; }
-    .card, .proj, .btn, .qa { transition: none; }
+    .card, .cp, .btn, .qa { transition: none; }
   }
 
-  /* engineering lab (rendered from projects.json) */
-  .labs { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 18px; }
-  .lab { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); display: flex; flex-direction: column; transition: transform .2s ease, border-color .2s ease; }
-  .lab:hover { transform: translateY(-4px); border-color: var(--accent-strong); }
-  .lab img { width: 100%; aspect-ratio: 1200 / 627; object-fit: cover; display: block; border-bottom: 1px solid var(--line); background: #0c1522; }
-  .lab .body { padding: 16px 18px 18px; display: flex; flex-direction: column; flex: 1; }
-  .lab .meta { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
-  .lab .num { font-family: "JetBrains Mono", monospace; font-size: 12px; font-weight: 600; color: var(--accent); background: var(--surface-2); padding: 2px 8px; border-radius: 6px; }
-  .lab .lvl { font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; padding: 3px 8px; border-radius: 6px; background: rgba(59,130,214,.14); color: var(--accent); }
-  .lab h3 { margin: 0 0 6px; font-size: 17.5px; }
-  .lab p { margin: 0 0 10px; color: var(--muted); font-size: 15px; }
-  .lab .problem { font-size: 14px; }
-  .lab .tech-name { font-size: 13.5px; color: var(--muted); margin: -2px 0 12px; font-style: italic; }
-  .lab .explain { display: grid; gap: 10px; margin-bottom: 4px; }
-  .lab .explain p { margin: 0; font-size: 15px; line-height: 1.55; color: var(--ink); }
-  .lab .explain .lbl { display: block; font-size: 12.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--accent); margin-bottom: 2px; }
-  .lab .links { display: flex; gap: 14px; flex-wrap: wrap; margin-top: auto; padding-top: 12px; font-weight: 600; font-size: 14px; }
-  .labs-empty { color: var(--muted); }
-  .lab .shot { position: relative; display: block; cursor: pointer; border: 0; padding: 0; background: none; width: 100%; }
-  .lab .shot::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 45%, rgba(8,13,21,.78)); transition: opacity .2s; opacity: .9; }
-  .lab .shot:hover::after { opacity: 1; }
-  .lab .play { position: absolute; left: 14px; bottom: 12px; z-index: 1; display: inline-flex; align-items: center; gap: 8px; background: var(--accent-strong); color: #fff;
-               font-weight: 700; font-size: 13.5px; padding: 7px 12px; border-radius: 999px; box-shadow: 0 6px 18px rgba(0,0,0,.35); }
-  .lab .story { margin-top: 12px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: var(--accent-strong); color: #fff;
-                border: 0; border-radius: 10px; padding: 10px 14px; font: inherit; font-weight: 700; font-size: 14.5px; cursor: pointer; }
-  .lab .story:hover { filter: brightness(1.08); }
+  /* client projects */
+  .cprojects { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  @media (max-width: 760px) { .cprojects { grid-template-columns: 1fr; } }
+  .cp { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 22px 22px 20px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 10px; overflow: hidden; transition: transform .2s ease, border-color .2s ease; }
+  .cp::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: linear-gradient(var(--accent-strong), var(--accent-2)); }
+  .cp:hover { transform: translateY(-4px); border-color: var(--accent-strong); }
+  .cp-head { display: flex; align-items: center; gap: 12px; }
+  .cp-ic { width: 44px; height: 44px; flex: none; border-radius: 12px; background: var(--surface-2); display: grid; place-items: center; font-size: 21px; }
+  .cp-client { font-weight: 700; font-size: 14.5px; }
+  .cp-via { font-size: 13px; color: var(--muted); }
+  .cp h3 { margin: 4px 0 0; font-size: 19px; line-height: 1.3; }
+  .cp p { margin: 0; color: var(--muted); font-size: 15px; flex: 1; }
+  .cp-result { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 12px; background: color-mix(in srgb, var(--ok) 11%, transparent); color: var(--ok); font-weight: 700; font-size: 14.5px; }
+  .cp-result span { font-size: 18px; line-height: 1; }
+  .cp .tags { margin-top: 2px; }
 
-  /* visual-story viewer */
-  body.viewer-open { overflow: hidden; }
-  .viewer { position: fixed; inset: 0; z-index: 60; display: none; align-items: center; justify-content: center; padding: 18px; }
-  .viewer.open { display: flex; }
-  .viewer .backdrop { position: absolute; inset: 0; background: rgba(4,8,14,.86); backdrop-filter: blur(6px); }
-  .vbox { position: relative; width: min(1100px, 100%); max-height: 100%; display: grid; grid-template-columns: minmax(0, 1fr) 330px; gap: 22px;
-          background: #0e1724; border: 1px solid #23344d; border-radius: 20px; padding: 20px; box-shadow: 0 30px 80px rgba(0,0,0,.55); color: #e6edf6; }
-  @media (max-width: 860px) { .vbox { grid-template-columns: 1fr; overflow-y: auto; padding: 14px; } }
-  .vstage { position: relative; display: flex; align-items: center; justify-content: center; min-height: 0; }
-  .vstage img { width: auto; max-width: 100%; height: min(78vh, 760px); aspect-ratio: 1080 / 1350; object-fit: contain; border-radius: 14px; background: #0b1420;
-                user-select: none; -webkit-user-drag: none; touch-action: pan-y; }
-  @media (max-width: 860px) { .vstage img { height: auto; width: 100%; max-height: 70vh; } }
-  .vnav { position: absolute; top: 50%; transform: translateY(-50%); width: 48px; height: 48px; border-radius: 50%; border: 1px solid #2f4462;
-          background: rgba(14,23,36,.85); color: #fff; font-size: 26px; line-height: 1; cursor: pointer; display: grid; place-items: center; }
-  .vnav:hover:not(:disabled) { background: var(--accent-strong); border-color: var(--accent-strong); }
-  .vnav:disabled { opacity: .3; cursor: default; }
-  .vprev { left: 6px; } .vnext { right: 6px; }
-  .vside { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
-  .vtop { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
-  .vside .eyebrow { color: #9cc3f0; }
-  .vside h3 { margin: 4px 0 0; font-size: 21px; line-height: 1.25; color: #fff; }
-  .vside .tagline { color: #b9c8db; font-size: 15px; margin: 0; }
-  .vclose { flex: none; width: 40px; height: 40px; border-radius: 10px; border: 1px solid #2f4462; background: transparent; color: #cfdcee; font-size: 20px; cursor: pointer; }
-  .vclose:hover { background: #1b2a40; }
-  .vcount { font-family: "JetBrains Mono", monospace; font-size: 13px; color: #9cc3f0; }
-  .vdots { display: flex; flex-wrap: wrap; gap: 7px; }
-  .vdots button { width: 11px; height: 11px; border-radius: 50%; border: 0; padding: 0; background: #2f4462; cursor: pointer; }
-  .vdots button.on { background: #9cc3f0; transform: scale(1.25); }
-  .vmore { margin-top: auto; border-top: 1px solid #23344d; padding-top: 14px; }
-  .vmore p { margin: 0 0 10px; font-weight: 700; color: #fff; }
-  .vlinks { display: grid; gap: 8px; }
-  .vlinks a { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px; border: 1px solid #263a56; color: #e6eef8; font-weight: 600; font-size: 14.5px; }
-  .vlinks a:hover { border-color: var(--accent-strong); text-decoration: none; background: rgba(59,130,214,.12); }
-  .vlinks a.primary { background: var(--accent-strong); border-color: var(--accent-strong); color: #fff; }
-  .vhint { font-size: 12.5px; color: #8fa3bd; }
-  @media (prefers-reduced-motion: reduce) { .vdots button.on { transform: none; } }
+  /* teaching labs teaser (cards come from assets/labs.css) */
+  .lab-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap; }
+  .lab-head .h2-sub { margin-bottom: 18px; }
+  .lab-all { font-weight: 700; margin-bottom: 26px; white-space: nowrap; }
+  .labs-empty { color: var(--muted); }
 </style>
+<link rel="stylesheet" href="assets/labs.css">
 </head>
 <body>
 <div id="progress"></div>
@@ -279,8 +222,8 @@
     <div class="links">
       <a href="#about" class="hide-sm">About</a>
       <a href="#experience" class="hide-sm">Experience</a>
-      <a href="#projects" class="hide-sm">Projects</a>
-      <a href="#lab" class="hide-sm">Lab</a>
+      <a href="#projects" class="hide-sm">Client projects</a>
+      <a href="labs.html" class="hide-sm">Labs</a>
       <a href="#skills" class="hide-sm">Skills</a>
       <a href="#contact" class="hire">Contact me</a>
       <button class="theme" id="theme" aria-label="Toggle dark mode">◐</button>
@@ -387,51 +330,52 @@
   </section>
 
   <section id="projects">
-    <div class="eyebrow reveal">Projects</div>
-    <h2 class="reveal">Things I've built and run</h2>
-    <p class="h2-sub reveal">Public repositories you can explore, plus private production work for clients and employers.</p>
-    <div class="filters reveal" role="tablist">
-      <button class="filter on" data-f="all">All</button>
-      <button class="filter" data-f="pub">Public on GitHub</button>
-      <button class="filter" data-f="priv">Production (private)</button>
-    </div>
-    <div class="projects">
-      <div class="proj reveal" data-t="pub"><span class="badge pub">Public</span><h3>eks-terraform</h3>
-        <p>Modular Terraform framework for Amazon EKS: custom VPC (public/private subnets), S3 remote state with DynamoDB locking, dev/stage/prod environments and Terraform CI in GitHub Actions.</p>
-        <div class="tags"><span class="tag">Terraform</span><span class="tag">AWS EKS</span><span class="tag">GitHub Actions</span></div>
-        <a class="link" href="https://github.com/sufyanahmadkamboh/eks-terraform" target="_blank" rel="noopener">View repository →</a></div>
-      <div class="proj reveal" data-t="pub"><span class="badge pub">Public</span><h3>server-monitor</h3>
-        <p>Node.js monitoring API for Ubuntu servers reporting CPU, memory, disk, Nginx and PM2 service health, secured with API-key authentication.</p>
-        <div class="tags"><span class="tag">Node.js</span><span class="tag">PM2</span><span class="tag">Nginx</span><span class="tag">Linux</span></div>
-        <a class="link" href="https://github.com/sufyanahmadkamboh/server-monitor" target="_blank" rel="noopener">View repository →</a></div>
-      <div class="proj reveal" data-t="pub"><span class="badge pub">Public</span><h3>bash-scripts-by-sufyan</h3>
-        <p>10 reusable Bash tools for Linux operations: HTTP health checks, TLS-expiry checks, service watchdog with auto-restart, log rotation, backups and UFW firewall rules.</p>
-        <div class="tags"><span class="tag">Bash</span><span class="tag">Linux</span><span class="tag">OpenSSL</span><span class="tag">UFW</span></div>
-        <a class="link" href="https://github.com/sufyanahmadkamboh/bash-scripts-by-sufyan" target="_blank" rel="noopener">View repository →</a></div>
-      <div class="proj reveal" data-t="priv"><span class="badge priv">Private · client project</span><h3>Kresus Crypto Vault: CI/CD &amp; Release Automation</h3>
+    <div class="eyebrow reveal">Client projects</div>
+    <h2 class="reveal">Production work for clients and employers</h2>
+    <p class="h2-sub reveal">Systems I built and ran for real businesses. The code is confidential, so here is what I did and what it changed.</p>
+    <div class="cprojects">
+      <article class="cp reveal">
+        <div class="cp-head"><span class="cp-ic" aria-hidden="true">&#128272;</span><div><div class="cp-client">KresusLabs Inc. (USA)</div><div class="cp-via">Client project · via TekHQS</div></div></div>
+        <h3>Kresus Crypto Vault: CI/CD &amp; Release Automation</h3>
         <p>Redesigned build-and-release pipelines for a US crypto-asset platform; containerized services ship to Kubernetes across environments via Helm and GitOps.</p>
-        <div class="result">→ Deployment time cut by 40%</div>
-        <div class="tags"><span class="tag">Jenkins</span><span class="tag">Helm</span><span class="tag">Kubernetes</span><span class="tag">AWS</span></div></div>
-      <div class="proj reveal" data-t="priv"><span class="badge priv">Private · LastingSales</span><h3>Telecom Platform: Kubernetes Migration</h3>
+        <div class="cp-result"><span aria-hidden="true">&#8599;</span>Deployment time cut by 40%</div>
+        <div class="tags"><span class="tag">Jenkins</span><span class="tag">Helm</span><span class="tag">Kubernetes</span><span class="tag">AWS</span></div>
+      </article>
+      <article class="cp reveal">
+        <div class="cp-head"><span class="cp-ic" aria-hidden="true">&#128222;</span><div><div class="cp-client">LastingSales (HadiTelecom)</div><div class="cp-via">Cloud contact-center platform</div></div></div>
+        <h3>Telecom Platform: Kubernetes Migration</h3>
         <p>Moved legacy applications into Docker containers on Kubernetes (StatefulSets for databases), improving fault tolerance and reducing hosting costs.</p>
-        <div class="result">→ 6M+ calls per month, 4,000+ business clients</div>
-        <div class="tags"><span class="tag">Kubernetes</span><span class="tag">Docker</span><span class="tag">Prometheus</span><span class="tag">Grafana</span></div></div>
-      <div class="proj reveal" data-t="priv"><span class="badge priv">Private · LastingSales</span><h3>Push-to-Deploy CI/CD</h3>
+        <div class="cp-result"><span aria-hidden="true">&#8599;</span>6M+ calls per month, 4,000+ business clients</div>
+        <div class="tags"><span class="tag">Kubernetes</span><span class="tag">Docker</span><span class="tag">Prometheus</span><span class="tag">Grafana</span></div>
+      </article>
+      <article class="cp reveal">
+        <div class="cp-head"><span class="cp-ic" aria-hidden="true">&#128640;</span><div><div class="cp-client">LastingSales (HadiTelecom)</div><div class="cp-via">Release automation</div></div></div>
+        <h3>Push-to-Deploy CI/CD</h3>
         <p>Jenkins pipeline builds Docker images on every push to the development branch and deploys them to AWS.</p>
-        <div class="result">→ Zero-downtime releases</div>
-        <div class="tags"><span class="tag">Jenkins</span><span class="tag">Docker</span><span class="tag">AWS</span></div></div>
-      <div class="proj reveal" data-t="priv"><span class="badge priv">Private · client project</span><h3>RYT Blockchain Platform: Infrastructure as Code</h3>
+        <div class="cp-result"><span aria-hidden="true">&#8599;</span>Zero-downtime releases</div>
+        <div class="tags"><span class="tag">Jenkins</span><span class="tag">Docker</span><span class="tag">AWS</span></div>
+      </article>
+      <article class="cp reveal">
+        <div class="cp-head"><span class="cp-ic" aria-hidden="true">&#9939;&#65039;</span><div><div class="cp-client">RYT Blockchain Platform</div><div class="cp-via">Client project</div></div></div>
+        <h3>RYT Blockchain Platform: Infrastructure as Code</h3>
         <p>Provisioned the platform's blockchain infrastructure as code with Terraform following security best practices.</p>
-        <div class="result">→ Reproducible instead of hand-built environments</div>
-        <div class="tags"><span class="tag">Terraform</span><span class="tag">Linux</span></div></div>
+        <div class="cp-result"><span aria-hidden="true">&#8599;</span>Reproducible instead of hand-built environments</div>
+        <div class="tags"><span class="tag">Terraform</span><span class="tag">Linux</span></div>
+      </article>
     </div>
   </section>
 
   <section id="lab">
-    <div class="eyebrow reveal">Engineering lab</div>
-    <h2 class="reveal">DevOps projects I design, build and test end to end</h2>
-    <p class="h2-sub reveal">Each one solves a real operational problem and is a complete repository: architecture, working code, tests, CI, runbooks and documented failure scenarios.</p>
-    <div class="labs" id="labs"><p class="labs-empty">Loading projects… <noscript>See all repositories on <a href="https://github.com/sufyanahmadkamboh">GitHub</a>.</noscript></p></div>
+    <div class="lab-head">
+      <div>
+        <div class="eyebrow reveal">Teaching labs</div>
+        <h2 class="reveal">Hands-on labs I built for my students</h2>
+        <p class="h2-sub reveal">Real DevOps projects students run on their own laptop: working code, a visual story, a beginner study guide, and exercises where they break things and learn to fix them.</p>
+      </div>
+      <a class="lab-all reveal" href="labs.html">View all labs &rarr;</a>
+    </div>
+    <div class="lstats reveal" id="labStats"></div>
+    <div class="lgrid" id="labs"><p class="labs-empty">Loading labs… <noscript>See the <a href="labs.html">lab library</a>.</noscript></p></div>
   </section>
 
   <section id="skills">
@@ -532,32 +476,9 @@
 <footer>© <span id="year"></span> Sufyan Ahmad · DevOps Engineer · Herborn, Germany</footer>
 
 <a class="float" id="float" href="#contact"><svg viewBox="0 0 24 24"><path d="M20 2H4a2 2 0 00-2 2v18l4-4h14a2 2 0 002-2V4a2 2 0 00-2-2z"/></svg>Let's talk</a>
-<div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-labelledby="vTitle" aria-hidden="true">
-  <div class="backdrop" data-close></div>
-  <div class="vbox">
-    <div class="vstage">
-      <button class="vnav vprev" id="vPrev" aria-label="Previous slide">&#8249;</button>
-      <img id="vImg" alt="">
-      <button class="vnav vnext" id="vNext" aria-label="Next slide">&#8250;</button>
-    </div>
-    <div class="vside">
-      <div class="vtop">
-        <div><div class="eyebrow">Visual story</div><h3 id="vTitle"></h3></div>
-        <button class="vclose" id="vClose" data-close aria-label="Close">&#10005;</button>
-      </div>
-      <p class="tagline" id="vTagline"></p>
-      <div class="vcount" id="vCount" aria-live="polite"></div>
-      <div class="vdots" id="vDots" aria-label="Slides"></div>
-      <div class="vhint">Use &larr; &rarr; keys or swipe</div>
-      <div class="vmore">
-        <p>Want to understand it in depth?</p>
-        <div class="vlinks" id="vLinks"></div>
-      </div>
-    </div>
-  </div>
-</div>
 <div class="toast" id="toast"></div>
 
+<script src="assets/labs.js"></script>
 <script>
 (function () {
   const EMAIL = "sufyanahmad1@gmail.com";
@@ -650,129 +571,35 @@
   }), { threshold: 0.15 });
   $$(".reveal").forEach(el => io.observe(el));
 
-  /* engineering lab: cards rendered from the project registry */
-  (async function renderLab() {
-    const box = $("#labs");
-    const esc = t => String(t).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-    try {
-      const reg = await (await fetch("projects.json", { cache: "no-cache" })).json();
-      const items = (reg.projects || []).filter(p => p.status === "published").sort((a, b) => b.number - a.number);
-      if (!items.length) { box.innerHTML = '<p class="labs-empty">New projects are on the way.</p>'; return; }
-      box.innerHTML = items.map(p => `
-        <article class="lab reveal">
-          ${p.slides && p.slides.length
-            ? `<button class="shot" data-story="${esc(p.slug)}" aria-label="Open the visual story of ${esc(p.name)}"><img src="${esc(p.image)}" alt="${esc(p.name)} architecture" loading="lazy"><span class="play">&#9654; ${p.slides.length}-slide visual story</span></button>`
-            : `<a href="${esc(p.repository)}" target="_blank" rel="noopener"><img src="${esc(p.image)}" alt="${esc(p.name)} architecture" loading="lazy"></a>`}
-          <div class="body">
-            <div class="meta"><span class="num">#${String(p.number).padStart(2, "0")}</span><span class="lvl">${esc(p.difficulty)}</span></div>
-            <h3>${esc(p.simple_name || p.name)}</h3>
-            ${p.simple_name ? `<div class="tech-name">${esc(p.name)}</div>` : ""}
-            <div class="explain">
-              <p><span class="lbl">💡 What it does</span>${esc(p.summary)}</p>
-              <p><span class="lbl">⚠️ The problem</span>${esc(p.problem)}</p>
-              ${p.benefit ? `<p><span class="lbl">✅ Why it helps</span>${esc(p.benefit)}</p>` : ""}
-            </div>
-            <div class="tags">${[p.primary, ...(p.secondary || [])].map(t => `<span class="tag">${esc(t)}</span>`).join("")}</div>
-            ${p.slides && p.slides.length ? `<button class="story" data-story="${esc(p.slug)}">&#9654; View the visual story</button>` : ""}
-            <div class="links">
-              <a href="${esc(p.repository)}" target="_blank" rel="noopener">GitHub →</a>
-              ${p.docs ? `<a href="${esc(p.docs)}" target="_blank" rel="noopener">Architecture</a>` : ""}
-              ${p.study ? `<a href="${esc(p.study)}" target="_blank" rel="noopener">Study guide</a>` : ""}
-              ${p.linkedin ? `<a href="${esc(p.linkedin)}" target="_blank" rel="noopener">LinkedIn post</a>` : ""}
-            </div>
-          </div>
-        </article>`).join("");
-      box.querySelectorAll(".reveal").forEach(el => io.observe(el));
-      setupViewer(items, esc);
-    } catch (e) {
-      box.innerHTML = '<p class="labs-empty">See all projects on <a href="https://github.com/sufyanahmadkamboh" target="_blank" rel="noopener">GitHub</a>.</p>';
-    }
-  })();
-
-  /* visual-story viewer: shows a project's LinkedIn carousel slides, with links to go deeper */
-  function setupViewer(items, esc) {
-    const bySlug = Object.fromEntries(items.filter(p => p.slides && p.slides.length).map(p => [p.slug, p]));
-    const v = $("#viewer"), img = $("#vImg"), dots = $("#vDots"), prev = $("#vPrev"), next = $("#vNext");
-    let cur = null, idx = 0, opener = null, startX = null;
-
-    function links(p) {
-      const l = [[p.repository, "\u{1F4BB} GitHub repository: code, docs and tests", "primary"]];
-      if (p.docs) l.push([p.docs, "\u{1F3D7}️ Architecture and design decisions"]);
-      if (p.study) l.push([p.study, "\u{1F4DA} Study guide (beginner friendly)"]);
-      if (p.study_pdf) l.push([p.study_pdf, "\u{1F4C4} Study guide as one PDF"]);
-      if (p.linkedin) l.push([p.linkedin, "\u{1F4AC} LinkedIn post"]);
-      return l.map(([href, text, cls]) => `<a ${cls ? `class="${cls}"` : ""} href="${esc(href)}" target="_blank" rel="noopener">${text}</a>`).join("");
-    }
-    function show(i) {
-      idx = Math.max(0, Math.min(i, cur.slides.length - 1));
-      img.src = cur.slides[idx];
-      img.alt = `${cur.name}: slide ${idx + 1} of ${cur.slides.length}`;
-      $("#vCount").textContent = `Slide ${idx + 1} / ${cur.slides.length}`;
-      dots.querySelectorAll("button").forEach((d, k) => { d.classList.toggle("on", k === idx); d.setAttribute("aria-current", k === idx ? "true" : "false"); });
-      prev.disabled = idx === 0;
-      next.disabled = idx === cur.slides.length - 1;
-      [idx - 1, idx + 1].forEach(k => { if (cur.slides[k]) { const pre = new Image(); pre.src = cur.slides[k]; } });
-      history.replaceState(null, "", `#story=${cur.slug}&slide=${idx + 1}`);
-    }
-    function open(slug, i = 0) {
-      cur = bySlug[slug]; if (!cur) return;
-      opener = document.activeElement;
-      $("#vTitle").textContent = cur.simple_name || cur.name;
-      $("#vTagline").textContent = cur.tagline || cur.summary;
-      $("#vLinks").innerHTML = links(cur);
-      dots.innerHTML = cur.slides.map((_, k) => `<button aria-label="Go to slide ${k + 1}"></button>`).join("");
-      dots.querySelectorAll("button").forEach((d, k) => d.addEventListener("click", () => show(k)));
-      v.classList.add("open"); v.setAttribute("aria-hidden", "false"); document.body.classList.add("viewer-open");
-      show(i); $("#vClose").focus();
-    }
-    function close() {
-      v.classList.remove("open"); v.setAttribute("aria-hidden", "true"); document.body.classList.remove("viewer-open");
-      history.replaceState(null, "", "#lab");
-      if (opener) opener.focus();
-    }
-    document.addEventListener("click", e => {
-      const t = e.target.closest("[data-story]");
-      if (t) { e.preventDefault(); open(t.dataset.story); }
-    });
-    v.querySelectorAll("[data-close]").forEach(el => el.addEventListener("click", close));
-    prev.addEventListener("click", () => show(idx - 1));
-    next.addEventListener("click", () => show(idx + 1));
-    document.addEventListener("keydown", e => {
-      if (!v.classList.contains("open")) return;
-      if (e.key === "Escape") close();
-      else if (e.key === "ArrowRight") show(idx + 1);
-      else if (e.key === "ArrowLeft") show(idx - 1);
-      else if (e.key === "Tab") {  /* keep keyboard focus inside the dialog */
-        const f = [...v.querySelectorAll("button:not(:disabled), a[href]")];
-        const first = f[0], last = f[f.length - 1];
-        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-      }
-    });
-    img.addEventListener("pointerdown", e => { startX = e.clientX; });
-    img.addEventListener("pointerup", e => {
-      if (startX === null) return;
-      const dx = e.clientX - startX; startX = null;
-      if (Math.abs(dx) > 40) show(idx + (dx < 0 ? 1 : -1));
-      else if (e.pointerType === "mouse") show(idx + 1);
-    });
-    function openFromHash() {  /* deep link: #story=<slug>&slide=N, on page load or when the hash changes */
+  /* teaching labs: newest labs as cards, full catalog on labs.html, details on lab.html */
+  (function () {
+    /* old deep links (#story=<slug>&slide=N) now live on the lab's own page */
+    function legacy() {
       const m = location.hash.match(/story=([\w-]+)(?:&slide=(\d+))?/);
-      if (!m || !bySlug[m[1]]) return;
-      const i = (parseInt(m[2] || "1", 10) || 1) - 1;
-      if (v.classList.contains("open") && cur && cur.slug === m[1]) { show(i); return; }
-      document.getElementById("lab").scrollIntoView();
-      open(m[1], i);
+      if (m) location.replace("lab.html?slug=" + m[1] + (m[2] ? "&slide=" + m[2] : "") + "#story");
+      return !!m;
     }
-    window.addEventListener("hashchange", openFromHash);
-    openFromHash();
-  }
-
-  /* project filters */
-  $$(".filter").forEach(b => b.addEventListener("click", () => {
-    $$(".filter").forEach(x => x.classList.toggle("on", x === b));
-    $$(".proj").forEach(p => p.classList.toggle("hidden", b.dataset.f !== "all" && p.dataset.t !== b.dataset.f));
-  }));
+    addEventListener("hashchange", legacy);
+    if (legacy()) return;
+    const box = $("#labs");
+    window.Labs.load().then(items => {
+      const latest = items.slice().sort((a, b) => b.number - a.number).slice(0, 5);
+      const tools = [...new Set(items.flatMap(window.Labs.tools))];
+      const slides = items.reduce((a, p) => a + (p.slides || []).length, 0);
+      $("#labStats").innerHTML = [[items.length, "labs"], [tools.length, "tools covered"], [items.filter(p => p.study).length, "study guides"], [slides, "visual slides"]]
+        .map(([n, t]) => `<span class="lstat"><b>${n}</b>${t}</span>`).join("");
+      box.innerHTML = latest.map(window.Labs.card).join("") + `
+        <a class="lcta" href="labs.html">
+          <span class="big">${items.length}</span>
+          <h3>Browse all labs</h3>
+          <p>Filter by level or tool and follow the learning path from your first container to production systems.</p>
+          <span class="stack">${["Beginner", "Intermediate", "Senior"].filter(l => items.some(p => p.difficulty === l)).map(l => `<span>${l}</span>`).join("")}</span>
+          <span class="go">Open the lab library &rarr;</span>
+        </a>`;
+    }).catch(() => {
+      box.innerHTML = '<p class="labs-empty">See all labs on <a href="labs.html">the lab library</a> or on <a href="https://github.com/sufyanahmadkamboh" target="_blank" rel="noopener">GitHub</a>.</p>';
+    });
+  })();
 
   /* copy email */
   $("#copyEmail").addEventListener("click", async () => {
