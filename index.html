@@ -36,7 +36,8 @@
   body { margin: 0; font-family: "Inter", "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; font-size: 16px; overflow-x: hidden; }
   a { color: var(--accent); text-decoration: none; }
   a:hover { text-decoration: underline; }
-  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+  :root { --maxw: 1440px; --gutter: clamp(16px, 4vw, 56px); }
+  .wrap { width: min(var(--maxw), 100% - 2 * var(--gutter)); margin-inline: auto; }
   .mono { font-family: "JetBrains Mono", ui-monospace, Consolas, monospace; }
 
   /* progress bar */
@@ -56,18 +57,18 @@
   @media (max-width: 820px) { .links a.hide-sm { display: none; } }
 
   /* hero */
-  .hero { position: relative; background: radial-gradient(1200px 500px at 85% -10%, rgba(59,130,214,.28), transparent 60%), radial-gradient(800px 400px at -10% 110%, rgba(156,195,240,.12), transparent 60%), var(--navy); color: #f3f7fc; padding: 70px 0 110px; overflow: hidden; }
+  .hero { position: relative; background: radial-gradient(1200px 500px at 85% -10%, rgba(59,130,214,.28), transparent 60%), radial-gradient(800px 400px at -10% 110%, rgba(156,195,240,.12), transparent 60%), var(--navy); color: #f3f7fc; padding: 70px 0 110px; overflow: hidden; min-height: calc(100svh - 60px); display: flex; align-items: center; }
   .hero::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(rgba(156,195,240,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(156,195,240,.06) 1px, transparent 1px); background-size: 44px 44px; mask-image: radial-gradient(ellipse at 70% 30%, #000 30%, transparent 75%); pointer-events: none; }
-  .hero .wrap { position: relative; display: grid; grid-template-columns: 1.05fr .95fr; gap: 40px; align-items: center; }
+  .hero .wrap { position: relative; display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(40px, 5vw, 88px); align-items: center; }
   @media (max-width: 920px) { .hero .wrap { grid-template-columns: 1fr; } }
   .status { display: inline-flex; align-items: center; gap: 8px; background: rgba(76,194,134,.12); border: 1px solid rgba(76,194,134,.4); color: #b9f0d2; padding: 5px 12px; border-radius: 999px; font-size: 13.5px; font-weight: 500; }
   .pulse { width: 8px; height: 8px; border-radius: 50%; background: #4cc286; box-shadow: 0 0 0 0 rgba(76,194,134,.7); animation: pulse 2s infinite; }
   @keyframes pulse { 70% { box-shadow: 0 0 0 9px rgba(76,194,134,0); } 100% { box-shadow: 0 0 0 0 rgba(76,194,134,0); } }
-  .hero h1 { font-size: clamp(38px, 6vw, 62px); line-height: 1.04; margin: 18px 0 12px; font-weight: 800; letter-spacing: -1px; }
+  .hero h1 { font-size: clamp(38px, 5vw, 76px); line-height: 1.04; margin: 18px 0 12px; font-weight: 800; letter-spacing: -1px; }
   .hero h1 .grad { background: linear-gradient(90deg, #ffffff, #9cc3f0); -webkit-background-clip: text; background-clip: text; color: transparent; }
   .rotator { font-size: clamp(19px, 2.6vw, 25px); color: #cfe0f5; font-weight: 600; min-height: 2.9em; margin: 0 0 12px; }
   .rotator .word { color: #9cc3f0; border-right: 2px solid #9cc3f0; padding-right: 3px; }
-  .hero p.lead { max-width: 560px; color: #b9c8db; font-size: 17px; margin: 0 0 22px; }
+  .hero p.lead { max-width: 640px; color: #b9c8db; font-size: 17px; margin: 0 0 22px; }
   .facts { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
   .fact { font-size: 13.5px; color: #d6e3f3; background: rgba(156,195,240,.08); border: 1px solid rgba(156,195,240,.22); padding: 5px 11px; border-radius: 8px; }
   .cta { display: flex; flex-wrap: wrap; gap: 10px; }
@@ -98,7 +99,7 @@
   .card .sub { font-size: 14px; color: var(--muted); }
 
   /* sections */
-  section { padding: 76px 0 8px; }
+  section { padding: clamp(76px, 7vw, 112px) 0 8px; }
   .eyebrow { font-size: 13px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; }
   h2 { font-size: clamp(26px, 3.4vw, 34px); margin: 6px 0 10px; letter-spacing: -.5px; }
   .h2-sub { color: var(--muted); margin: 0 0 28px; max-width: 640px; }
@@ -113,7 +114,7 @@
   .imp .t { font-size: 14px; color: var(--muted); }
 
   /* timeline */
-  .timeline { position: relative; }
+  .timeline { position: relative; max-width: 1040px; }
   .job { position: relative; padding: 0 0 30px 34px; }
   .job::before { content: ""; position: absolute; left: 7px; top: 8px; bottom: -8px; width: 2px; background: linear-gradient(var(--accent-strong), var(--line)); }
   .job:last-child::before { display: none; }
@@ -220,6 +221,9 @@
   .lab-head .h2-sub { margin-bottom: 18px; }
   .lab-all { font-weight: 700; margin-bottom: 26px; white-space: nowrap; }
   .labs-empty { color: var(--muted); }
+  #labs { grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 1000px) { #labs { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 680px) { #labs { grid-template-columns: 1fr; } }
 </style>
 <link rel="stylesheet" href="assets/labs.css">
 </head>
@@ -310,7 +314,8 @@
         <h3>DevOps Engineer · <span class="co">TekHQS</span></h3>
         <div class="meta">Client: KresusLabs Inc. (USA), Kresus Crypto Vault crypto-asset platform, plus further Web3/SaaS products</div>
         <ul>
-          <li>Redesigned the CI/CD pipelines with Jenkins, Docker and Helm, <b>reducing deployment time by 40%</b>.</li>
+          <li>Redesigned the CI/CD pipelines with Jenkins, Docker and Helm, <b>reducing deployment time by 40%</b>, with image and container scanning and AWS Secrets Manager.</li>
+          <li>Diagnosed recurring production pod evictions on EKS, built a hardened replacement cluster and rebuilt monitoring as code with Amazon Managed Grafana and CloudWatch (20 dashboards, 35 alert rules).</li>
           <li>Manage <b>100+ AWS resources</b> (EC2, VPC, IAM, ALB, S3) as code with Terraform and Ansible at <b>99.9% infrastructure uptime</b>.</li>
           <li>Built and maintain <b>20+ multi-environment CI/CD pipelines</b> delivering containerized services to Kubernetes via Helm and GitOps.</li>
           <li>Mentor junior DevOps engineers and standardize CI/CD conventions across development teams.</li>
@@ -321,14 +326,15 @@
       <div class="job reveal">
         <div class="when">Nov 2021 – Feb 2024 · Lahore, Pakistan</div>
         <h3>Senior VoIP &amp; DevOps Engineer · <span class="co">LastingSales (HadiTelecom)</span></h3>
-        <div class="meta">Cloud contact-center platform delivered with Zong (China Mobile Pakistan)</div>
+        <div class="meta">Zong vPBX cloud contact-center platform (with Zong, China Mobile Pakistan) and the LastingSales CRM</div>
         <ul>
           <li>Owned the complete production infrastructure of a platform processing <b>6M+ calls per month</b> for <b>4,000+ corporate clients</b>.</li>
           <li>Migrated legacy applications to <b>Kubernetes</b>, improving fault tolerance and reducing hosting costs; ran microservices and stateful databases (Deployments, StatefulSets).</li>
           <li>Built Jenkins CI/CD pipelines for <b>zero-downtime releases</b>, from push to Docker build to AWS deployment.</li>
+          <li>Deployed the LastingSales CRM on <b>Amazon EKS</b> as microservices and integrated it with Zong vPBX so call data syncs into the CRM automatically.</li>
           <li>Centralized monitoring and logging with Prometheus, Grafana and the ELK Stack; automated provisioning with Ansible.</li>
         </ul>
-        <div class="tags"><span class="tag">Kubernetes</span><span class="tag">Docker</span><span class="tag">Jenkins</span><span class="tag">Ansible</span><span class="tag">AWS</span><span class="tag">Prometheus</span><span class="tag">Grafana</span><span class="tag">ELK</span><span class="tag">Linux</span></div>
+        <div class="tags"><span class="tag">Kubernetes</span><span class="tag">Amazon EKS</span><span class="tag">Docker</span><span class="tag">Jenkins</span><span class="tag">Ansible</span><span class="tag">AWS</span><span class="tag">Prometheus</span><span class="tag">Grafana</span><span class="tag">ELK</span><span class="tag">Linux</span></div>
       </div>
       <div class="job reveal">
         <div class="when">Aug 2020 – Oct 2021 · Lahore, Pakistan</div>

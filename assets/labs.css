@@ -159,7 +159,7 @@
 .tools-row .t { font-size: 14px; padding: 6px 13px; border-radius: 10px; background: var(--surface); border: 1px solid var(--line); }
 .tools-row .t.main { background: var(--accent-strong); border-color: var(--accent-strong); color: #fff; font-weight: 700; }
 
-.hood { display: grid; gap: 14px; }
+.hood { display: grid; gap: 14px; max-width: 1040px; }
 .hood details { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow); }
 .hood summary { cursor: pointer; list-style: none; padding: 16px 18px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
 .hood summary::-webkit-details-marker { display: none; }

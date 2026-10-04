@@ -22,7 +22,8 @@ body { margin: 0; font-family: "Inter", "Segoe UI", system-ui, sans-serif; backg
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
 img { max-width: 100%; }
-.wrap { max-width: 1160px; margin: 0 auto; padding: 0 20px; }
+:root { --maxw: 1440px; --gutter: clamp(16px, 4vw, 56px); }
+.wrap { width: min(var(--maxw), 100% - 2 * var(--gutter)); margin-inline: auto; }
 .mono { font-family: "JetBrains Mono", ui-monospace, Consolas, monospace; }
 :focus-visible { outline: 3px solid var(--accent-strong); outline-offset: 2px; }
 

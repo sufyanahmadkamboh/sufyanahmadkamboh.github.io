@@ -7,12 +7,12 @@
 .note b { color: var(--ink); }
 .prose { max-width: 760px; font-size: 16.5px; }
 .prose p { margin: 0 0 14px; }
-.chal { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; }
+.chal { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
 .chal div { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; box-shadow: var(--shadow); }
 .chal b { display: block; margin-bottom: 4px; font-size: 15.5px; }
 .chal span { color: var(--muted); font-size: 14.5px; line-height: 1.55; display: block; }
 .diagram { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 16px; box-shadow: var(--shadow); overflow-x: auto; }
-.diagram svg { display: block; width: 100%; min-width: 820px; height: auto; }
+.diagram svg { display: block; width: 100%; max-width: 1180px; min-width: 820px; height: auto; margin: 0 auto; }
 .diagram figcaption { font-size: 13.5px; color: var(--muted); margin-top: 10px; }
 svg .box { fill: var(--surface-2); stroke: var(--line); stroke-width: 1.5; }
 svg .zone { fill: none; stroke: var(--accent-strong); stroke-width: 1.5; stroke-dasharray: 6 5; }
@@ -25,7 +25,7 @@ svg .z { fill: var(--accent); font: 700 11.5px Inter, system-ui, sans-serif; let
 svg .ln { stroke: var(--muted); stroke-width: 1.6; fill: none; }
 svg .lnA { stroke: var(--accent-strong); stroke-width: 2; fill: none; }
 svg .lnR { stroke: var(--ok); stroke-width: 2; fill: none; stroke-dasharray: 5 4; }
-.work { display: grid; gap: 16px; }
+.work { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(min(600px, 100%), 1fr)); align-items: start; }
 .wk { display: grid; grid-template-columns: 56px 1fr; gap: 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 20px; box-shadow: var(--shadow); }
 @media (max-width: 600px) { .wk { grid-template-columns: 1fr; } }
 .wk .ic { width: 52px; height: 52px; border-radius: 14px; background: var(--surface-2); display: grid; place-items: center; font-size: 25px; }
