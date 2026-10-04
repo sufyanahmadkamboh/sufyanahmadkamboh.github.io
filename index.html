@@ -10,6 +10,11 @@
 <meta property="og:description" content="AWS · Kubernetes · Terraform · CI/CD. 40% faster deployments, 100+ AWS resources at 99.9% uptime, Kubernetes workloads handling 6M+ calls per month.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://sufyanahmadkamboh.github.io/">
+<meta property="og:image" content="https://sufyanahmadkamboh.github.io/assets/img/og-sufyan.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sufyan Ahmad, DevOps Engineer">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%231b2838'/><text x='32' y='42' font-family='Arial' font-size='26' font-weight='700' fill='%239cc3f0' text-anchor='middle'>SA</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -61,6 +66,15 @@
   .hero::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(rgba(156,195,240,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(156,195,240,.06) 1px, transparent 1px); background-size: 44px 44px; mask-image: radial-gradient(ellipse at 70% 30%, #000 30%, transparent 75%); pointer-events: none; }
   .hero .wrap { position: relative; display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(40px, 5vw, 88px); align-items: center; }
   @media (max-width: 920px) { .hero .wrap { grid-template-columns: 1fr; } }
+  .ident { display: flex; align-items: center; gap: clamp(14px, 1.6vw, 22px); flex-wrap: wrap; }
+  .avatar { position: relative; flex: none; width: clamp(88px, 7.5vw, 120px); aspect-ratio: 1; border-radius: 50%; padding: 3px;
+            background: linear-gradient(135deg, #3b82d6, #9cc3f0); box-shadow: 0 14px 34px rgba(0,0,0,.4); }
+  .avatar img { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 3px solid var(--navy); }
+  .avail { position: absolute; right: 7%; bottom: 7%; width: 18%; aspect-ratio: 1; border-radius: 50%; background: #4cc286; border: 3px solid var(--navy); }
+  .me { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+  .me img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; border: 2px solid #3b82d6; }
+  .me b { display: block; color: #fff; font-size: 16px; }
+  .me span span { color: #8fa3bd; font-size: 13.5px; }
   .status { display: inline-flex; align-items: center; gap: 8px; background: rgba(76,194,134,.12); border: 1px solid rgba(76,194,134,.4); color: #b9f0d2; padding: 5px 12px; border-radius: 999px; font-size: 13.5px; font-weight: 500; }
   .pulse { width: 8px; height: 8px; border-radius: 50%; background: #4cc286; box-shadow: 0 0 0 0 rgba(76,194,134,.7); animation: pulse 2s infinite; }
   @keyframes pulse { 70% { box-shadow: 0 0 0 9px rgba(76,194,134,0); } 100% { box-shadow: 0 0 0 0 rgba(76,194,134,0); } }
@@ -248,7 +262,10 @@
 <header class="hero" id="top">
   <div class="wrap">
     <div>
-      <span class="status"><span class="pulse"></span>Open to DevOps, Cloud &amp; Platform roles</span>
+      <div class="ident">
+        <div class="avatar"><img src="assets/img/sufyan-384.webp" srcset="assets/img/sufyan-192.webp 192w, assets/img/sufyan-384.webp 384w" sizes="120px" width="120" height="120" alt="Portrait of Sufyan Ahmad" fetchpriority="high"><span class="avail" title="Available immediately" aria-hidden="true"></span></div>
+        <span class="status"><span class="pulse"></span>Open to DevOps, Cloud &amp; Platform roles</span>
+      </div>
       <h1>Hi, I'm <span class="grad">Sufyan Ahmad</span></h1>
       <p class="rotator">DevOps Engineer · <span class="word" id="word">AWS &amp; Kubernetes</span></p>
       <p class="lead">I build and run cloud platforms, CI/CD pipelines and Infrastructure as Code for live production systems. Currently that's a US crypto-asset platform; before that, a telecom cloud contact center handling more than 6 million calls a month.</p>
@@ -482,6 +499,10 @@
   <section id="contact">
     <div class="contact reveal">
       <div>
+        <div class="me">
+          <img src="assets/img/sufyan-192.webp" width="56" height="56" alt="" loading="lazy">
+          <span><b>Sufyan Ahmad</b><span>DevOps Engineer · Herborn, Germany</span></span>
+        </div>
         <div class="eyebrow">Contact</div>
         <h2>Let's talk about your infrastructure</h2>
         <p>Hiring for a DevOps, Cloud or Platform role? I'm based in Herborn, Germany, with full work authorization (no visa sponsorship needed), and I'm available immediately.</p>
