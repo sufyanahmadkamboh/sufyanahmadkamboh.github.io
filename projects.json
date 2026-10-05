@@ -686,7 +686,8 @@
         "projects/docker-practical-course/slides/slide-09.webp",
         "projects/docker-practical-course/slides/slide-10.webp",
         "projects/docker-practical-course/slides/slide-11.webp"
-      ]
+      ],
+      "cover": "projects/docker-practical-course-cover.webp"
     }
   ]
 }
