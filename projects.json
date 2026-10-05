@@ -309,7 +309,7 @@
       "slug": "docker-from-zero",
       "name": "Docker From Zero: a complete hands-on Docker learning lab",
       "simple_name": "Learn Docker by running it, breaking it and fixing it",
-      "status": hidden,
+      "status": "published",
       "date": "2026-10-04",
       "difficulty": "Beginner",
       "type": "single-tool depth",
