@@ -81,9 +81,9 @@
     ["Beginner", "Start here", "No experience needed"],
     ["Intermediate", "Build on it", "You know the basics"],
     ["Senior", "Go deep", "Production-grade systems"]
-  ].filter(([l]) => items.some(p => p.difficulty === l));
+  ].filter(([l]) => items.some(p => L.hasLevel(p, l)));
   $("#path").innerHTML = levels.map(([l, t, d], i) => {
-    const c = items.filter(p => p.difficulty === l).length;
+    const c = items.filter(p => L.hasLevel(p, l)).length;
     return `<button class="step ${L.lvClass(l)}" data-level="${l}" aria-pressed="false"><span class="n">${i + 1}</span><b>${l} · ${t}</b><span class="c">${c} ${c === 1 ? "lab" : "labs"}</span><span class="d">${d}</span></button>`;
   }).join("");
   $("#tool").insertAdjacentHTML("beforeend", toolSet.map(t => `<option>${L.esc(t)}</option>`).join(""));
@@ -96,7 +96,7 @@
   function render() {
     const q = state.q.trim().toLowerCase();
     let list = items.filter(p =>
-      (!state.level || p.difficulty === state.level) &&
+      (!state.level || L.hasLevel(p, state.level)) &&
       (!state.tool || L.tools(p).includes(state.tool)) &&
       (!q || [p.name, p.simple_name, p.tagline, p.summary, p.problem, ...L.tools(p), ...(p.skills || [])].join(" ").toLowerCase().includes(q)));
     list.sort(state.sort === "new" ? (a, b) => b.number - a.number

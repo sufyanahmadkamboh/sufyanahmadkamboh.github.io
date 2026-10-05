@@ -9,7 +9,14 @@
     "full-lifecycle": "Full lifecycle"
   };
   const typeLabel = t => TYPES[t] || t || "";
-  const levelRank = l => { const i = LEVELS.indexOf(l); return i < 0 ? LEVELS.length : i; };
+  /* "Beginner to Advanced" spans every level from the first to the last, so it matches each of them */
+  const levelsOf = l => {
+    const [a, b] = String(l || "").split(/\s+to\s+/i).map(x => x.trim());
+    const i = LEVELS.indexOf(a), j = LEVELS.indexOf(b);
+    return b && i >= 0 && j >= i ? LEVELS.slice(i, j + 1) : [a];
+  };
+  const hasLevel = (p, l) => levelsOf(p.difficulty).includes(l);
+  const levelRank = l => { const i = LEVELS.indexOf(levelsOf(l)[0]); return i < 0 ? LEVELS.length : i; };
   const lvClass = l => "lv-" + String(l || "").replace(/[^\w-]/g, "");
   const tools = p => [p.primary, ...(p.secondary || [])].filter(Boolean);
   const pad = n => String(n).padStart(2, "0");
@@ -55,5 +62,5 @@
     });
   }
 
-  window.Labs = { esc, load, card, theme, tools, typeLabel, levelRank, lvClass, pad, href };
+  window.Labs = { esc, load, card, theme, tools, typeLabel, levelRank, levelsOf, hasLevel, lvClass, pad, href };
 })();

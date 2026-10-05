@@ -692,7 +692,7 @@
           <span class="big">${items.length}</span>
           <h3>Browse all labs</h3>
           <p>Filter by level or tool and follow the learning path from your first container to production systems.</p>
-          <span class="stack">${["Beginner", "Intermediate", "Senior"].filter(l => items.some(p => p.difficulty === l)).map(l => `<span>${l}</span>`).join("")}</span>
+          <span class="stack">${["Beginner", "Intermediate", "Senior"].filter(l => items.some(p => Labs.hasLevel(p, l))).map(l => `<span>${l}</span>`).join("")}</span>
           <span class="go">Open the lab library &rarr;</span>
         </a>`;
     }).catch(() => {
