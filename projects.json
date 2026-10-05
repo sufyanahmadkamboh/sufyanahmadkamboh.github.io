@@ -493,6 +493,68 @@
         "projects/multi-stack-kubernetes/slides/slide-11.webp"
       ],
       "cover": "projects/multi-stack-kubernetes-cover.webp"
+    },
+    {
+      "number": 9,
+      "slug": "helm-from-zero",
+      "name": "Helm From Zero: Complete Hands-On Helm Learning Lab (charts, values, releases, rollbacks, troubleshooting)",
+      "simple_name": "One recipe for many copies of the same app",
+      "status": "published",
+      "date": "2026-10-05",
+      "difficulty": "Intermediate",
+      "type": "single-tool depth",
+      "summary": "A free course that starts with an online shop set up three times (for testing, rehearsal and real customers) by copying the same long instruction files, and replaces the copies with one reusable recipe plus a short list of differences per environment. You install, update, undo and check the shop the way teams do every week, and practise twelve realistic mistakes.",
+      "problem": "Teams copy the same Kubernetes files for every environment. One change means editing every copy, forgotten copies drift apart, nothing records what was deployed, and passwords end up in the files.",
+      "benefit": "Learners can package an application once, run it in any number of environments from small settings files, see exactly what will change before an update, undo a bad update in one command, and investigate failed deployments with a repeatable method.",
+      "tagline": "From 1,374 lines of copied YAML to one chart, three short values files and a release history.",
+      "primary": "Helm",
+      "secondary": [
+        "Kubernetes",
+        "kind",
+        "Traefik",
+        "PostgreSQL",
+        "OCI registries",
+        "GitHub Actions",
+        "kubeconform"
+      ],
+      "engineering_problem": "Replacing per-environment copies of Kubernetes manifests with a versioned chart, and operating it safely: reviewed upgrades, rollbacks, tests, secrets kept out of values and release history, and diagnosing Helm-specific failures.",
+      "architecture": "The multi-stack Bookshop (five services and PostgreSQL) as raw YAML for three environments, a lesson chart for its frontend, and a production-style chart: one range-driven template for all services, a local PostgreSQL subchart with a condition, a lookup-generated password kept across upgrades, a post-install/post-upgrade hook, Helm tests, an HPA and PodDisruptionBudgets for production. Charts are linted and validated with kubeconform for every values file and published to GHCR as OCI artifacts; every lesson is tested Markdown run on kind with Helm 4.3.",
+      "unique_capability": "Every command in 17 labs, the security and production-chart lessons, 12 troubleshooting scenarios (including immutable selectors, stuck pending-upgrade releases and Helm 4 server-side apply conflicts), 12 challenges and the 19-step capstone runs in CI.",
+      "skills": [
+        "Helm",
+        "Kubernetes",
+        "Chart design",
+        "Go templates",
+        "Values and environments",
+        "Release management",
+        "Upgrades and rollbacks",
+        "Chart dependencies",
+        "Helm hooks and tests",
+        "OCI registries",
+        "Secrets management",
+        "Troubleshooting",
+        "Technical teaching",
+        "Documentation testing"
+      ],
+      "repository": "https://github.com/sufyanahmadkamboh/sufyan-devops-helm-from-zero",
+      "docs": "https://github.com/sufyanahmadkamboh/sufyan-devops-helm-from-zero#learning-roadmap",
+      "study": "https://github.com/sufyanahmadkamboh/sufyan-devops-helm-from-zero/tree/main/study",
+      "study_pdf": "https://github.com/sufyanahmadkamboh/sufyan-devops-helm-from-zero/blob/main/study/study-guide.pdf",
+      "image": "projects/helm-from-zero.png",
+      "linkedin": null,
+      "slides": [
+        "projects/helm-from-zero/slides/slide-01.webp",
+        "projects/helm-from-zero/slides/slide-02.webp",
+        "projects/helm-from-zero/slides/slide-03.webp",
+        "projects/helm-from-zero/slides/slide-04.webp",
+        "projects/helm-from-zero/slides/slide-05.webp",
+        "projects/helm-from-zero/slides/slide-06.webp",
+        "projects/helm-from-zero/slides/slide-07.webp",
+        "projects/helm-from-zero/slides/slide-08.webp",
+        "projects/helm-from-zero/slides/slide-09.webp",
+        "projects/helm-from-zero/slides/slide-10.webp",
+        "projects/helm-from-zero/slides/slide-11.webp"
+      ]
     }
   ]
 }
