@@ -555,6 +555,70 @@
         "projects/helm-from-zero/slides/slide-10.webp",
         "projects/helm-from-zero/slides/slide-11.webp"
       ]
+    },
+    {
+      "number": 10,
+      "slug": "git-practical-course",
+      "name": "Git Practical Course: Git & GitHub From Beginner to Advanced (98 tested lessons, troubleshooting, capstone to Kubernetes)",
+      "simple_name": "A time machine for your files, and how to drive it",
+      "status": "published",
+      "date": "2026-10-05",
+      "difficulty": "Beginner to Advanced",
+      "type": "single-tool depth",
+      "summary": "A free course on the tool every software team uses to keep the history of its work and combine everyone's changes. Ninety-eight short lessons, each with a practice folder, show a step, make a typical mistake on purpose and repair it, so that learners stay calm when something goes wrong at work. It ends with a project that publishes and deploys a small website automatically.",
+      "problem": "People learn Git as a list of commands, then lose time and work on what really happens in teams: conflicts, rejected pushes, lost commits, rewritten history, secrets in the history, team rules.",
+      "benefit": "Learners can work safely in a shared repository, recover from almost any mistake, review and merge changes through pull requests, protect important branches, and release and deploy from Git tags.",
+      "tagline": "98 lessons, 18 troubleshooting labs, 6 projects and a capstone released to Kubernetes; every command tested.",
+      "primary": "Git",
+      "secondary": [
+        "GitHub",
+        "GitHub Actions",
+        "GitHub CLI",
+        "Git LFS",
+        "git-filter-repo",
+        "Docker",
+        "Helm",
+        "Kubernetes (kind)",
+        "GHCR"
+      ],
+      "engineering_problem": "Teaching Git through realistic failures, with every command and output verified automatically, including the GitHub workflows (pull requests, protection, releases, Actions).",
+      "architecture": "Ninety-eight Markdown lessons that are also tests: a runner executes every Bash block in a sandbox (temporary home, ssh shim, own kubeconfig, a copy of the course without .git) and writes the real outputs back. Labs start from deterministic histories, so every learner sees the same commit IDs. CI runs all 1,308 blocks with the latest Git in four parallel groups; 153 blocks run against GitHub. A DevOps template repository (app, Dockerfile, Helm chart, CI) drives module 21, project 6 (tag-driven deploys to kind) and the capstone, whose release workflow pushes to GHCR and deploys with Helm to a kind cluster.",
+      "unique_capability": "Every lesson includes a deliberate mistake and its fix; 18 troubleshooting labs; self-check graders for the projects, the capstone and the final exam; a 23-video series generated from the lessons with two narrator voices and real outputs.",
+      "skills": [
+        "Git",
+        "GitHub",
+        "Branching and merging",
+        "Rebase",
+        "Recovery (reflog, fsck)",
+        "Pull requests and reviews",
+        "Branch protection",
+        "Git hooks",
+        "Git security",
+        "Commit signing",
+        "GitHub Actions",
+        "Release management",
+        "Technical teaching",
+        "Documentation testing"
+      ],
+      "repository": "https://github.com/sufyanahmadkamboh/sufyan-devops-git-practical-course",
+      "docs": "https://github.com/sufyanahmadkamboh/sufyan-devops-git-practical-course#course-map",
+      "study": "https://github.com/sufyanahmadkamboh/sufyan-devops-git-practical-course/tree/main/study",
+      "study_pdf": "https://github.com/sufyanahmadkamboh/sufyan-devops-git-practical-course/blob/main/study/study-guide.pdf",
+      "image": "projects/git-practical-course.png",
+      "linkedin": null,
+      "slides": [
+        "projects/git-practical-course/slides/slide-01.webp",
+        "projects/git-practical-course/slides/slide-02.webp",
+        "projects/git-practical-course/slides/slide-03.webp",
+        "projects/git-practical-course/slides/slide-04.webp",
+        "projects/git-practical-course/slides/slide-05.webp",
+        "projects/git-practical-course/slides/slide-06.webp",
+        "projects/git-practical-course/slides/slide-07.webp",
+        "projects/git-practical-course/slides/slide-08.webp",
+        "projects/git-practical-course/slides/slide-09.webp",
+        "projects/git-practical-course/slides/slide-10.webp",
+        "projects/git-practical-course/slides/slide-11.webp"
+      ]
     }
   ]
 }
