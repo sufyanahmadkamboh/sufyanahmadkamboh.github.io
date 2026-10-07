@@ -43,7 +43,7 @@
           <p>${esc(p.tagline || p.summary)}</p>
           <div class="lcard-tools">${shown.map((x, i) => `<span class="chip-s${i ? "" : " main"}">${esc(x)}</span>`).join("")}${more > 0 ? `<span class="chip-s">+${more}</span>` : ""}</div>
           <div class="lcard-foot">
-            ${p.study ? `<span>${Site.icon("book-open", "sm")}Study guide</span>` : ""}${p.study_pdf ? `<span>${Site.icon("file-text", "sm")}PDF</span>` : ""}
+            ${p.study ? `<span>${Site.icon("book-open", "sm")}Study guide</span>` : ""}${p.study_pdf ? `<span>${Site.icon("file-text", "sm")}PDF</span>` : ""}${p.video ? `<span>${Site.icon("youtube", "sm")}Video</span>` : ""}
             <span class="go">Open lab <span aria-hidden="true">&rarr;</span></span>
           </div>
         </div>

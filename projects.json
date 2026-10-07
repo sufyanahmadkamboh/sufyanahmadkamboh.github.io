@@ -54,6 +54,8 @@
         "projects/slo-progressive-delivery/slides/slide-11.webp"
       ],
       "study_pdf": "https://github.com/sufyanahmadkamboh/sufyan-devops-slo-progressive-delivery/blob/main/study/study-guide.pdf",
+      "video": "https://youtu.be/U_sdKzHRKGE",
+      "video_minutes": 15,
       "tagline": "New app versions are tested on a few users first and undone automatically if something breaks.",
       "benefit": "Bad releases reach only a few users for less than a minute and are undone automatically, so teams can release often without fear, and nobody has to watch every release.",
       "simple_name": "Safe app releases that undo themselves",

@@ -26,10 +26,10 @@
 .lcard-tools { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
 .chip-s { font-size: 12px; padding: 3px 9px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--line); color: var(--ink); white-space: nowrap; }
 .chip-s.main { border-color: color-mix(in srgb, var(--lv) 45%, var(--line)); color: var(--lv); font-weight: 600; }
-.lcard-foot { margin-top: auto; padding-top: 12px; border-top: 1px dashed var(--line); display: flex; align-items: center; gap: 12px; font-size: 13px; color: var(--muted); }
-.lcard-foot > span:not(.go) { display: inline-flex; align-items: center; gap: 5px; }
+.lcard-foot { margin-top: auto; padding-top: 12px; border-top: 1px dashed var(--line); display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; font-size: 13px; color: var(--muted); }
+.lcard-foot > span:not(.go) { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
 .lcard-foot svg.i { width: 15px; height: 15px; color: var(--accent); }
-.lcard-foot .go { margin-left: auto; font-weight: 700; color: var(--accent); display: inline-flex; align-items: center; gap: 4px; transition: gap .2s ease; }
+.lcard-foot .go { margin-left: auto; font-weight: 700; color: var(--accent); display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; transition: gap .2s ease; }
 .lcard:hover .lcard-foot .go { gap: 9px; }
 .lv-Beginner { --lv: var(--lv-beg); } .lv-Intermediate { --lv: var(--lv-int); } .lv-Senior, .lv-Advanced { --lv: var(--lv-sen); }
 

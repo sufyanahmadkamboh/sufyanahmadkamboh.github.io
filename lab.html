@@ -62,6 +62,7 @@
 
   const resources = [
     [p.repository, Site.icon("github", "lg"), "GitHub repository", "All the code, tests, CI and documentation", "primary"],
+    [p.video, Site.icon("youtube", "lg"), "Video walkthrough", `The whole lab explained${p.video_minutes ? ` in ${p.video_minutes} minutes` : ""}, with a real run, on YouTube`],
     [p.study, Site.icon("book-open", "lg"), "Study guide", "Chapter by chapter, written for complete beginners"],
     [p.study_pdf, Site.icon("file-text", "lg"), "Study guide as PDF", "The whole guide in one file to read offline"],
     [p.docs, Site.icon("layers", "lg"), "Architecture & design", "How it is built and why each decision was made"],
@@ -81,6 +82,7 @@
         <p class="lead">${esc(p.tagline || p.summary)}</p>
         <div class="cta">
           ${slides.length ? `<a class="btn primary" href="#story">${Site.icon("play")}Watch the ${slides.length}-slide story</a>` : ""}
+          ${p.video ? `<a class="btn ghost" href="${esc(p.video)}" target="_blank" rel="noopener">${Site.icon("youtube")}Watch the video</a>` : ""}
           <a class="btn ghost" href="${esc(p.repository)}" target="_blank" rel="noopener">Open on GitHub</a>
           ${p.study_pdf ? `<a class="btn ghost" href="${esc(p.study_pdf)}" target="_blank" rel="noopener">Study guide PDF</a>` : ""}
         </div>
