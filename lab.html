@@ -9,12 +9,13 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%231b2838'/><text x='32' y='42' font-family='Arial' font-size='26' font-weight='700' fill='%239cc3f0' text-anchor='middle'>SA</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/base.css">
-<link rel="stylesheet" href="assets/labs.css">
+<link rel="stylesheet" href="assets/base.css?v=20261007">
+<link rel="stylesheet" href="assets/labs.css?v=20261007">
+<link rel="stylesheet" href="assets/site.css?v=20261007">
 <script>try { var t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
 </head>
 <body>
-<nav class="top">
+<nav class="top site-nav" aria-label="Main">
   <div class="wrap">
     <a class="brand" href="./"><span class="logo">SA</span><span class="name">Sufyan Ahmad</span></a>
     <div class="nlinks">
@@ -22,7 +23,7 @@
       <a href="./#projects" class="hide-sm">Client projects</a>
       <a href="labs.html" class="on">Labs</a>
       <a href="./#contact" class="hire">Contact me</a>
-      <button class="theme" id="theme" aria-label="Toggle dark mode">◐</button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Switch theme"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#moon"/></svg></button>
     </div>
   </div>
 </nav>
@@ -31,11 +32,11 @@
 
 <footer class="foot">© <span id="year"></span> Sufyan Ahmad · DevOps Engineer · Herborn, Germany · <a href="labs.html">All labs</a> · <a href="./">Portfolio</a></footer>
 
-<script src="assets/labs.js"></script>
+<script src="assets/site.js?v=20261007"></script>
+<script src="assets/labs.js?v=20261007"></script>
 <script>
 (async function () {
   const L = window.Labs, esc = L.esc, $ = s => document.querySelector(s);
-  L.theme($("#theme"));
   $("#year").textContent = new Date().getFullYear();
   const app = $("#app");
   const params = new URLSearchParams(location.search);
@@ -60,11 +61,11 @@
   const date = p.date ? new Date(p.date + "T00:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) : "";
 
   const resources = [
-    [p.repository, "&#128187;", "GitHub repository", "All the code, tests, CI and documentation", "primary"],
-    [p.study, "&#128218;", "Study guide", "Chapter by chapter, written for complete beginners"],
-    [p.study_pdf, "&#128196;", "Study guide as PDF", "The whole guide in one file to read offline"],
-    [p.docs, "&#127959;&#65039;", "Architecture & design", "How it is built and why each decision was made"],
-    [p.linkedin, "&#128172;", "LinkedIn post", "The short story behind the lab"]
+    [p.repository, Site.icon("github", "lg"), "GitHub repository", "All the code, tests, CI and documentation", "primary"],
+    [p.study, Site.icon("book-open", "lg"), "Study guide", "Chapter by chapter, written for complete beginners"],
+    [p.study_pdf, Site.icon("file-text", "lg"), "Study guide as PDF", "The whole guide in one file to read offline"],
+    [p.docs, Site.icon("layers", "lg"), "Architecture & design", "How it is built and why each decision was made"],
+    [p.linkedin, Site.icon("linkedin", "lg"), "LinkedIn post", "The short story behind the lab"]
   ].filter(r => r[0]);
 
   const tabs = [["overview", "Overview"], slides.length && ["story", "Visual story"], ["learn", "What you'll learn"], ["hood", "Under the hood"], ["resources", "Resources"]].filter(Boolean);
@@ -79,7 +80,7 @@
         ${p.simple_name ? `<p class="tech">${esc(p.name)}</p>` : ""}
         <p class="lead">${esc(p.tagline || p.summary)}</p>
         <div class="cta">
-          ${slides.length ? `<a class="btn primary" href="#story">&#9654; Watch the ${slides.length}-slide story</a>` : ""}
+          ${slides.length ? `<a class="btn primary" href="#story">${Site.icon("play")}Watch the ${slides.length}-slide story</a>` : ""}
           <a class="btn ghost" href="${esc(p.repository)}" target="_blank" rel="noopener">Open on GitHub</a>
           ${p.study_pdf ? `<a class="btn ghost" href="${esc(p.study_pdf)}" target="_blank" rel="noopener">Study guide PDF</a>` : ""}
         </div>
@@ -105,9 +106,9 @@
       <h2>Why this lab exists</h2>
       <p class="sub">The idea in plain words, before any tool names.</p>
       <div class="why">
-        <article class="w1"><div class="ic">&#128161;</div><h3>What it does</h3><p>${esc(p.summary)}</p></article>
-        <article class="w2"><div class="ic">&#9888;&#65039;</div><h3>The problem</h3><p>${esc(p.problem)}</p></article>
-        ${p.benefit ? `<article class="w3"><div class="ic">&#9989;</div><h3>Why it helps</h3><p>${esc(p.benefit)}</p></article>` : ""}
+        <article class="w1"><div class="ic">${Site.icon("lightbulb", "lg")}</div><h3>What it does</h3><p>${esc(p.summary)}</p></article>
+        <article class="w2"><div class="ic">${Site.icon("triangle-alert", "lg")}</div><h3>The problem</h3><p>${esc(p.problem)}</p></article>
+        ${p.benefit ? `<article class="w3"><div class="ic">${Site.icon("circle-check", "lg")}</div><h3>Why it helps</h3><p>${esc(p.benefit)}</p></article>` : ""}
       </div>
     </section>
 
@@ -118,10 +119,10 @@
       <p class="sub">A quick visual walk-through: the problem, the idea, the architecture and the measured results.</p>
       <div class="story">
         <div class="stage" id="stage" tabindex="0" aria-roledescription="carousel" aria-label="Visual story slides">
-          <button class="snav sprev" id="sPrev" aria-label="Previous slide">&#8249;</button>
+          <button class="snav sprev" id="sPrev" aria-label="Previous slide">${Site.icon("chevron-left", "lg")}</button>
           <img id="sImg" alt="">
-          <button class="snav snext" id="sNext" aria-label="Next slide">&#8250;</button>
-          <button class="sfull" id="sFull" aria-label="Full screen" title="Full screen">&#x26F6;</button>
+          <button class="snav snext" id="sNext" aria-label="Next slide">${Site.icon("chevron-right", "lg")}</button>
+          <button class="sfull" id="sFull" aria-label="Full screen" title="Full screen">${Site.icon("maximize")}</button>
         </div>
         <div class="sside">
           <div><div class="scount" id="sCount" aria-live="polite"></div></div>
@@ -147,9 +148,9 @@
       <h2>For engineers: how it is built</h2>
       <p class="sub">The technical details, for when you want to go deeper.</p>
       <div class="hood">
-        ${p.engineering_problem ? `<details open><summary>&#127919; The engineering challenge</summary><div class="body">${esc(p.engineering_problem)}</div></details>` : ""}
-        ${p.architecture ? `<details open><summary>&#127959;&#65039; Architecture</summary><div class="body">${esc(p.architecture)}</div></details>` : ""}
-        ${p.unique_capability ? `<details><summary>&#11088; What makes it special</summary><div class="body">${esc(p.unique_capability)}</div></details>` : ""}
+        ${p.engineering_problem ? `<details open><summary>${Site.icon("target")}The engineering challenge</summary><div class="body">${esc(p.engineering_problem)}</div></details>` : ""}
+        ${p.architecture ? `<details open><summary>${Site.icon("layers")}Architecture</summary><div class="body">${esc(p.architecture)}</div></details>` : ""}
+        ${p.unique_capability ? `<details><summary>${Site.icon("sparkles")}What makes it special</summary><div class="body">${esc(p.unique_capability)}</div></details>` : ""}
       </div>
     </section>
 

@@ -14,13 +14,14 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%231b2838'/><text x='32' y='42' font-family='Arial' font-size='26' font-weight='700' fill='%239cc3f0' text-anchor='middle'>SA</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/base.css">
-<link rel="stylesheet" href="../assets/labs.css">
-<link rel="stylesheet" href="../assets/case.css">
+<link rel="stylesheet" href="../assets/base.css?v=20261007">
+<link rel="stylesheet" href="../assets/labs.css?v=20261007">
+<link rel="stylesheet" href="../assets/case.css?v=20261007">
+<link rel="stylesheet" href="../assets/site.css?v=20261007">
 <script>try { var t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
 </head>
 <body>
-<nav class="top">
+<nav class="top site-nav" aria-label="Main">
   <div class="wrap">
     <a class="brand" href="../"><span class="logo">SA</span><span class="name">Sufyan Ahmad</span></a>
     <div class="nlinks">
@@ -28,7 +29,7 @@
       <a href="../#projects" class="on">Client projects</a>
       <a href="../labs.html" class="hide-sm">Labs</a>
       <a href="../#contact" class="hire">Contact me</a>
-      <button class="theme" id="theme" aria-label="Toggle dark mode">◐</button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Switch theme"><svg class="i" aria-hidden="true"><use href="../assets/icons.svg#moon"/></svg></button>
     </div>
   </div>
 </nav>
@@ -44,7 +45,7 @@
 </header>
 
 <main class="wrap">
-  <div class="note"><span aria-hidden="true">&#128274;</span><span><b>Confidential client work.</b> Product names, domains, account details, regions and internal designs are left out on purpose. This page describes the engineering approach and what I did, not the client's systems.</span></div>
+  <div class="note"><span class="note-ic" aria-hidden="true"><svg class="i" aria-hidden="true"><use href="../assets/icons.svg#lock"/></svg></span><span><b>Confidential client work.</b> Product names, domains, account details, regions and internal designs are left out on purpose. This page describes the engineering approach and what I did, not the client's systems.</span></div>
 
   <section class="dsec" id="context">
     <div class="eyebrow">The context</div>
@@ -59,12 +60,12 @@
     <div class="eyebrow">The challenges</div>
     <h2>What had to be solved</h2>
     <div class="chal">
-      <div><b>&#128230; One codebase, three services</b><span>A monorepo with three service submodules had to deploy all services together, or just the one that changed.</span></div>
-      <div><b>&#128273; Secrets in the wrong places</b><span>App configuration lived in CI secrets and could end up in image layers. It had to move into a proper secret store.</span></div>
-      <div><b>&#127760; Nothing public by accident</b><span>Services needed public HTTPS endpoints without exposing load balancers or the cluster to the internet.</span></div>
-      <div><b>&#127757; Surviving a region outage</b><span>The business needed a hot copy in a second region with minutes of data loss at most, and a safe way to test it.</span></div>
-      <div><b>&#9997;&#65039; Never sign twice</b><span>In a two-region setup, the signing service must only ever be active in one region at a time.</span></div>
-      <div><b>&#128176; Cost control</b><span>Environments and the DR copy had to be cheap to run, and possible to remove completely when not needed.</span></div>
+      <div><b><svg class="i" aria-hidden="true"><use href="../assets/icons.svg#package"/></svg>One codebase, three services</b><span>A monorepo with three service submodules had to deploy all services together, or just the one that changed.</span></div>
+      <div><b><svg class="i" aria-hidden="true"><use href="../assets/icons.svg#key-round"/></svg>Secrets in the wrong places</b><span>App configuration lived in CI secrets and could end up in image layers. It had to move into a proper secret store.</span></div>
+      <div><b><svg class="i" aria-hidden="true"><use href="../assets/icons.svg#network"/></svg>Nothing public by accident</b><span>Services needed public HTTPS endpoints without exposing load balancers or the cluster to the internet.</span></div>
+      <div><b><svg class="i" aria-hidden="true"><use href="../assets/icons.svg#globe"/></svg>Surviving a region outage</b><span>The business needed a hot copy in a second region with minutes of data loss at most, and a safe way to test it.</span></div>
+      <div><b><svg class="i" aria-hidden="true"><use href="../assets/icons.svg#signature"/></svg>Never sign twice</b><span>In a two-region setup, the signing service must only ever be active in one region at a time.</span></div>
+      <div><b><svg class="i" aria-hidden="true"><use href="../assets/icons.svg#wallet"/></svg>Cost control</b><span>Environments and the DR copy had to be cheap to run, and possible to remove completely when not needed.</span></div>
     </div>
   </section>
 
@@ -125,7 +126,7 @@
     <div class="eyebrow">What I did</div>
     <h2>My work, layer by layer</h2>
     <div class="work">
-      <article class="wk"><div class="ic" aria-hidden="true">&#127959;&#65039;</div><div>
+      <article class="wk"><div class="ic" aria-hidden="true"><svg class="i lg" aria-hidden="true"><use href="../assets/icons.svg#layers"/></svg></div><div>
         <h3>Infrastructure as code with Terraform</h3>
         <p>Built the development and staging environments on AWS as independent Terraform stacks, each with its own remote state and locking, applied in a defined order.</p>
         <ul>
@@ -136,7 +137,7 @@
         </ul>
         <div class="chips"><span class="chip-s">Terraform</span><span class="chip-s">AWS VPC</span><span class="chip-s">Amazon EKS</span><span class="chip-s">RDS PostgreSQL</span><span class="chip-s">ElastiCache Redis</span></div>
       </div></article>
-      <article class="wk"><div class="ic" aria-hidden="true">&#128640;</div><div>
+      <article class="wk"><div class="ic" aria-hidden="true"><svg class="i lg" aria-hidden="true"><use href="../assets/icons.svg#rocket"/></svg></div><div>
         <h3>CI/CD for a monorepo with service submodules</h3>
         <p>Designed the GitHub Actions pipeline that builds one image for all backend services and deploys them with a shared Helm chart.</p>
         <ul>
@@ -147,7 +148,7 @@
         </ul>
         <div class="chips"><span class="chip-s">GitHub Actions</span><span class="chip-s">Docker BuildKit</span><span class="chip-s">Amazon ECR</span><span class="chip-s">Helm</span><span class="chip-s">CloudFront</span></div>
       </div></article>
-      <article class="wk"><div class="ic" aria-hidden="true">&#128737;&#65039;</div><div>
+      <article class="wk"><div class="ic" aria-hidden="true"><svg class="i lg" aria-hidden="true"><use href="../assets/icons.svg#shield"/></svg></div><div>
         <h3>Security hardening</h3>
         <p>Made private-by-default the rule at every layer.</p>
         <ul>
@@ -159,7 +160,7 @@
         </ul>
         <div class="chips"><span class="chip-s">IAM / OIDC</span><span class="chip-s">Secrets Manager</span><span class="chip-s">External Secrets</span><span class="chip-s">AWS WAF</span><span class="chip-s">KMS</span></div>
       </div></article>
-      <article class="wk"><div class="ic" aria-hidden="true">&#127757;</div><div>
+      <article class="wk"><div class="ic" aria-hidden="true"><svg class="i lg" aria-hidden="true"><use href="../assets/icons.svg#globe"/></svg></div><div>
         <h3>One-click multi-region disaster recovery</h3>
         <p>Turned the whole platform into a region-portable copy that runs hot in a second AWS region.</p>
         <ul>
@@ -171,7 +172,7 @@
         </ul>
         <div class="chips"><span class="chip-s">Terraform</span><span class="chip-s">RDS read replicas</span><span class="chip-s">DynamoDB global tables</span><span class="chip-s">S3 replication</span><span class="chip-s">Route 53 health checks</span></div>
       </div></article>
-      <article class="wk"><div class="ic" aria-hidden="true">&#128200;</div><div>
+      <article class="wk"><div class="ic" aria-hidden="true"><svg class="i lg" aria-hidden="true"><use href="../assets/icons.svg#chart-line"/></svg></div><div>
         <h3>Monitoring and audit</h3>
         <p>Set up the visibility a regulated platform needs: an account-wide audit trail including key usage, configuration history, threat detection, network flow logs and CloudWatch alarms.</p>
         <div class="chips"><span class="chip-s">CloudTrail</span><span class="chip-s">AWS Config</span><span class="chip-s">GuardDuty</span><span class="chip-s">VPC Flow Logs</span><span class="chip-s">CloudWatch</span></div>
@@ -242,6 +243,7 @@
 </main>
 
 <footer class="foot">© <span id="year"></span> Sufyan Ahmad · DevOps Engineer · Herborn, Germany · <a href="../#projects">Back to client projects</a></footer>
-<script src="../assets/case.js"></script>
+<script src="../assets/site.js?v=20261007"></script>
+<script src="../assets/case.js?v=20261007"></script>
 </body>
 </html>

@@ -13,13 +13,14 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%231b2838'/><text x='32' y='42' font-family='Arial' font-size='26' font-weight='700' fill='%239cc3f0' text-anchor='middle'>SA</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/base.css">
-<link rel="stylesheet" href="../assets/labs.css">
-<link rel="stylesheet" href="../assets/case.css">
+<link rel="stylesheet" href="../assets/base.css?v=20261007">
+<link rel="stylesheet" href="../assets/labs.css?v=20261007">
+<link rel="stylesheet" href="../assets/case.css?v=20261007">
+<link rel="stylesheet" href="../assets/site.css?v=20261007">
 <script>try { var t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
 </head>
 <body>
-<nav class="top">
+<nav class="top site-nav" aria-label="Main">
   <div class="wrap">
     <a class="brand" href="../"><span class="logo">SA</span><span class="name">Sufyan Ahmad</span></a>
     <div class="nlinks">
@@ -27,7 +28,7 @@
       <a href="../#projects" class="on">Client projects</a>
       <a href="../labs.html" class="hide-sm">Labs</a>
       <a href="../#contact" class="hire">Contact me</a>
-      <button class="theme" id="theme" aria-label="Toggle dark mode">◐</button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Switch theme"><svg class="i" aria-hidden="true"><use href="../assets/icons.svg#moon"/></svg></button>
     </div>
   </div>
 </nav>
@@ -43,7 +44,7 @@
 </header>
 
 <main class="wrap">
-  <div class="note"><span aria-hidden="true">&#128274;</span><span><b>Confidential work.</b> Customer names, hostnames, addresses and internal documents are left out on purpose. This page describes the engineering approach and what I did.</span></div>
+  <div class="note"><span class="note-ic" aria-hidden="true"><svg class="i" aria-hidden="true"><use href="../assets/icons.svg#lock"/></svg></span><span><b>Confidential work.</b> Customer names, hostnames, addresses and internal documents are left out on purpose. This page describes the engineering approach and what I did.</span></div>
 
   <section class="dsec">
     <div class="eyebrow">The context</div>
@@ -59,12 +60,12 @@
     <div class="eyebrow">The challenges</div>
     <h2>What had to be solved</h2>
     <div class="chal">
-      <div><b>&#128222; Calls can't wait</b><span>Voice is real-time: a server restart in the wrong place drops live calls for many companies at once.</span></div>
-      <div><b>&#128451;&#65039; Call records pile up</b><span>Millions of call records a month slowed down reports and the databases behind them.</span></div>
-      <div><b>&#128260; Legacy deployments</b><span>The portal ran on hand-managed servers that were slow and risky to update.</span></div>
-      <div><b>&#128737;&#65039; Carrier security standards</b><span>The operator's security test had findings that had to be fixed on the public web apps.</span></div>
-      <div><b>&#128279; Two products, one customer</b><span>Clients using the phone system and the CRM needed their call data in the CRM automatically.</span></div>
-      <div><b>&#128200; A growing CRM</b><span>The CRM's services had to deploy, scale and be monitored independently, with reliable backups.</span></div>
+      <div><b><svg class="i" aria-hidden="true"><use href="../assets/icons.svg#phone"/></svg>Calls can't wait</b><span>Voice is real-time: a server restart in the wrong place drops live calls for many companies at once.</span></div>
+      <div><b><svg class="i" aria-hidden="true"><use href="../assets/icons.svg#archive"/></svg>Call records pile up</b><span>Millions of call records a month slowed down reports and the databases behind them.</span></div>
+      <div><b><svg class="i" aria-hidden="true"><use href="../assets/icons.svg#refresh-cw"/></svg>Legacy deployments</b><span>The portal ran on hand-managed servers that were slow and risky to update.</span></div>
+      <div><b><svg class="i" aria-hidden="true"><use href="../assets/icons.svg#shield"/></svg>Carrier security standards</b><span>The operator's security test had findings that had to be fixed on the public web apps.</span></div>
+      <div><b><svg class="i" aria-hidden="true"><use href="../assets/icons.svg#link"/></svg>Two products, one customer</b><span>Clients using the phone system and the CRM needed their call data in the CRM automatically.</span></div>
+      <div><b><svg class="i" aria-hidden="true"><use href="../assets/icons.svg#chart-line"/></svg>A growing CRM</b><span>The CRM's services had to deploy, scale and be monitored independently, with reliable backups.</span></div>
     </div>
   </section>
 
@@ -148,7 +149,7 @@
     <div class="eyebrow">What I did</div>
     <h2>My work, layer by layer</h2>
     <div class="work">
-      <article class="wk"><div class="ic" aria-hidden="true">&#128222;</div><div>
+      <article class="wk"><div class="ic" aria-hidden="true"><svg class="i lg" aria-hidden="true"><use href="../assets/icons.svg#phone"/></svg></div><div>
         <h3>VoIP platform operations</h3>
         <p>Kept the voice layer running for thousands of business tenants.</p>
         <ul>
@@ -159,7 +160,7 @@
         </ul>
         <div class="chips"><span class="chip-s">Asterisk</span><span class="chip-s">Kamailio</span><span class="chip-s">SIP</span><span class="chip-s">Docker</span><span class="chip-s">Python</span></div>
       </div></article>
-      <article class="wk"><div class="ic" aria-hidden="true">&#9784;&#65039;</div><div>
+      <article class="wk"><div class="ic" aria-hidden="true"><svg class="i lg" aria-hidden="true"><use href="../assets/icons.svg#ship-wheel"/></svg></div><div>
         <h3>Kubernetes and high availability for the portal</h3>
         <ul>
           <li>Moved the customer portal from hand-managed servers into containers on a high-availability MicroK8s cluster with MetalLB.</li>
@@ -169,7 +170,7 @@
         </ul>
         <div class="chips"><span class="chip-s">Kubernetes (MicroK8s)</span><span class="chip-s">MetalLB</span><span class="chip-s">HAProxy</span><span class="chip-s">Keepalived</span><span class="chip-s">Jenkins</span></div>
       </div></article>
-      <article class="wk"><div class="ic" aria-hidden="true">&#128451;&#65039;</div><div>
+      <article class="wk"><div class="ic" aria-hidden="true"><svg class="i lg" aria-hidden="true"><use href="../assets/icons.svg#archive"/></svg></div><div>
         <h3>Call-data lifecycle, storage and backups</h3>
         <ul>
           <li>Wrote archiving scripts that move call records older than 90 days to an archive database, day by day, with error handling, keeping reports fast.</li>
@@ -178,7 +179,7 @@
         </ul>
         <div class="chips"><span class="chip-s">MySQL</span><span class="chip-s">Bash</span><span class="chip-s">TrueNAS</span><span class="chip-s">lsyncd</span></div>
       </div></article>
-      <article class="wk"><div class="ic" aria-hidden="true">&#128737;&#65039;</div><div>
+      <article class="wk"><div class="ic" aria-hidden="true"><svg class="i lg" aria-hidden="true"><use href="../assets/icons.svg#shield"/></svg></div><div>
         <h3>Network and security</h3>
         <ul>
           <li>Designed the network with separate VLANs for signalling, media and management on layer-3 switches, behind a firewall with VPN-only admin access.</li>
@@ -188,7 +189,7 @@
         </ul>
         <div class="chips"><span class="chip-s">VLANs</span><span class="chip-s">pfSense</span><span class="chip-s">Cisco</span><span class="chip-s">Nagios</span></div>
       </div></article>
-      <article class="wk"><div class="ic" aria-hidden="true">&#128188;</div><div>
+      <article class="wk"><div class="ic" aria-hidden="true"><svg class="i lg" aria-hidden="true"><use href="../assets/icons.svg#briefcase"/></svg></div><div>
         <h3>LastingSales CRM on Amazon EKS</h3>
         <p>Managed the CRM's AWS infrastructure and moved it onto Kubernetes as multi-container microservices.</p>
         <ul>
@@ -200,7 +201,7 @@
         </ul>
         <div class="chips"><span class="chip-s">AWS</span><span class="chip-s">Amazon EKS</span><span class="chip-s">Docker</span><span class="chip-s">Jenkins (Groovy)</span><span class="chip-s">Prometheus</span><span class="chip-s">Grafana</span><span class="chip-s">Ansible</span></div>
       </div></article>
-      <article class="wk"><div class="ic" aria-hidden="true">&#128279;</div><div>
+      <article class="wk"><div class="ic" aria-hidden="true"><svg class="i lg" aria-hidden="true"><use href="../assets/icons.svg#link"/></svg></div><div>
         <h3>Connecting the phone system to the CRM</h3>
         <p>Linked the two products so clients who use both never copy call data by hand.</p>
         <ul>
@@ -238,6 +239,7 @@
 </main>
 
 <footer class="foot">© <span id="year"></span> Sufyan Ahmad · DevOps Engineer · Herborn, Germany · <a href="../#projects">Back to client projects</a></footer>
-<script src="../assets/case.js"></script>
+<script src="../assets/site.js?v=20261007"></script>
+<script src="../assets/case.js?v=20261007"></script>
 </body>
 </html>

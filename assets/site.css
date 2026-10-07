@@ -1,0 +1,100 @@
+/* Shared site chrome for every page: theme tokens for the nav, hero, terminal and contact areas,
+   Lucide icons, the theme toggle and the mobile menu. Light values first, dark values below. */
+:root {
+  color-scheme: light;
+  --nav-bg: rgba(255,255,255,.86); --nav-line: #dbe3ee; --nav-ink: #3a4a60; --nav-ink-strong: #142030;
+  --ctl-line: #cfd9e6; --ctl-bg: #ffffff; --ctl-hover: #eef3fa; --menu-bg: #ffffff;
+  --brand-ink: #142030; --logo-bg: #e8f0fa; --logo-line: #c9d8ea; --logo-ink: #1d5fa8;
+
+  --hero-base: #eef4fc; --hero-glow-1: rgba(59,130,214,.16); --hero-glow-2: rgba(29,95,168,.08); --hero-grid: rgba(29,95,168,.07);
+  --hero-ink: #142030; --hero-ink-2: #2a4366; --hero-accent: #1d5fa8; --hero-muted: #46546a; --hero-dim: #5f6f86;
+  --hero-chip-bg: rgba(255,255,255,.72); --hero-chip-line: #cddbec; --hero-chip-ink: #2a3a50;
+  --grad-from: #142030; --grad-to: #2f74c4;
+  --ghost-line: #c6d4e6; --ghost-ink: #1b2a3e; --ghost-bg: rgba(255,255,255,.75);
+  --status-bg: rgba(31,138,76,.10); --status-line: rgba(31,138,76,.35); --status-ink: #17683a;
+  --stat-ink: #0f2c52;
+
+  --term-bg: #ffffff; --term-bar: #f1f5fb; --term-line: #d5e0ee; --term-ink: #24364d; --term-cmd: #0f1d2e; --term-dim: #66778e;
+  --term-ok: #1a7a43; --term-key: #1d5fa8; --term-num: #a35a00; --term-shadow: 0 24px 50px rgba(20,32,48,.14);
+
+  --contact-base: #eaf1fb; --contact-glow: rgba(59,130,214,.18); --contact-ink: #1b2a3e; --contact-head: #0f1d2e;
+  --contact-muted: #4f5d72; --contact-k: #5f6f86; --contact-line: #cbd9ea; --contact-card: rgba(255,255,255,.78);
+  --contact-ic-bg: rgba(29,95,168,.10); --contact-ic: #1d5fa8; --contact-eyebrow: #1d5fa8;
+  --field-bg: #ffffff; --field-ink: #142030; --chip-line: #c6d4e6; --chip-ink: #2a3a50; --err: #b42318;
+
+  --cta-base: #1a4f8f; --cta-glow: rgba(156,195,240,.35); --cta-line: rgba(255,255,255,.32);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --nav-bg: rgba(8,13,21,.92); --nav-line: rgba(156,195,240,.12); --nav-ink: #cfdcee; --nav-ink-strong: #ffffff;
+    --ctl-line: #2f4462; --ctl-bg: transparent; --ctl-hover: rgba(156,195,240,.10); --menu-bg: #0b121c;
+    --brand-ink: #ffffff; --logo-bg: #0f1724; --logo-line: #2f4462; --logo-ink: #9cc3f0;
+    --hero-base: #080d15; --hero-glow-1: rgba(59,130,214,.28); --hero-glow-2: rgba(156,195,240,.12); --hero-grid: rgba(156,195,240,.06);
+    --hero-ink: #f3f7fc; --hero-ink-2: #cfe0f5; --hero-accent: #9cc3f0; --hero-muted: #b9c8db; --hero-dim: #8fa3bd;
+    --hero-chip-bg: rgba(156,195,240,.08); --hero-chip-line: rgba(156,195,240,.22); --hero-chip-ink: #d6e3f3;
+    --grad-from: #ffffff; --grad-to: #9cc3f0;
+    --ghost-line: #2f4462; --ghost-ink: #e2ecf8; --ghost-bg: rgba(255,255,255,.02);
+    --status-bg: rgba(76,194,134,.12); --status-line: rgba(76,194,134,.4); --status-ink: #b9f0d2;
+    --stat-ink: #f3f7fc;
+    --term-bg: #0a1019; --term-bar: #101a28; --term-line: #22344d; --term-ink: #cfe0f5; --term-cmd: #ffffff; --term-dim: #7f93ad;
+    --term-ok: #4cc286; --term-key: #9cc3f0; --term-num: #ffd479; --term-shadow: 0 30px 60px rgba(0,0,0,.45);
+    --contact-base: #080d15; --contact-glow: rgba(59,130,214,.3); --contact-ink: #e6eef8; --contact-head: #ffffff;
+    --contact-muted: #b9c8db; --contact-k: #8fa3bd; --contact-line: #263a56; --contact-card: rgba(255,255,255,.04);
+    --contact-ic-bg: rgba(59,130,214,.2); --contact-ic: #9cc3f0; --contact-eyebrow: #9cc3f0;
+    --field-bg: #0a1019; --field-ink: #f3f7fc; --chip-line: #2f4462; --chip-ink: #cfdcee; --err: #ffb4a8;
+    --cta-base: #080d15; --cta-glow: rgba(59,130,214,.45); --cta-line: #2f4462;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --nav-bg: rgba(8,13,21,.92); --nav-line: rgba(156,195,240,.12); --nav-ink: #cfdcee; --nav-ink-strong: #ffffff;
+  --ctl-line: #2f4462; --ctl-bg: transparent; --ctl-hover: rgba(156,195,240,.10); --menu-bg: #0b121c;
+  --brand-ink: #ffffff; --logo-bg: #0f1724; --logo-line: #2f4462; --logo-ink: #9cc3f0;
+  --hero-base: #080d15; --hero-glow-1: rgba(59,130,214,.28); --hero-glow-2: rgba(156,195,240,.12); --hero-grid: rgba(156,195,240,.06);
+  --hero-ink: #f3f7fc; --hero-ink-2: #cfe0f5; --hero-accent: #9cc3f0; --hero-muted: #b9c8db; --hero-dim: #8fa3bd;
+  --hero-chip-bg: rgba(156,195,240,.08); --hero-chip-line: rgba(156,195,240,.22); --hero-chip-ink: #d6e3f3;
+  --grad-from: #ffffff; --grad-to: #9cc3f0;
+  --ghost-line: #2f4462; --ghost-ink: #e2ecf8; --ghost-bg: rgba(255,255,255,.02);
+  --status-bg: rgba(76,194,134,.12); --status-line: rgba(76,194,134,.4); --status-ink: #b9f0d2;
+  --stat-ink: #f3f7fc;
+  --term-bg: #0a1019; --term-bar: #101a28; --term-line: #22344d; --term-ink: #cfe0f5; --term-cmd: #ffffff; --term-dim: #7f93ad;
+  --term-ok: #4cc286; --term-key: #9cc3f0; --term-num: #ffd479; --term-shadow: 0 30px 60px rgba(0,0,0,.45);
+  --contact-base: #080d15; --contact-glow: rgba(59,130,214,.3); --contact-ink: #e6eef8; --contact-head: #ffffff;
+  --contact-muted: #b9c8db; --contact-k: #8fa3bd; --contact-line: #263a56; --contact-card: rgba(255,255,255,.04);
+  --contact-ic-bg: rgba(59,130,214,.2); --contact-ic: #9cc3f0; --contact-eyebrow: #9cc3f0;
+  --field-bg: #0a1019; --field-ink: #f3f7fc; --chip-line: #2f4462; --chip-ink: #cfdcee; --err: #ffb4a8;
+  --cta-base: #080d15; --cta-glow: rgba(59,130,214,.45); --cta-line: #2f4462;
+}
+
+:focus-visible { outline: 3px solid var(--accent-strong, #3b82d6); outline-offset: 2px; }
+
+/* Lucide icons (assets/icons.svg). Sizes: 16 small UI, 18 actions/nav, 20-22 feature icons. */
+svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; vertical-align: -3px; }
+svg.i.sm { width: 16px; height: 16px; }
+svg.i.lg { width: 22px; height: 22px; }
+
+/* nav icon controls: theme toggle + menu button share one look */
+.icon-btn { display: inline-grid; place-items: center; width: 38px; height: 38px; padding: 0; border-radius: 10px; cursor: pointer;
+            background: var(--ctl-bg); border: 1px solid var(--ctl-line); color: var(--nav-ink-strong); transition: background .15s ease, border-color .15s ease, color .15s ease; }
+.icon-btn:hover { background: var(--ctl-hover); border-color: var(--accent-strong, #3b82d6); }
+.icon-btn:focus-visible { outline: 3px solid var(--accent-strong, #3b82d6); outline-offset: 2px; }
+.icon-btn svg.i { width: 19px; height: 19px; }
+.menu-btn { display: none; }
+
+/* mobile menu (built by site.js from the nav links) */
+.mnav { position: absolute; left: 0; right: 0; top: 100%; background: var(--menu-bg); max-height: calc(100svh - 60px); overflow-y: auto;
+        border-bottom: 1px solid var(--nav-line); box-shadow: 0 18px 40px rgba(8,13,21,.18); }
+.mnav[hidden] { display: none; }
+.mnav ul { list-style: none; margin: 0 auto; padding: 8px 0 14px; width: min(1440px, 100% - 2 * clamp(16px, 4vw, 56px)); display: grid; gap: 2px; }
+.mnav a { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 12px; border-radius: 10px; color: var(--nav-ink-strong); font-weight: 600; font-size: 16px; }
+.mnav a:hover, .mnav a:focus-visible { background: var(--ctl-hover); text-decoration: none; }
+.mnav a svg.i { color: var(--nav-ink); }
+.mnav a.hire { margin-top: 6px; justify-content: center; background: var(--accent-strong, #3b82d6); color: #fff; }
+.mnav a.hire:hover { filter: brightness(1.08); background: var(--accent-strong, #3b82d6); }
+@media (max-width: 820px) {
+  .menu-btn { display: inline-grid; }
+}
+@media (max-width: 520px) {
+  .links > .hire, .nlinks > .hire { display: none; }
+}

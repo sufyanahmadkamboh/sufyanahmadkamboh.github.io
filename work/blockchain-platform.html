@@ -13,13 +13,14 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%231b2838'/><text x='32' y='42' font-family='Arial' font-size='26' font-weight='700' fill='%239cc3f0' text-anchor='middle'>SA</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/base.css">
-<link rel="stylesheet" href="../assets/labs.css">
-<link rel="stylesheet" href="../assets/case.css">
+<link rel="stylesheet" href="../assets/base.css?v=20261007">
+<link rel="stylesheet" href="../assets/labs.css?v=20261007">
+<link rel="stylesheet" href="../assets/case.css?v=20261007">
+<link rel="stylesheet" href="../assets/site.css?v=20261007">
 <script>try { var t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
 </head>
 <body>
-<nav class="top">
+<nav class="top site-nav" aria-label="Main">
   <div class="wrap">
     <a class="brand" href="../"><span class="logo">SA</span><span class="name">Sufyan Ahmad</span></a>
     <div class="nlinks">
@@ -27,7 +28,7 @@
       <a href="../#projects" class="on">Client projects</a>
       <a href="../labs.html" class="hide-sm">Labs</a>
       <a href="../#contact" class="hire">Contact me</a>
-      <button class="theme" id="theme" aria-label="Toggle dark mode">◐</button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Switch theme"><svg class="i" aria-hidden="true"><use href="../assets/icons.svg#moon"/></svg></button>
     </div>
   </div>
 </nav>
@@ -43,7 +44,7 @@
 </header>
 
 <main class="wrap">
-  <div class="note"><span aria-hidden="true">&#128274;</span><span><b>Confidential client work.</b> Network names, repositories, addresses, regions and internal designs are left out on purpose. This page describes the engineering approach and what I did.</span></div>
+  <div class="note"><span class="note-ic" aria-hidden="true"><svg class="i" aria-hidden="true"><use href="../assets/icons.svg#lock"/></svg></span><span><b>Confidential client work.</b> Network names, repositories, addresses, regions and internal designs are left out on purpose. This page describes the engineering approach and what I did.</span></div>
 
   <section class="dsec">
     <div class="eyebrow">The context</div>
@@ -57,11 +58,11 @@
     <div class="eyebrow">The challenges</div>
     <h2>What had to be solved</h2>
     <div class="chal">
-      <div><b>&#129514; Many networks at once</b><span>Test, development and experimental chains had to run side by side without interfering.</span></div>
-      <div><b>&#128737;&#65039; Ready for a security test</b><span>Nodes with public addresses had to move into a private network before testers were let in.</span></div>
-      <div><b>&#128065;&#65039; Knowing a node is healthy</b><span>Chain nodes, the indexer and the explorer all fail differently and needed one view.</span></div>
-      <div><b>&#128176; Costs per environment</b><span>The client wanted to know exactly what each network cost every month.</span></div>
-      <div><b>&#128190; Losing the code</b><span>Dozens of repositories lived in one organisation with no independent backup.</span></div>
+      <div><b><svg class="i" aria-hidden="true"><use href="../assets/icons.svg#flask-conical"/></svg>Many networks at once</b><span>Test, development and experimental chains had to run side by side without interfering.</span></div>
+      <div><b><svg class="i" aria-hidden="true"><use href="../assets/icons.svg#shield"/></svg>Ready for a security test</b><span>Nodes with public addresses had to move into a private network before testers were let in.</span></div>
+      <div><b><svg class="i" aria-hidden="true"><use href="../assets/icons.svg#eye"/></svg>Knowing a node is healthy</b><span>Chain nodes, the indexer and the explorer all fail differently and needed one view.</span></div>
+      <div><b><svg class="i" aria-hidden="true"><use href="../assets/icons.svg#wallet"/></svg>Costs per environment</b><span>The client wanted to know exactly what each network cost every month.</span></div>
+      <div><b><svg class="i" aria-hidden="true"><use href="../assets/icons.svg#hard-drive"/></svg>Losing the code</b><span>Dozens of repositories lived in one organisation with no independent backup.</span></div>
     </div>
   </section>
 
@@ -103,7 +104,7 @@
     <div class="eyebrow">What I did</div>
     <h2>My work, layer by layer</h2>
     <div class="work">
-      <article class="wk"><div class="ic" aria-hidden="true">&#127760;</div><div>
+      <article class="wk"><div class="ic" aria-hidden="true"><svg class="i lg" aria-hidden="true"><use href="../assets/icons.svg#network"/></svg></div><div>
         <h3>Five isolated chain environments on AWS</h3>
         <p>Ran separate networks for the public test chain, development, two experimental chains and security testing.</p>
         <ul>
@@ -114,7 +115,7 @@
         </ul>
         <div class="chips"><span class="chip-s">Amazon EC2</span><span class="chip-s">Graviton</span><span class="chip-s">Amazon RDS</span><span class="chip-s">PM2</span><span class="chip-s">Nginx</span></div>
       </div></article>
-      <article class="wk"><div class="ic" aria-hidden="true">&#128737;&#65039;</div><div>
+      <article class="wk"><div class="ic" aria-hidden="true"><svg class="i lg" aria-hidden="true"><use href="../assets/icons.svg#shield"/></svg></div><div>
         <h3>A network ready for a security test</h3>
         <p>Rebuilt the security-test environment so nothing sensitive had a public address.</p>
         <ul>
@@ -125,7 +126,7 @@
         </ul>
         <div class="chips"><span class="chip-s">AWS VPC</span><span class="chip-s">NAT gateway</span><span class="chip-s">Application Load Balancer</span><span class="chip-s">Bastion host</span></div>
       </div></article>
-      <article class="wk"><div class="ic" aria-hidden="true">&#128200;</div><div>
+      <article class="wk"><div class="ic" aria-hidden="true"><svg class="i lg" aria-hidden="true"><use href="../assets/icons.svg#chart-line"/></svg></div><div>
         <h3>Observability and health checks</h3>
         <ul>
           <li>A dedicated observability server with Prometheus for metrics, Grafana for dashboards and Loki for logs.</li>
@@ -133,7 +134,7 @@
         </ul>
         <div class="chips"><span class="chip-s">Prometheus</span><span class="chip-s">Grafana</span><span class="chip-s">Loki</span><span class="chip-s">Node.js</span></div>
       </div></article>
-      <article class="wk"><div class="ic" aria-hidden="true">&#128176;</div><div>
+      <article class="wk"><div class="ic" aria-hidden="true"><svg class="i lg" aria-hidden="true"><use href="../assets/icons.svg#wallet"/></svg></div><div>
         <h3>Cost tracking, CI and source-code backup</h3>
         <ul>
           <li>Produced monthly cost breakdowns per environment so the client could decide what to keep running.</li>
@@ -171,6 +172,7 @@
 </main>
 
 <footer class="foot">© <span id="year"></span> Sufyan Ahmad · DevOps Engineer · Herborn, Germany · <a href="../#projects">Back to client projects</a></footer>
-<script src="../assets/case.js"></script>
+<script src="../assets/site.js?v=20261007"></script>
+<script src="../assets/case.js?v=20261007"></script>
 </body>
 </html>

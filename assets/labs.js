@@ -35,7 +35,7 @@
         <div class="lcard-media">
           <img src="${esc(p.cover || p.image)}" alt="" loading="lazy" decoding="async">
           <span class="lcard-lvl"><i></i>${esc(p.difficulty)}</span>
-          ${n ? `<span class="lcard-slides">&#9654; ${n} slides</span>` : ""}
+          ${n ? `<span class="lcard-slides">${Site.icon("play", "sm")}${n} slides</span>` : ""}
         </div>
         <div class="lcard-body">
           <div class="lcard-kicker"><span class="lcard-num">LAB ${pad(p.number)}</span>${esc(p.primary)}</div>
@@ -43,24 +43,12 @@
           <p>${esc(p.tagline || p.summary)}</p>
           <div class="lcard-tools">${shown.map((x, i) => `<span class="chip-s${i ? "" : " main"}">${esc(x)}</span>`).join("")}${more > 0 ? `<span class="chip-s">+${more}</span>` : ""}</div>
           <div class="lcard-foot">
-            ${p.study ? "<span>&#128218; Study guide</span>" : ""}${p.study_pdf ? "<span>&#128196; PDF</span>" : ""}
+            ${p.study ? `<span>${Site.icon("book-open", "sm")}Study guide</span>` : ""}${p.study_pdf ? `<span>${Site.icon("file-text", "sm")}PDF</span>` : ""}
             <span class="go">Open lab <span aria-hidden="true">&rarr;</span></span>
           </div>
         </div>
       </a>`;
   }
 
-  /* theme toggle shared with index.html (same localStorage key) */
-  function theme(btn) {
-    const root = document.documentElement;
-    try { const t = localStorage.getItem("theme"); if (t) root.dataset.theme = t; } catch (e) {}
-    if (!btn) return;
-    btn.addEventListener("click", () => {
-      const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
-      root.dataset.theme = dark ? "light" : "dark";
-      try { localStorage.setItem("theme", root.dataset.theme); } catch (e) {}
-    });
-  }
-
-  window.Labs = { esc, load, card, theme, tools, typeLabel, levelRank, levelsOf, hasLevel, lvClass, pad, href };
+  window.Labs = { esc, load, card, tools, typeLabel, levelRank, levelsOf, hasLevel, lvClass, pad, href };
 })();

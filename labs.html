@@ -15,12 +15,13 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%231b2838'/><text x='32' y='42' font-family='Arial' font-size='26' font-weight='700' fill='%239cc3f0' text-anchor='middle'>SA</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/base.css">
-<link rel="stylesheet" href="assets/labs.css">
+<link rel="stylesheet" href="assets/base.css?v=20261007">
+<link rel="stylesheet" href="assets/labs.css?v=20261007">
+<link rel="stylesheet" href="assets/site.css?v=20261007">
 <script>try { var t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
 </head>
 <body>
-<nav class="top">
+<nav class="top site-nav" aria-label="Main">
   <div class="wrap">
     <a class="brand" href="./"><span class="logo">SA</span><span class="name">Sufyan Ahmad</span></a>
     <div class="nlinks">
@@ -28,7 +29,7 @@
       <a href="./#projects" class="hide-sm">Client projects</a>
       <a href="labs.html" class="on" aria-current="page">Labs</a>
       <a href="./#contact" class="hire">Contact me</a>
-      <button class="theme" id="theme" aria-label="Toggle dark mode">◐</button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Switch theme"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#moon"/></svg></button>
     </div>
   </div>
 </nav>
@@ -60,11 +61,11 @@
 
 <footer class="foot">© <span id="year"></span> Sufyan Ahmad · DevOps Engineer · Herborn, Germany · <a href="./">Back to portfolio</a></footer>
 
-<script src="assets/labs.js"></script>
+<script src="assets/site.js?v=20261007"></script>
+<script src="assets/labs.js?v=20261007"></script>
 <script>
 (async function () {
   const L = window.Labs, $ = s => document.querySelector(s);
-  L.theme($("#theme"));
   $("#year").textContent = new Date().getFullYear();
   const grid = $("#grid");
   let items;

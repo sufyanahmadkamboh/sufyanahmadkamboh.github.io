@@ -13,13 +13,14 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%231b2838'/><text x='32' y='42' font-family='Arial' font-size='26' font-weight='700' fill='%239cc3f0' text-anchor='middle'>SA</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/base.css">
-<link rel="stylesheet" href="../assets/labs.css">
-<link rel="stylesheet" href="../assets/case.css">
+<link rel="stylesheet" href="../assets/base.css?v=20261007">
+<link rel="stylesheet" href="../assets/labs.css?v=20261007">
+<link rel="stylesheet" href="../assets/case.css?v=20261007">
+<link rel="stylesheet" href="../assets/site.css?v=20261007">
 <script>try { var t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
 </head>
 <body>
-<nav class="top">
+<nav class="top site-nav" aria-label="Main">
   <div class="wrap">
     <a class="brand" href="../"><span class="logo">SA</span><span class="name">Sufyan Ahmad</span></a>
     <div class="nlinks">
@@ -27,7 +28,7 @@
       <a href="../#projects" class="on">Client projects</a>
       <a href="../labs.html" class="hide-sm">Labs</a>
       <a href="../#contact" class="hire">Contact me</a>
-      <button class="theme" id="theme" aria-label="Toggle dark mode">◐</button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Switch theme"><svg class="i" aria-hidden="true"><use href="../assets/icons.svg#moon"/></svg></button>
     </div>
   </div>
 </nav>
@@ -43,7 +44,7 @@
 </header>
 
 <main class="wrap">
-  <div class="note"><span aria-hidden="true">&#128274;</span><span><b>Confidential client work.</b> Product, service and resource names, domains, account details and specific security findings are left out on purpose. This page describes the engineering approach and what I did.</span></div>
+  <div class="note"><span class="note-ic" aria-hidden="true"><svg class="i" aria-hidden="true"><use href="../assets/icons.svg#lock"/></svg></span><span><b>Confidential client work.</b> Product, service and resource names, domains, account details and specific security findings are left out on purpose. This page describes the engineering approach and what I did.</span></div>
 
   <section class="dsec">
     <div class="eyebrow">The context</div>
@@ -58,12 +59,12 @@
     <div class="eyebrow">The challenges</div>
     <h2>What had to be solved</h2>
     <div class="chal">
-      <div><b>&#128165; Daily evictions</b><span>A production service was killed every day and nobody knew exactly why.</span></div>
-      <div><b>&#128200; Paying for idle capacity</b><span>The cluster was large, mostly idle, and still not stable.</span></div>
-      <div><b>&#129513; Dev and prod tangled</b><span>Shared infrastructure meant a mistake in one could hurt the other.</span></div>
-      <div><b>&#128065;&#65039; Blind spots</b><span>Monitoring was hand-built and did not cover the servers, databases and queues the business depends on.</span></div>
-      <div><b>&#128273; Expiring access</b><span>A static registry token had silently expired, breaking image pulls.</span></div>
-      <div><b>&#9888;&#65039; Change without downtime</b><span>Every step had to be additive and reversible, with production untouched until cutover.</span></div>
+      <div><b><svg class="i" aria-hidden="true"><use href="../assets/icons.svg#flame"/></svg>Daily evictions</b><span>A production service was killed every day and nobody knew exactly why.</span></div>
+      <div><b><svg class="i" aria-hidden="true"><use href="../assets/icons.svg#chart-line"/></svg>Paying for idle capacity</b><span>The cluster was large, mostly idle, and still not stable.</span></div>
+      <div><b><svg class="i" aria-hidden="true"><use href="../assets/icons.svg#puzzle"/></svg>Dev and prod tangled</b><span>Shared infrastructure meant a mistake in one could hurt the other.</span></div>
+      <div><b><svg class="i" aria-hidden="true"><use href="../assets/icons.svg#eye"/></svg>Blind spots</b><span>Monitoring was hand-built and did not cover the servers, databases and queues the business depends on.</span></div>
+      <div><b><svg class="i" aria-hidden="true"><use href="../assets/icons.svg#key-round"/></svg>Expiring access</b><span>A static registry token had silently expired, breaking image pulls.</span></div>
+      <div><b><svg class="i" aria-hidden="true"><use href="../assets/icons.svg#triangle-alert"/></svg>Change without downtime</b><span>Every step had to be additive and reversible, with production untouched until cutover.</span></div>
     </div>
   </section>
 
@@ -113,7 +114,7 @@
     <div class="eyebrow">What I did</div>
     <h2>My work, step by step</h2>
     <div class="work">
-      <article class="wk"><div class="ic" aria-hidden="true">&#128269;</div><div>
+      <article class="wk"><div class="ic" aria-hidden="true"><svg class="i lg" aria-hidden="true"><use href="../assets/icons.svg#scan-search"/></svg></div><div>
         <h3>Root-cause analysis and a safe remediation plan</h3>
         <p>Investigated the cluster with read-only commands only, so every finding could be reproduced by the team.</p>
         <ul>
@@ -124,7 +125,7 @@
         </ul>
         <div class="chips"><span class="chip-s">kubectl</span><span class="chip-s">Cluster Autoscaler</span><span class="chip-s">Resource requests</span><span class="chip-s">PDB / Quotas</span></div>
       </div></article>
-      <article class="wk"><div class="ic" aria-hidden="true">&#127959;&#65039;</div><div>
+      <article class="wk"><div class="ic" aria-hidden="true"><svg class="i lg" aria-hidden="true"><use href="../assets/icons.svg#layers"/></svg></div><div>
         <h3>New hardened production cluster, built in parallel</h3>
         <p>Built a new EKS cluster next to the old one so production could move over without in-place changes.</p>
         <ul>
@@ -135,7 +136,7 @@
         </ul>
         <div class="chips"><span class="chip-s">Amazon EKS</span><span class="chip-s">IRSA</span><span class="chip-s">AWS Load Balancer Controller</span><span class="chip-s">ingress-nginx</span><span class="chip-s">gp3</span></div>
       </div></article>
-      <article class="wk"><div class="ic" aria-hidden="true">&#128176;</div><div>
+      <article class="wk"><div class="ic" aria-hidden="true"><svg class="i lg" aria-hidden="true"><use href="../assets/icons.svg#wallet"/></svg></div><div>
         <h3>A much cheaper development environment</h3>
         <p>Moved development off the shared cluster onto a single-node Kubernetes host on EC2, running in parallel until cutover.</p>
         <ul>
@@ -147,7 +148,7 @@
         </ul>
         <div class="chips"><span class="chip-s">Minikube</span><span class="chip-s">EC2</span><span class="chip-s">Jenkins</span><span class="chip-s">Helm</span><span class="chip-s">RBAC</span></div>
       </div></article>
-      <article class="wk"><div class="ic" aria-hidden="true">&#128202;</div><div>
+      <article class="wk"><div class="ic" aria-hidden="true"><svg class="i lg" aria-hidden="true"><use href="../assets/icons.svg#chart-column"/></svg></div><div>
         <h3>Monitoring platform, generated as code</h3>
         <p>Replaced hand-built monitoring with a managed, reproducible setup, after backing up every existing dashboard and alert.</p>
         <ul>
@@ -190,6 +191,7 @@
 </main>
 
 <footer class="foot">© <span id="year"></span> Sufyan Ahmad · DevOps Engineer · Herborn, Germany · <a href="../#projects">Back to client projects</a></footer>
-<script src="../assets/case.js"></script>
+<script src="../assets/site.js?v=20261007"></script>
+<script src="../assets/case.js?v=20261007"></script>
 </body>
 </html>

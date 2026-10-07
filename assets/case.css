@@ -2,14 +2,16 @@
 .cs-hero { padding: 34px 0 70px; }
 .cs-hero h1 { font-size: clamp(30px, 4.6vw, 48px); margin: 14px 0 12px; max-width: 900px; }
 .cs-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
-.cs-tags span { font-size: 13px; padding: 5px 11px; border-radius: 999px; background: rgba(156,195,240,.08); border: 1px solid rgba(156,195,240,.22); color: #d6e3f3; }
+.cs-tags span { font-size: 13px; padding: 5px 11px; border-radius: 999px; background: var(--hero-chip-bg); border: 1px solid var(--hero-chip-line); color: var(--hero-chip-ink); }
 .note { display: flex; gap: 12px; align-items: flex-start; background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--accent-strong); border-radius: 12px; padding: 14px 16px; font-size: 14.5px; color: var(--muted); margin-top: 26px; }
 .note b { color: var(--ink); }
+.note-ic { color: var(--accent); display: grid; place-items: center; margin-top: 1px; }
 .prose { max-width: 760px; font-size: 16.5px; }
 .prose p { margin: 0 0 14px; }
 .chal { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
 .chal div { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; box-shadow: var(--shadow); }
-.chal b { display: block; margin-bottom: 4px; font-size: 15.5px; }
+.chal b { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; font-size: 15.5px; }
+.chal b svg.i { color: var(--accent); }
 .chal span { color: var(--muted); font-size: 14.5px; line-height: 1.55; display: block; }
 .diagram { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 16px; box-shadow: var(--shadow); overflow-x: auto; }
 .diagram svg { display: block; width: 100%; max-width: 1180px; min-width: 820px; height: auto; margin: 0 auto; }
@@ -28,7 +30,8 @@ svg .lnR { stroke: var(--ok); stroke-width: 2; fill: none; stroke-dasharray: 5 4
 .work { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(min(600px, 100%), 1fr)); align-items: start; }
 .wk { display: grid; grid-template-columns: 56px 1fr; gap: 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 20px; box-shadow: var(--shadow); }
 @media (max-width: 600px) { .wk { grid-template-columns: 1fr; } }
-.wk .ic { width: 52px; height: 52px; border-radius: 14px; background: var(--surface-2); display: grid; place-items: center; font-size: 25px; }
+.wk .ic { width: 52px; height: 52px; border-radius: 14px; background: var(--surface-2); color: var(--accent); display: grid; place-items: center; }
+.wk .ic svg.i { width: 24px; height: 24px; }
 .wk h3 { margin: 0 0 6px; font-size: 18.5px; }
 .wk p { margin: 0 0 10px; color: var(--muted); font-size: 15px; }
 .wk ul { margin: 0; padding-left: 18px; font-size: 15px; }
@@ -43,6 +46,6 @@ svg .lnR { stroke: var(--ok); stroke-width: 2; fill: none; stroke-dasharray: 5 4
 .outcomes { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; padding: 0; margin: 18px 0 0; list-style: none; }
 .outcomes li { display: flex; gap: 10px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; font-size: 15px; }
 .outcomes li::before { content: "✓"; flex: none; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: 13px; font-weight: 800; color: #fff; background: var(--ok); }
-.cta-box { margin-top: 56px; background: radial-gradient(600px 260px at 100% 0%, rgba(59,130,214,.4), transparent 60%), var(--navy); border-radius: 20px; padding: 32px; color: #e6eef8; display: flex; gap: 20px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+.cta-box { margin-top: 56px; background: radial-gradient(600px 260px at 100% 0%, var(--cta-glow), transparent 60%), var(--cta-base); border: 1px solid var(--cta-line); border-radius: 20px; padding: 32px; color: #e6eef8; display: flex; gap: 20px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
 .cta-box h2 { color: #fff; margin: 0 0 6px; font-size: 24px; }
 .cta-box p { margin: 0; color: #b9c8db; }
